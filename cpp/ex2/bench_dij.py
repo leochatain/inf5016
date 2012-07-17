@@ -10,6 +10,13 @@ import os
 def generate(size):
   os.system('../files/gen ' + str(size) + ' 1 > ../files/' + str(size) + '.gr')
 
+def inv(tup):
+  x = tup[0]
+  fx = tup[1]
+  if fx > 0:
+    return fx / (x * log(log(x, 2), 2))
+  return 0.
+
 num_benchs = 10
 
 sizes = []
@@ -30,6 +37,7 @@ for i in xrange(5, 15):
   times.append(stream.next().rstrip())
   print size, times[len(times)-1]
 
+plt.figure(1)
 plt.subplot(111)
 
 plt.ylabel('Time(s)')
@@ -38,6 +46,17 @@ plt.title('Dijkstra')
 plt.xticks(sizes, rotation=30, size='small')
 plt.grid(True)
 
-plt.plot(sizes, times, 'r--', label='serial')
+plt.plot(sizes, times, 'r--', label='dijkstra')
+
+plt.figure(2)
+plt.subplot(111)
+plt.ylabel('Time(s)')
+plt.xlabel('Size')
+plt.title('Dijkstra inverse')
+plt.xticks(sizes, rotation=30, size='small')
+plt.grid(True)
+
+plt.plot(sizes, times, 'r--', label='dijkstra')
+
 
 plt.savefig('dij.png')
