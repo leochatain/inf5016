@@ -2,6 +2,8 @@
 #Author: leochatain@gmail.com (Leo Chatain)
 
 import sys
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import os
 
@@ -12,7 +14,7 @@ push = []
 pop = []
 update = []
 
-for i in xrange(8, 10):
+for i in xrange(8, 20):
   size = 2 ** i
   stream = os.popen('./bin/bench_heap -b ' + str(num_benchs) + ' -s ' + str(size))
   sizes.append(size)

@@ -38,6 +38,5 @@ bin/
 *.xml
 *.backup
 *~
-*.png
 *.dvi
 cpp/ex1/report/ex1-blx.bib
