@@ -6,6 +6,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import os
+from math import log
 
 def generate(size):
   os.system('../files/gen ' + str(size) + ' 1 > ../files/' + str(size) + '.gr')
@@ -33,9 +34,9 @@ for i in xrange(5, 15):
 
   stream = os.popen('./bin/bench_dij -b ' + str(num_benchs) + ' -g ' + graph_file)
 
-  sizes.append(size)
-  times.append(stream.next().rstrip())
-  print size, times[len(times)-1]
+  sizes.append(int(size))
+  times.append(float(stream.next().rstrip()))
+  print size, times[-1]
 
 plt.figure(1)
 plt.subplot(111)
@@ -47,6 +48,7 @@ plt.xticks(sizes, rotation=30, size='small')
 plt.grid(True)
 
 plt.plot(sizes, times, 'r--', label='dijkstra')
+plt.savefig('dij.png')
 
 plt.figure(2)
 plt.subplot(111)
@@ -56,7 +58,5 @@ plt.title('Dijkstra inverse')
 plt.xticks(sizes, rotation=30, size='small')
 plt.grid(True)
 
-plt.plot(sizes, times, 'r--', label='dijkstra')
-
-
-plt.savefig('dij.png')
+plt.plot(sizes, map(inv, zip(sizes, times)), 'r--', label='dijkstra_inv')
+plt.savefig('dij_inv.png')
