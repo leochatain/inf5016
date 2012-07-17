@@ -8,12 +8,16 @@ import matplotlib.pyplot as plt
 import os
 
 def generate(size):
+  print 'generating for', size
   os.system('../files/gen ' + str(size) + ' 1 > ../files/' + str(size) + '.gr')
 
 num_benchs = 10
 
+sizes = []
+times = []
+
 print '# x f(x)'
-for i in xrange(5, 12):
+for i in xrange(5, 20):
   size = 2 ** i
   sname = str(size)
   graph_file = '../files/' + str(sname) + '.gr'
@@ -25,7 +29,7 @@ for i in xrange(5, 12):
 
   sizes.append(size)
   times.append(stream.next().rstrip())
-  print size, stream.next().rstrip()
+  print size, times[len(times)-1]
 
 plt.subplot(111)
 
