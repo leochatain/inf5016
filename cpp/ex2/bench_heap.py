@@ -9,7 +9,7 @@ from math import log
 import os
 
 def inv_log_log(tup):
-  if tup[0] <= 0.:
+  if tup[0] > 0.:
     return tup[1] / float(log(log(tup[0], 2), 2))
   return 0.
 
