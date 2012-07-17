@@ -25,7 +25,7 @@ int lower_sqrt(const int u) {
 
 VebTree::VebTree(const int u) {
   // u must be a power of 2.
-  assert((u & (u-1)) == 0);
+  //assert((u & (u-1)) == 0);
 
   this->head_ = create(u);
 }
@@ -36,8 +36,8 @@ VebTree::~VebTree() {
 
 // Check whether a vertex is member of the tree.
 bool VebTree::member(int val) {
-  assert(head_ != NULL);
-  assert(val >= 0 && val < head_->u);
+  //assert(head_ != NULL);
+  //assert(val >= 0 && val < head_->u);
 
   return member_rec(head_, val);
 }
@@ -58,7 +58,7 @@ void VebTree::push(const Edge& edge) {
 }
 
 void VebTree::pop() {
-  assert(!this->empty());
+  //assert(!this->empty());
 
   const Edge& min_edge = this->top();
   const int vert = min_edge.dest;
@@ -74,7 +74,7 @@ void VebTree::pop() {
 }
 
 Edge VebTree::top() {
-  assert(!empty());
+  //assert(!empty());
 
   const int dist = head_->min;
   const int dest = *dist2verts_[dist].begin();
@@ -82,7 +82,7 @@ Edge VebTree::top() {
 }
 
 void VebTree::update(const int vert, const int new_cost) {
-  assert(vert2dist_.find(vert) != vert2dist_.end());
+  //assert(vert2dist_.find(vert) != vert2dist_.end());
 
   // Remove old entry from map.
   const int old_cost = vert2dist_[vert];
@@ -110,7 +110,7 @@ void VebTree::clean() {
 }
 
 VebNode* VebTree::create(const int u) {
-  assert(u >= 2);
+  //assert(u >= 2);
 
   // Upper node
   VebNode* node = new VebNode(u);
@@ -153,9 +153,9 @@ void VebTree::push_rec(VebNode* node, int val) {
 
 // Assumes val is contained in node.
 void VebTree::del_rec(VebNode* node, int val) {
-  assert(!node->empty());
-  assert(member_rec(node, val));
-  assert(val <= node->max && val >= node->min);
+  //assert(!node->empty());
+  //assert(member_rec(node, val));
+  //assert(val <= node->max && val >= node->min);
 
   if (node->min == node->max) { // only one element
     node->min = 1; node->max = 0;
@@ -225,7 +225,7 @@ bool VebTree::member_rec(VebNode* node, int val) {
 
 // Cleans a leaf. If node isn't a leaf, bad things will happen.
 void VebTree::clean_leaf(VebNode* node) {
-  assert(node->u == 2);
+  //assert(node->u == 2);
 
   // These pointers do not point to any structure, they represent the tree.
   node->top = NULL;
@@ -274,7 +274,7 @@ void VebTree::del_from_maps(const int vert, const int dist) {
   // Remove this edge from the vert2dist_ map.
   // There is only one pair vert-dist.
   unordered_map<int, int>::iterator v2d_it = vert2dist_.find(vert);
-  assert(v2d_it != vert2dist_.end());
+  //assert(v2d_it != vert2dist_.end());
   vert2dist_.erase(v2d_it);
 
   // Remove it from the dist2verts_ map.
@@ -282,7 +282,7 @@ void VebTree::del_from_maps(const int vert, const int dist) {
   d2v_it = dist2verts_.find(dist);
 
   unordered_set<int>::iterator it = d2v_it->second.find(vert);
-  assert(it != d2v_it->second.end());
+  //assert(it != d2v_it->second.end());
 
   d2v_it->second.erase(it);
 
