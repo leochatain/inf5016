@@ -20,7 +20,7 @@ push = []
 pop = []
 update = []
 
-for i in xrange(10, 13):
+for i in xrange(10, 20):
   size = 2 ** i
   stream = os.popen('./bin/bench_heap -b ' + str(num_benchs) + ' -s ' + str(size))
   sizes.append(int(size))
@@ -54,6 +54,7 @@ plt.title('VEB Benchmark Normalized')
 plt.xticks(sizes, rotation=30, size='small')
 plt.grid(True)
 
+# I love python
 plt.plot(sizes, map(inv_log_log, zip(sizes, push)), 'r--', label='push')
 plt.plot(sizes, map(inv_log_log, zip(sizes, pop)), 'b--', label='pop')
 plt.plot(sizes, map(inv_log_log, zip(sizes, update)), 'g--', label='update')
