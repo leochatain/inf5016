@@ -28,6 +28,7 @@ for i in xrange(10, 13):
   pop.append(float(stream.next().rstrip()))
   update.append(float(stream.next().rstrip()))
 
+plt.figure(1)
 plt.subplot(111)
 
 plt.ylabel('Time(s)')
@@ -36,14 +37,15 @@ plt.title('VEB Benchmark')
 plt.xticks(sizes, rotation=30, size='small')
 plt.grid(True)
 
-plt.plot(sizes, push, 'r--', label='serial')
-plt.plot(sizes, pop, 'b--', label='acc')
-plt.plot(sizes, update, 'g--', label='cublas')
+plt.plot(sizes, push, 'r--', label='push')
+plt.plot(sizes, pop, 'b--', label='pop')
+plt.plot(sizes, update, 'g--', label='update')
 plt.legend(loc="upper left")
 
 plt.savefig('heap.png')
 
 # Plot inverse
+plt.figure(2)
 plt.subplot(111)
 
 plt.ylabel('Time(s)')
@@ -52,9 +54,9 @@ plt.title('VEB Benchmark Normalized')
 plt.xticks(sizes, rotation=30, size='small')
 plt.grid(True)
 
-plt.plot(sizes, map(inv_log_log, zip(sizes, push)), 'r--', label='serial')
-plt.plot(sizes, map(inv_log_log, zip(sizes, pop)), 'b--', label='acc')
-plt.plot(sizes, map(inv_log_log, zip(sizes, update)), 'g--', label='cublas')
+plt.plot(sizes, map(inv_log_log, zip(sizes, push)), 'r--', label='push')
+plt.plot(sizes, map(inv_log_log, zip(sizes, pop)), 'b--', label='pop')
+plt.plot(sizes, map(inv_log_log, zip(sizes, update)), 'g--', label='update')
 plt.legend(loc="upper left")
 
 plt.savefig('heap_inv.png')
