@@ -30,8 +30,8 @@ plt.xticks(sizes, rotation=30, size='small')
 plt.grid(True)
 
 plt.plot(sizes, push, 'r--', label='serial')
-plt.plot(sizes, pop, 'bs', label='acc')
-plt.plot(sizes, update, 'g^', label='cublas')
+plt.plot(sizes, pop, 'b--', label='acc')
+plt.plot(sizes, update, 'g--', label='cublas')
 
 plt.savefig('heap.png')
 
