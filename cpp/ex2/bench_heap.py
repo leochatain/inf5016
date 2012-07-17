@@ -8,8 +8,10 @@ import matplotlib.pyplot as plt
 from math import log
 import os
 
-def inv_log_log(x):
-  return 1 / log(log(x, 2), 2)
+def inv_log_log(tup):
+  if tup[0] <= 0.:
+    return tup[1] / float(log(log(tup[0], 2), 2))
+  return 0.
 
 num_benchs = 10
 
@@ -18,13 +20,13 @@ push = []
 pop = []
 update = []
 
-for i in xrange(10, 20):
+for i in xrange(10, 13):
   size = 2 ** i
   stream = os.popen('./bin/bench_heap -b ' + str(num_benchs) + ' -s ' + str(size))
-  sizes.append(size)
-  push.append(stream.next().rstrip())
-  pop.append(stream.next().rstrip())
-  update.append(stream.next().rstrip())
+  sizes.append(int(size))
+  push.append(float(stream.next().rstrip()))
+  pop.append(float(stream.next().rstrip()))
+  update.append(float(stream.next().rstrip()))
 
 plt.subplot(111)
 
@@ -50,12 +52,12 @@ plt.title('VEB Benchmark Normalized')
 plt.xticks(sizes, rotation=30, size='small')
 plt.grid(True)
 
-plt.plot(sizes, map(inv_log_log, push), 'r--', label='serial')
-plt.plot(sizes, map(inv_log_log, pop), 'b--', label='acc')
-plt.plot(sizes, map(inv_log_log, update), 'g--', label='cublas')
+plt.plot(sizes, map(inv_log_log, zip(sizes, push)), 'r--', label='serial')
+plt.plot(sizes, map(inv_log_log, zip(sizes, pop)), 'b--', label='acc')
+plt.plot(sizes, map(inv_log_log, zip(sizes, update)), 'g--', label='cublas')
 plt.legend(loc="upper left")
 
-plt.savefig('heap.png')
+plt.savefig('heap_inv.png')
 
 print '# x f(x)'
 for s, t in zip(sizes, push):
