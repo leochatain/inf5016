@@ -24,7 +24,8 @@ sizes = []
 times = []
 
 print '# x f(x)'
-for i in xrange(10240 + 1024, 2**14 +1, 1024):
+for i in xrange(512, 8192+512, 512):
+  sys.stderr.write(str(i) + "\n")
   size = i
   sname = str(size)
   graph_file = '../files/' + str(sname) + '.gr'

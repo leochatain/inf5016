@@ -20,8 +20,9 @@ push = []
 pop = []
 update = []
 
-for i in xrange(10, 20):
-  size = 2 ** i
+for i in xrange(2**15, 2**20, 4092):
+  size = i
+  sys.stderr.write(i)
   stream = os.popen('./bin/bench_heap -b ' + str(num_benchs) + ' -s ' + str(size))
   sizes.append(int(size))
   push.append(float(stream.next().rstrip()))
@@ -42,7 +43,7 @@ plt.plot(sizes, pop, 'b--', label='pop')
 plt.plot(sizes, update, 'g--', label='update')
 plt.legend(loc="upper left")
 
-plt.savefig('heap.png')
+plt.savefig('heap2.png')
 
 # Plot inverse
 plt.figure(2)
@@ -60,7 +61,7 @@ plt.plot(sizes, map(inv_log_log, zip(sizes, pop)), 'b--', label='pop')
 plt.plot(sizes, map(inv_log_log, zip(sizes, update)), 'g--', label='update')
 plt.legend(loc="upper left")
 
-plt.savefig('heap_inv.png')
+plt.savefig('heap_inv2.png')
 
 print '# x f(x)'
 for s, t in zip(sizes, push):
