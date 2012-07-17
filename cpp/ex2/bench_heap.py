@@ -14,7 +14,7 @@ push = []
 pop = []
 update = []
 
-for i in xrange(8, 20):
+for i in xrange(10, 20):
   size = 2 ** i
   stream = os.popen('./bin/bench_heap -b ' + str(num_benchs) + ' -s ' + str(size))
   sizes.append(size)
@@ -36,13 +36,13 @@ plt.plot(sizes, update, 'g^', label='cublas')
 plt.savefig('heap.png')
 
 print '# x f(x)'
-for s, t in sizes, push:
+for s, t in zip(sizes, push):
   print s, t
 print '# x f(x)'
-for s, t in sizes, pop:
+for s, t in zip(sizes, pop):
   print s, t
 print '# x f(x)'
-for s, t in sizes, update:
+for s, t in zip(sizes, update):
   print s, t
 
 

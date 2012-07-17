@@ -22,4 +22,19 @@ for i in xrange(5, 12):
     generate(size)
 
   stream = os.popen('./bin/bench_dij -b ' + str(num_benchs) + ' -g ' + graph_file)
+
+  sizes.append(size)
+  times.append(stream.next().rstrip())
   print size, stream.next().rstrip()
+
+plt.subplot(111)
+
+plt.ylabel('Time(s)')
+plt.xlabel('Size')
+plt.title('Dijkstra')
+plt.xticks(sizes, rotation=30, size='small')
+plt.grid(True)
+
+plt.plot(sizes, times, 'r--', label='serial')
+
+plt.savefig('dij.png')
