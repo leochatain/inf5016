@@ -24,8 +24,8 @@ sizes = []
 times = []
 
 print '# x f(x)'
-for i in xrange(5, 15):
-  size = 2 ** i
+for i in xrange(10240 + 1024, 2**14 +1, 1024):
+  size = i
   sname = str(size)
   graph_file = '../files/' + str(sname) + '.gr'
 
@@ -48,7 +48,7 @@ plt.xticks(sizes, rotation=30, size='small')
 plt.grid(True)
 
 plt.plot(sizes, times, 'r--', label='dijkstra')
-plt.savefig('dij.png')
+plt.savefig('dij2.png')
 
 plt.figure(2)
 plt.subplot(111)
@@ -59,4 +59,4 @@ plt.xticks(sizes, rotation=30, size='small')
 plt.grid(True)
 
 plt.plot(sizes, map(inv, zip(sizes, times)), 'r--', label='dijkstra_inv')
-plt.savefig('dij_inv.png')
+plt.savefig('dij_inv2.png')
