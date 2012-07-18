@@ -20,9 +20,9 @@ push = []
 pop = []
 update = []
 
-for i in xrange(2**15, 2**20, 4092):
+for i in xrange(2**14, 2**18, 2**14):
   size = i
-  sys.stderr.write(i)
+  sys.stderr.write(str(i) + '\n')
   stream = os.popen('./bin/bench_heap -b ' + str(num_benchs) + ' -s ' + str(size))
   sizes.append(int(size))
   push.append(float(stream.next().rstrip()))
