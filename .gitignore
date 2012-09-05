@@ -10,3 +10,6 @@
 *.lai
 *.la
 *.a
+
+# My test compilation files
+*.out
