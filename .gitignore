@@ -13,3 +13,6 @@
 
 # My test compilation files
 *.out
+
+# Vim
+*.swp
