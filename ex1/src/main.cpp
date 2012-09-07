@@ -8,11 +8,12 @@ using std::endl;
 
 using namespace inf5016;
 
+bool comp(int a, int b) {
+  return a < b;
+}
+
 int main() {
   cout << "Hello World" << endl;
 
-  inf5016::BinaryHeap<int, int> heap;
-
-  heap.push(1, 2);
-  heap.update(1, 2);
+  inf5016::BinaryHeap<int> heap(comp);
 }

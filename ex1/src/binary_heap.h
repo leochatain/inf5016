@@ -2,30 +2,59 @@
 #define BINARY_HEAP_H_
 
 #include <algorithm>
+#include <functional>
 #include <vector>
 
 namespace inf5016 {
 
-template <typename T, typename K>
+
+template <typename T>
 class BinaryHeap {
+  typedef typename std::vector<T>::iterator iterator;
+
  public:
+
+  // Constructs a binary heap using the default '<' operator as the default
+  // comparer.
+  BinaryHeap();
+
+  // Constructs a binary heap using less as the function to compare elements.
+  // Less should return true if the first element is strictly smaller than
+  // the second.
+  BinaryHeap(bool (&less)(const T, const T)) : less_(less) { }
+
   // Insert an element on the heap.
-  void push(T element, K weight) {
-    base_.push_back(std::make_pair(element, weight));
+  void push(const T& val) {
+    base_.push_back(val);
+    bubble_up(base_.end());
   }
 
   // Queries the value of the top element of the heap.
-  std::pair<T, K> top() {
+  inline T& top() const {
     return base_.front();
   }
 
   // Removes the first element of the heap.
-  void pop();
+  void pop() {
+    base_.front() = base_.back();
+    base_.pop_back();
+    bubble_down(base_.begin());
+  }
 
-  // Updates the instance T with a new weight.
-  void update(T element, K weight) {
-    typename std::vector<std::pair<T, K> >::iterator it =
-        std::find(base_.begin(), base_.end(), std::make_pair(element, weight));
+  // Updates the instance val with a new value.
+  void update(const T& val, const T& new_val) {
+    iterator it = std::find(base_.begin(), base_.end(), val);
+    if (it == base_.end()) {
+      return;
+    }
+
+    *it = new_val;
+
+    if (less_(new_val, val)) {
+      bubble_up(it);
+    } else {
+      bubble_down(it);
+    }
   }
 
   // Returns whether the heap is empty or not.
@@ -39,7 +68,63 @@ class BinaryHeap {
   }
 
  private:
-  std::vector<std::pair<T, K> > base_;
+  std::vector<T> base_;
+  bool (&less_)(const T, const T);
+
+  // Heap navigation functions:
+
+  iterator parent(iterator element) {
+    if (element == base_.begin()) {
+      return element;
+    }
+
+    return base_.begin() + ((element - base_.begin()) / 2);
+  }
+
+  iterator left_child(iterator element) {
+    return min(base_.end(), base_.begin() + ((element - base_.begin()) * 2));
+  }
+
+  iterator right_child(iterator element) {
+    return min(base_.end(), base_.begin()
+        + ((element - base_.begin()) * 2) + 1);
+  }
+
+  iterator min_child(iterator element) {
+    iterator left = left_child(element);
+    iterator right = right_child(element);
+
+    if (left == base_.end() && right == base_.end()) {
+      return base_.end();
+    }
+    if (right == base_.end()) {
+      return left;
+    } else {
+      return less_(*left, *right) ? left : right;
+    }
+  }
+
+  void bubble_up(iterator element) {
+    iterator dad = parent(element);
+    while (element != base_.begin() && less_(element, dad)) {
+      T tmp = *dad;
+      *dad = *element;
+      *element = *tmp;
+
+      dad = parent(element);
+    }
+  }
+
+  void bubble_down(iterator element) {
+    iterator child = min_child(element);
+    while (element != base_.end() && less_(child, element)) {
+      T tmp = *child;
+      *child = *element;
+      *element = *tmp;
+      
+      child = min_child(element);
+    }
+  }
 };
 
 }

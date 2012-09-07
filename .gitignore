@@ -11,8 +11,14 @@
 *.la
 *.a
 
+out
+
 # My test compilation files
 *.out
 
 # Vim
 *.swp
+
+# Idea
+.idea
+*.iml
