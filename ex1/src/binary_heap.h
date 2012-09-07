@@ -74,7 +74,7 @@ class BinaryHeap {
   std::vector<T> base_;
   bool (&less_)(const T, const T);
 
-  // Heap navigation functions:
+  // Heap navigation methods:
 
   iterator parent(iterator element) {
     if (element == base_.begin()) {
@@ -107,6 +107,8 @@ class BinaryHeap {
     }
   }
 
+  // Bubble up and down methods.
+
   void bubble_up(iterator element) {
     iterator dad = parent(element);
     while (element != base_.begin() && less_(*element, *dad)) {
@@ -128,6 +130,8 @@ class BinaryHeap {
       child = min_child(element);
     }
   }
+
+  // Iterator translation helper methods.
 
   int pos(iterator it) {
     return it - base_.begin();
