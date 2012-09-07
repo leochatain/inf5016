@@ -108,9 +108,7 @@ class BinaryHeap {
   }
 
   void bubble_up(iterator element) {
-    cout << "Bubbling up " << *element << " in pos " << pos(element) << endl;
     iterator dad = parent(element);
-    cout << "Parent: " << *dad << " pos " << pos(dad) << endl;
     while (element != base_.begin() && less_(*element, *dad)) {
       T tmp = *dad;
       *dad = *element;
