@@ -18,4 +18,12 @@ int main() {
   inf5016::BinaryHeap<int> heap(comp);
 
   heap.push(12);
+  heap.push(5);
+  heap.push(3);
+  heap.push(31);
+  heap.push(13);
+  while (!heap.empty()) {
+    cout << heap.top() << endl;
+    heap.pop();
+  }
 }

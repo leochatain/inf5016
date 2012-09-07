@@ -1,12 +1,15 @@
 #ifndef BINARY_HEAP_H_
 #define BINARY_HEAP_H_
 
+#include <iostream>
+
 #include <algorithm>
 #include <functional>
 #include <vector>
 
 namespace inf5016 {
 
+using namespace std;
 
 template <typename T>
 class BinaryHeap {
@@ -26,11 +29,11 @@ class BinaryHeap {
   // Insert an element on the heap.
   void push(const T& val) {
     base_.push_back(val);
-    bubble_up(base_.end());
+    bubble_up(base_.end() - 1);
   }
 
   // Queries the value of the top element of the heap.
-  inline T& top() const {
+  inline T& top() {
     return base_.front();
   }
 
@@ -78,16 +81,16 @@ class BinaryHeap {
       return element;
     }
 
-    return base_.begin() + ((element - base_.begin()) / 2);
+    return base_.begin() + ((pos(element) - 1) / 2);
   }
 
   iterator left_child(iterator element) {
-    return min(base_.end(), base_.begin() + ((element - base_.begin()) * 2));
+    return min(base_.end(), base_.begin() + (pos(element) * 2 + 1));
   }
 
   iterator right_child(iterator element) {
     return min(base_.end(), base_.begin()
-        + ((element - base_.begin()) * 2) + 1);
+        + ((element - base_.begin()) * 2) + 2);
   }
 
   iterator min_child(iterator element) {
@@ -105,7 +108,9 @@ class BinaryHeap {
   }
 
   void bubble_up(iterator element) {
+    cout << "Bubbling up " << *element << " in pos " << pos(element) << endl;
     iterator dad = parent(element);
+    cout << "Parent: " << *dad << " pos " << pos(dad) << endl;
     while (element != base_.begin() && less_(*element, *dad)) {
       T tmp = *dad;
       *dad = *element;
@@ -124,6 +129,10 @@ class BinaryHeap {
       
       child = min_child(element);
     }
+  }
+
+  int pos(iterator it) {
+    return it - base_.begin();
   }
 };
 
