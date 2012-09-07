@@ -22,6 +22,8 @@ int main() {
   heap.push(3);
   heap.push(31);
   heap.push(13);
+
+  heap.update(5, 153);
   while (!heap.empty()) {
     cout << heap.top() << endl;
     heap.pop();

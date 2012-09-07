@@ -37,6 +37,10 @@ class BinaryHeap {
     return base_.front();
   }
 
+  inline T& top() const {
+    return base_.front();
+  }
+
   // Removes the first element of the heap.
   void pop() {
     base_.front() = base_.back();
@@ -120,7 +124,7 @@ class BinaryHeap {
 
   void bubble_down(iterator element) {
     iterator child = min_child(element);
-    while (element != base_.end() && less_(*child, *element)) {
+    while (child != base_.end() && less_(*child, *element)) {
       T tmp = *child;
       *child = *element;
       *element = tmp;
