@@ -7,8 +7,6 @@
 
 namespace inf5016 {
 
-using namespace std;
-
 template <typename T>
 class BinaryHeap {
   typedef typename std::vector<T>::iterator iterator;
