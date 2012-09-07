@@ -22,7 +22,7 @@ class BinaryHeap {
   // the second.
   BinaryHeap(bool (&less)(const T, const T)) : less_(less) { }
 
-  // Insert an element on the heap.
+  // Inserts an element on the heap.
   void push(const T& val) {
     base_.push_back(val);
     bubble_up(base_.end() - 1);
