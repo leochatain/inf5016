@@ -16,4 +16,6 @@ int main() {
   cout << "Hello World" << endl;
 
   inf5016::BinaryHeap<int> heap(comp);
+
+  heap.push(12);
 }
