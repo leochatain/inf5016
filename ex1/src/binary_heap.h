@@ -33,6 +33,7 @@ class BinaryHeap {
     return base_.front();
   }
 
+  // Queries the value of the top element of the heap.
   inline T& top() const {
     return base_.front();
   }
@@ -44,7 +45,7 @@ class BinaryHeap {
     bubble_down(base_.begin());
   }
 
-  // Updates the instance val with a new value.
+  // Updates the element val with a new value.
   void update(const T& val, const T& new_val) {
     iterator it = std::find(base_.begin(), base_.end(), val);
     if (it == base_.end()) {
