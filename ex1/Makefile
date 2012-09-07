@@ -1,19 +1,10 @@
-COMPILER=G++
+CXX := g++
+CXX_FLAGS := -Wall -o2
 
-C = cpp
-OUTPUT_PATH = out/
-SOURCE_PATH = src/
-BIN = $(OUTPUT_PATH)ex1
+all: ex1
 
-OBJS := $(patsubst %.$(C),%.$(OBJ),$(wildcard $(SOURCE_PATH)*.$(C)))
-
-%.$(OBJ):%.$(C)
-	@echo Compiling $(basename $<)...
-	$(CCMD) -c $(CPPFLAGS) $(CXXFLAGS) $< $(OBJFLAG)$@
-
-all: $(OBJS)
-	@echo Linking...
-	$(CCMD) $(LDFLAGS) $^ $(LIBS) $(EXEFLAG) $(BIN)
+ex1: src/main.cpp src/binary_heap.h
+	$(CXX) $(CXX_FLAGS) src/main.cpp src/binary_heap.h -o bin/ex1
 
 clean:
-	rm -rf $(SOURCE_PATH)*.$(OBJ) $(BIN)
+	rm -rf bin/* obj/*
