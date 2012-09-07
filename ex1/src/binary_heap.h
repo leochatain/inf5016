@@ -1,8 +1,6 @@
 #ifndef BINARY_HEAP_H_
 #define BINARY_HEAP_H_
 
-#include <iostream>
-
 #include <algorithm>
 #include <functional>
 #include <vector>
