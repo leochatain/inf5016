@@ -77,7 +77,7 @@ class BinaryHeap {
 
   // Heap navigation methods:
 
-  iterator parent(iterator element) {
+  iterator parent(const iterator& element) {
     if (element == base_.begin()) {
       return element;
     }
@@ -85,16 +85,16 @@ class BinaryHeap {
     return base_.begin() + ((pos(element) - 1) / 2);
   }
 
-  iterator left_child(iterator element) {
+  iterator left_child(const iterator& element) {
     return min(base_.end(), base_.begin() + (pos(element) * 2 + 1));
   }
 
-  iterator right_child(iterator element) {
+  iterator right_child(const iterator& element) {
     return min(base_.end(), base_.begin()
         + ((element - base_.begin()) * 2) + 2);
   }
 
-  iterator min_child(iterator element) {
+  iterator min_child(const iterator& element) {
     iterator left = left_child(element);
     iterator right = right_child(element);
 
