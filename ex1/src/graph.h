@@ -21,9 +21,7 @@ class Graph {
 
   const std::vector<Edge>& operator[](const int node) const;
 
-  void add_node(std::vector<Edge> neighbours);
-  void add_edge(const int node, Edge edge);
-  void add_edges(const int node, std::vector<Edge> edges);
+  void put(const int u, const int v, const int w);
 
   inline int size() const {
     return base_.size();

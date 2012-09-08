@@ -1,33 +1,37 @@
+#include <cstdio>
 #include <iostream>
 #include <vector>
 
 #include "binary_heap.h"
+#include "graph.h"
 
 using std::cout;
+using std::cin;
 using std::endl;
+using std::string;
 
 using namespace inf5016;
 
-bool comp(int a, int b) {
-  return a < b;
+Graph read_graph();
+
+int main(int argc, char** argv) {
+  int src, dst;
+  cin >> src >> dst;
+  const Graph& graph = read_graph();
+
 }
 
-int main() {
-  cout << "Hello World" << endl;
+Graph read_graph() {
+  Graph g;
+  string line;
 
-  inf5016::BinaryHeap<int> heap(comp);
-
-  heap.push(12);
-  heap.push(5);
-  heap.push(3);
-  heap.push(31);
-  heap.push(13);
-
-  heap.update(5, 153);
-  heap.update(153, 0);
-  heap.push(123);
-  while (!heap.empty()) {
-    cout << heap.top() << endl;
-    heap.pop();
+  while (getline(cin, line)) {
+    if (line[0] == 'a') {
+      int u, v, w;
+      sscanf(line.c_str(), "a %d %d %d", &u, &v, &w);
+      g.put(u, v, w);
+    }
   }
+
+  return g;
 }

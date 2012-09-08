@@ -1,7 +1,6 @@
 #ifndef DIJKSTRA_H_
 #define DIJKSTRA_H_
 
-#include "binary_heap.h"
 #include "graph.h"
 
 namespace inf5016 {

@@ -14,18 +14,11 @@ const vector<Edge>& Graph::operator[](const int node) const {
   return base_[node];
 }
 
-void Graph::add_node(vector<Edge> neighbours) {
-  base_.push_back(neighbours);
-}
-
-void Graph::add_edge(const int node, Edge edge) {
-  base_[node].push_back(edge);
-}
-
-void Graph::add_edges(const int node, vector<Edge> edges) {
-  for (int i = 0; i < edges.size(); i++) {
-    base_[node].push_back(edges[i]);
+void Graph::put(const int u, const int v, const int w) {
+  while(base_.size() < u) {
+    base_.push_back(vector<Edge>());
   }
+  base_[u].push_back(Edge(v, w));
 }
 
 }

@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <cassert>
 
-
 using std::make_pair;
 using std::max;
 using std::min;
