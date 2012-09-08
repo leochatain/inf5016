@@ -2,6 +2,7 @@
 #include "binary_heap.h"
 
 #include <algorithm>
+#include <cassert>
 
 
 using std::make_pair;
@@ -19,6 +20,9 @@ bool comp(Edge a, Edge b) {
 }
 
 int dijsktra(const Graph& graph, const int src, const int dst) {
+  assert(src >= 0 && src < graph.size());
+  assert(dst >= 0 && dst < graph.size());
+
   vector<bool> visited(graph.size(), false);
   vector<int> dist(graph.size(), INF);
   dist[src] = 0;
@@ -27,8 +31,11 @@ int dijsktra(const Graph& graph, const int src, const int dst) {
 
   queue.push(Edge(src, 0));
   while (!queue.empty()) {
-    int cur = queue.top().dest;
+    const int cur = queue.top().dest;
     visited[cur] = true;
+    if (cur == dst) {
+      return queue.top().cost;
+    }
     queue.pop();
 
     const vector<Edge>& ns = graph[cur];
@@ -50,8 +57,8 @@ int dijsktra(const Graph& graph, const int src, const int dst) {
     }
   }
 
-
-	return 5;
+  // Should never get here.
+  assert(false);
 }
 
 }
