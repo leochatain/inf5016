@@ -114,6 +114,7 @@ class BinaryHeap {
     iterator dad = parent(element);
     while (element != base_.begin() && less_(*element, *dad)) {
       std::swap(*element, *dad);
+      element = dad;
       dad = parent(element);
     }
   }
@@ -122,6 +123,7 @@ class BinaryHeap {
     iterator child = min_child(element);
     while (child != base_.end() && less_(*child, *element)) {
       std::swap(*element, *child);
+      element = child;
       child = min_child(element);
     }
   }
