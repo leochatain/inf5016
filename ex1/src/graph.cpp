@@ -8,7 +8,7 @@ namespace inf5016 {
 
 Graph::Graph() { }
 
-vector<Edge> Graph::get_edges(const int node) {
+const vector<Edge>& Graph::operator[](const int node) const {
   assert(node >= 0);
   assert(node < base_.size());
   return base_[node];

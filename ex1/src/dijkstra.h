@@ -2,10 +2,11 @@
 #define DIJKSTRA_H_
 
 #include "binary_heap.h"
+#include "graph.h"
 
 namespace inf5016 {
 
-int dijsktra();
+int dijsktra(const Graph& graph, const int src, const int dst);
 
 }
 
