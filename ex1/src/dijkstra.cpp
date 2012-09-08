@@ -38,7 +38,7 @@ int Dijkstra::dijsktra(const Graph& graph, const int src, const int dst) {
     queue.pop();
 
     const vector<Edge>& ns = graph[cur];
-    for (int i = 0; i < ns.size(); i++) {
+    for (unsigned i = 0; i < ns.size(); i++) {
       const int to = ns[i].dest;
       const int cost = ns[i].cost;
 
