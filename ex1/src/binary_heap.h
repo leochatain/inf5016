@@ -62,12 +62,12 @@ class BinaryHeap {
   }
 
   // Returns whether the heap is empty or not.
-  inline bool empty() {
+  inline bool empty() const {
     return base_.empty();
   }
 
   // Returns the size of the heap.
-  inline int size() {
+  inline int size() const {
     return base_.size();
   }
 
