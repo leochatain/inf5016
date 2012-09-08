@@ -5,7 +5,9 @@
 
 namespace inf5016 {
 
-int dijsktra(const Graph& graph, const int src, const int dst);
+class Dijkstra {
+	int dijsktra(const Graph& graph, const int src, const int dst);
+};
 
 }
 

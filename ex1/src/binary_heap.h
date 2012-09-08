@@ -12,11 +12,6 @@ class BinaryHeap {
   typedef typename std::vector<T>::iterator iterator;
 
  public:
-
-  // Constructs a binary heap using the default '<' operator as the default
-  // comparer.
-  BinaryHeap();
-
   // Constructs a binary heap using less as the function to compare elements.
   // Less should return true if the first element is strictly smaller than
   // the second.

@@ -14,10 +14,16 @@ using namespace inf5016;
 
 Graph read_graph();
 
+bool comp(int a, int b) {
+  return a < b;
+}
+
 int main(int argc, char** argv) {
   int src, dst;
   cin >> src >> dst;
   const Graph& graph = read_graph();
+
+  BinaryHeap<int> heap(comp);
 
 }
 

@@ -18,7 +18,7 @@ bool comp(Edge a, Edge b) {
   return a.cost < b.cost;
 }
 
-int dijsktra(const Graph& graph, const int src, const int dst) {
+int Dijkstra::dijsktra(const Graph& graph, const int src, const int dst) {
   assert(src >= 0 && src < graph.size());
   assert(dst >= 0 && dst < graph.size());
 
