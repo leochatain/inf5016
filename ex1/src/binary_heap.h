@@ -113,7 +113,7 @@ class BinaryHeap {
   void bubble_up(iterator element) {
     iterator dad = parent(element);
     while (element != base_.begin() && less_(*element, *dad)) {
-      std::swap(element, dad);
+      std::swap(*element, *dad);
       dad = parent(element);
     }
   }
@@ -121,7 +121,7 @@ class BinaryHeap {
   void bubble_down(iterator element) {
     iterator child = min_child(element);
     while (child != base_.end() && less_(*child, *element)) {
-      std::swap(element, child);
+      std::swap(*element, *child);
       child = min_child(element);
     }
   }
