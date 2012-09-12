@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "binary_heap.h"
+#include "dijkstra.h"
 #include "graph.h"
 
 using std::cout;
@@ -19,12 +20,17 @@ bool comp(int a, int b) {
 }
 
 int main(int argc, char** argv) {
-  int src, dst;
-  cin >> src >> dst;
+  if (argc < 3) {
+    cout << "Must pass src and dest as arguments." << endl;
+    return 0;
+  }
+  int src = *argv[1] - '0';
+  int dst = *argv[2] - '0';
+  cout << src << " " << dst << endl;
   const Graph& graph = read_graph();
 
-  BinaryHeap<int> heap(comp);
-
+  //int distance = Dijkstra::dijkstra(graph, src, dst);  
+  //cout << distance << endl;
 }
 
 Graph read_graph() {
