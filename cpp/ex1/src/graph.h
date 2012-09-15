@@ -26,6 +26,7 @@ class Graph {
   inline int size() const {
     return base_.size();
   }
+
   inline bool empty() const {
     return base_.empty();
   }

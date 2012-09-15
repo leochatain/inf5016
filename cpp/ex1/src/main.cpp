@@ -15,8 +15,8 @@ using namespace inf5016;
 
 Graph read_graph();
 
-bool comp(int a, int b) {
-  return a < b;
+bool comp(const Edge a, const Edge b) {
+  return a.cost < b.cost;
 }
 
 int main(int argc, char** argv) {
@@ -29,8 +29,13 @@ int main(int argc, char** argv) {
   cout << src << " " << dst << endl;
   const Graph& graph = read_graph();
 
-  //int distance = Dijkstra::dijkstra(graph, src, dst);  
-  //cout << distance << endl;
+  cout << "Read graph, running dijkstra..." << endl;
+
+  BinaryHeap<Edge> heap(comp);
+  Dijkstra dijkstra(&heap);
+
+  int distance = dijkstra.dijkstra(graph, src, dst);  
+  cout << distance << endl;
 }
 
 Graph read_graph() {

@@ -13,8 +13,8 @@ namespace inf5016 {
 
 const int INF = -1;
 
-bool comp(Edge a, Edge b) {
-  return a.cost < b.cost;
+Dijkstra::Dijkstra(BinaryHeap<Edge>* heap) {
+  this->heap_ = heap;
 }
 
 int Dijkstra::dijkstra(const Graph& graph, const int src, const int dst) {

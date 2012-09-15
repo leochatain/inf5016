@@ -15,8 +15,8 @@ const vector<Edge>& Graph::operator[](const int node) const {
 }
 
 void Graph::put(const int u, const int v, const int w) {
-  while(base_.size() < u) {
-    base_.push_back(vector<Edge>());
+  if (base_.size() < u + 1) {
+    base_.resize(u + 1);
   }
   base_[u].push_back(Edge(v, w));
 }
