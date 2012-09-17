@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-c
+CFLAGS=-c -O2
 LDFLAGS=
 
 MAIN= src/main.cpp
@@ -14,12 +14,16 @@ TEST_OBJECTS=$(TESTS:.cpp=.o)
 
 BIN=bin/ex1
 BIN_TESTS=bin/ex1_tests
+BIN_GEN=bin/gen
 
 all: ex1 test
 
 ex1: $(BIN)
 
 test: $(SOURCES) $(TESTS) $(BIN_TESTS)
+
+gen: files/gen.cpp
+	$(CC) files/gen.cpp -o $(BIN_GEN)
 
 $(BIN): $(OBJECTS) 
 	$(CC) $(LDFLAGS) $(OBJECTS) $(TEMPLATES) $(MAIN) -o $@
@@ -35,3 +39,9 @@ clean:
 
 check: test
 	$(BIN_TESTS)
+
+generate: gen
+	$(BIN_GEN) 5 1 > files/5.gr
+	$(BIN_GEN) 10 1 > files/10.gr
+	$(BIN_GEN) 50 1 > files/50.gr
+	$(BIN_GEN) 100 1 > files/100.gr

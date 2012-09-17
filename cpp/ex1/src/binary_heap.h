@@ -49,9 +49,10 @@ class BinaryHeap {
       return;
     }
 
+    bool lesser = less_(new_val, *it);
     *it = new_val;
 
-    if (less_(new_val, val)) {
+    if (lesser) {
       bubble_up(it);
     } else {
       bubble_down(it);
@@ -68,13 +69,13 @@ class BinaryHeap {
     return base_.size();
   }
 
-  void clear() {
+  inline void clear() {
     base_.clear();
   }
 
   void dump() const {
     for (int i = 0; i < base_.size(); i++) {
-      std::cout << base_[i].dest << " ";
+      std::cout << "(" << base_[i].dest << " " << base_[i].cost << ") ";
     }
     std::cout << std::endl;
   }
