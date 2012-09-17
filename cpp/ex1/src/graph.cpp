@@ -1,8 +1,10 @@
 #include <cassert>
+#include <algorithm>
 
 #include "graph.h"
 
 using std::vector;
+using std::max;
 
 namespace inf5016 {
 
@@ -20,8 +22,9 @@ void Graph::put(const int u, const int v, const int w) {
   assert(v >= 0);
   assert(w >= 0);
 
-  if (base_.size() < u + 1) {
-    base_.resize(u + 1);
+  int big = max(u, v) + 1;
+  if (base_.size() < big) {
+    base_.resize(big);
   }
   base_[u].push_back(Edge(v, w));
 }

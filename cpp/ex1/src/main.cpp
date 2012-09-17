@@ -31,10 +31,9 @@ int main(int argc, char** argv) {
 
   cout << "Read graph, running dijkstra..." << endl;
 
-  BinaryHeap<Edge> heap(comp);
-  Dijkstra dijkstra(&heap);
+  Dijkstra dijkstra;
 
-  int distance = dijkstra.dijkstra(graph, src, dst);  
+  int distance = dijkstra.run(graph, src, dst);  
   cout << distance << endl;
 }
 

@@ -1,6 +1,8 @@
 #ifndef BINARY_HEAP_H_
 #define BINARY_HEAP_H_
 
+#include <iostream>
+
 #include <algorithm>
 #include <functional>
 #include <vector>
@@ -64,6 +66,17 @@ class BinaryHeap {
   // Returns the size of the heap.
   inline int size() const {
     return base_.size();
+  }
+
+  void clear() {
+    base_.clear();
+  }
+
+  void dump() const {
+    for (int i = 0; i < base_.size(); i++) {
+      std::cout << base_[i].dest << " ";
+    }
+    std::cout << std::endl;
   }
 
  private:

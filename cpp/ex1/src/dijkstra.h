@@ -8,11 +8,11 @@ namespace inf5016 {
 
 class Dijkstra {
  public:
-  Dijkstra(BinaryHeap<Edge>* heap);
-	int dijkstra(const Graph& graph, const int src, const int dst);
+  Dijkstra();
+	int run(const Graph& graph, const int src, const int dst);
 
  private:
-  BinaryHeap<Edge>* heap_;
+  BinaryHeap<Edge> *heap_;
 };
 
 }
