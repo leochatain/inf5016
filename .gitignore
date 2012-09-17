@@ -22,4 +22,5 @@ bin/
 # Idea
 .idea
 *.iml
-cpp/ex1/files/
+
+*.gr
