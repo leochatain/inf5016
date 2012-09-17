@@ -20,6 +20,9 @@ ex1: $(BIN)
 
 test: $(SOURCES) $(TESTS) $(BIN_TESTS)
 
+check: test
+	$(BIN_TESTS)
+
 $(BIN): $(OBJECTS) 
 	$(CC) $(LDFLAGS) $(OBJECTS) $(TEMPLATES) $(MAIN) -o $@
 
