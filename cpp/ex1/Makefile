@@ -6,7 +6,8 @@ MAIN= src/main.cpp
 SOURCES= src/dijkstra.cpp src/graph.cpp
 TEMPLATES = src/binary_heap.h
 
-TESTS = tests/binary_heap_test.cpp tests/graph_test.cpp tests/runner.cpp
+TESTS = tests/binary_heap_test.cpp tests/graph_test.cpp \
+	tests/dijkstra_test.cpp tests/runner.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
 TEST_OBJECTS=$(TESTS:.cpp=.o)
@@ -20,9 +21,6 @@ ex1: $(BIN)
 
 test: $(SOURCES) $(TESTS) $(BIN_TESTS)
 
-check: test
-	$(BIN_TESTS)
-
 $(BIN): $(OBJECTS) 
 	$(CC) $(LDFLAGS) $(OBJECTS) $(TEMPLATES) $(MAIN) -o $@
 
@@ -34,3 +32,6 @@ $(BIN_TESTS): $(TEST_OBJECTS) $(OBJECTS)
 
 clean:
 	rm -rf src/*.o tests/*.o $(BIN) $(BIN_TESTS)
+
+check: test
+	$(BIN_TESTS)
