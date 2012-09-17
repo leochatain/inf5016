@@ -13,6 +13,15 @@ struct Edge {
   inline bool operator==(const Edge& other) {
     return this->dest == other.dest && this->cost == other.cost;
   }
+  inline bool operator==(const Edge& other) const {
+    return this->dest == other.dest && this->cost == other.cost;
+  }
+  inline bool operator<(const Edge& other) {
+    if (this->dest == other.dest) {
+      return this->cost < other.cost;
+    }
+    return this->dest < other.dest;
+  }
 };
 
 class Graph {
@@ -23,12 +32,12 @@ class Graph {
 
   void put(const int u, const int v, const int w);
 
-  inline int size() const {
-    return base_.size();
-  }
-
   inline bool empty() const {
     return base_.empty();
+  }
+
+  inline int size() const {
+    return base_.size();
   }
 
  private:

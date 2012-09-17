@@ -1,21 +1,33 @@
 CC=g++
-CFLAGS=-c -lcppunit
-LDFLAGS=-lcppunit
+CFLAGS=-c
+LDFLAGS=
 
-SOURCES= src/dijkstra.cpp src/graph.cpp src/main.cpp
+MAIN= src/main.cpp
+SOURCES= src/dijkstra.cpp src/graph.cpp
 TEMPLATES = src/binary_heap.h
 
+TESTS = tests/binary_heap_test.cpp tests/graph_test.cpp tests/runner.cpp
+
 OBJECTS=$(SOURCES:.cpp=.o)
+TEST_OBJECTS=$(TESTS:.cpp=.o)
 
-EXECUTABLE=bin/ex1
+BIN=bin/ex1
+BIN_TESTS=bin/ex1_tests
 
-all: $(SOURCES) $(EXECUTABLE)
+all: ex1 test
 
-$(EXECUTABLE): $(OBJECTS) 
-	$(CC) $(LDFLAGS) $(OBJECTS) $(TEMPLATES) -o $@
+ex1: $(BIN)
+
+test: $(SOURCES) $(TESTS) $(BIN_TESTS)
+
+$(BIN): $(OBJECTS) 
+	$(CC) $(LDFLAGS) $(OBJECTS) $(TEMPLATES) $(MAIN) -o $@
+
+$(BIN_TESTS): $(TEST_OBJECTS) $(OBJECTS)
+	$(CC) $(LDFLAGS) $(TEST_OBJECTS) $(OBJECTS) $(TEMPLATES) -o $@ -lcppunit
 
 .cpp.o:
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -rf src/*.o $(EXECUTABLE)
+	rm -rf src/*.o tests/*.o $(BIN) $(BIN_TESTS)

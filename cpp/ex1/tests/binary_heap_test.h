@@ -14,8 +14,6 @@ class BinaryHeapTest : public CppUnit::TestFixture {
   void test_push();
   void test_pop();
   void test_update();
-
- private:
 };
 
 #endif
