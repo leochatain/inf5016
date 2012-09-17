@@ -1,9 +1,12 @@
 CC=g++
-CFLAGS=-c
-LDFLAGS=
+CFLAGS=-c -lcppunit
+LDFLAGS=-lcppunit
+
 SOURCES= src/dijkstra.cpp src/graph.cpp src/main.cpp
 TEMPLATES = src/binary_heap.h
+
 OBJECTS=$(SOURCES:.cpp=.o)
+
 EXECUTABLE=bin/ex1
 
 all: $(SOURCES) $(EXECUTABLE)
