@@ -2,6 +2,6 @@
 import os
 
 for i in xrange(5, 12):
-  i = str(2 ** i)
-  print 'Generating graph ', i, '...'
-  os.system('bin/gen ' + i + ' 1 > files/' + i + '.gr') 
+  u = str(2 ** i)
+  print 'Generating graph ', u, '...'
+  os.system('bin/ex1 ' + u + ' 1 > files/' + u + '.gr') 

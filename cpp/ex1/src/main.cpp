@@ -48,9 +48,9 @@ int main(int argc, char** argv) {
   double sum = 0;
   for (int i = 0; i < num_bench; i++) {
     int src = rand() % graph.size();
-    int dst = rand() % graph.size() - 1;
+    int dst = rand() % (graph.size() - 1);
 
-    if (dst == src) dst++;
+    if (dst == src) dst = graph.size() -1;
 
     time_t init_time = clock();
     int distance = dijkstra.run(graph, src, dst);  
