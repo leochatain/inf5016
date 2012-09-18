@@ -25,7 +25,7 @@ test: $(SOURCES) $(TESTS) $(BIN_TESTS)
 gen: files/gen.cpp
 	$(CC) files/gen.cpp -o $(BIN_GEN)
 
-$(BIN): $(OBJECTS) 
+$(BIN): $(OBJECTS) $(MAIN)
 	$(CC) $(LDFLAGS) $(OBJECTS) $(TEMPLATES) $(MAIN) -o $@
 
 $(BIN_TESTS): $(TEST_OBJECTS) $(OBJECTS)
@@ -33,9 +33,6 @@ $(BIN_TESTS): $(TEST_OBJECTS) $(OBJECTS)
 
 .cpp.o:
 	$(CC) $(CFLAGS) $< -o $@
-
-clean:
-	rm -rf src/*.o tests/*.o $(BIN) $(BIN_TESTS)
 
 check: test
 	$(BIN_TESTS)
@@ -45,3 +42,6 @@ generate: gen
 	$(BIN_GEN) 10 1 > files/10.gr
 	$(BIN_GEN) 50 1 > files/50.gr
 	$(BIN_GEN) 100 1 > files/100.gr
+
+clean:
+	rm -rf src/*.o tests/*.o $(BIN) $(BIN_TESTS) $(BIN_GEN)

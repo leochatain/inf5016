@@ -34,10 +34,10 @@ pair<Graph, Solution> parse_graph(ifstream& in) {
 }
 
 void DijkstraTest::setUp() {
-  files_.push_back("5.gr");
-  files_.push_back("10.gr");
-  files_.push_back("50.gr");
-  files_.push_back("100.gr");
+  files_.push_back("32.gr");
+  files_.push_back("64.gr");
+  files_.push_back("128.gr");
+  files_.push_back("256.gr");
 
   for (int i = 0; i < files_.size(); i++) {
     files_[i] = "files/" + files_[i];
