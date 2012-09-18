@@ -56,7 +56,7 @@ int main(int argc, char** argv) {
     int distance = dijkstra.run(graph, src, dst);  
     time_t end_time = clock();
 
-    sum += (end_time - init_time);
+    sum += (end_time - init_time) / (double)CLOCKS_PER_SEC;
   }
   cout << sum / (double) num_bench << endl;
 }

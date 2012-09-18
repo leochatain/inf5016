@@ -1,0 +1,123 @@
+\documentclass{article}
+\usepackage[latin1]{inputenc}   % pacote para acentua??o
+\usepackage{graphicx}           % pacote para importar figuras
+\usepackage{times}              % pacote para usar fonte Adobe Times
+\usepackage{framed}             % para exemplos e TODOs
+\usepackage{biblatex}           % para refer?ncias bibliogr?ficas
+\usepackage{xcolor}             % cores
+\usepackage{hyperref}           % refer?ncias
+
+\colorlet{shadecolor}{orange!15}
+
+\title{Laboratorio 1}
+\author{}{J. Rapidez}
+
+\addbibresource{ex1.bib}
+
+\begin{document}
+\maketitle
+
+\section{Tarefa}
+Implementar o algoritmo de X, que permite calcular um Y em tempo $O(T(n))$. Validar experimentalmente que o
+desempenho ? $O(T(n))$. Determinar a constante de proporcionalidade $c$, tal que o tempo ? $c \log n$.
+
+\section{Solução}
+Implementei o algoritmo de X usando uma estrutura da dados Y. Um
+problema particular na solu??o foi fazer Z, que resolvemos fazendo W.
+
+\begin{shaded}
+  Não existem restrições para a forma da solução: a escolha de estruturas de dado, por exemplo, e
+  livre. Qualquer linguagem de programação que possui uma implementação (compilador, interpretador) em
+  software livre, disponível para um Ubuntu Linux admissível.
+\end{shaded}
+
+\section{Ambiente de teste}
+
+Os resultados foram obtidos numa Cray X-MP, com $24$ processadores de
+$200$ MHz, e $256$ GB de RAM. Testamos com dados gerados
+randomicamente de tamanho $n=2,4,8,\ldots,2^{12}$. Cada teste foi
+repetido $20$ vezes.
+
+\section{Resultados}
+
+\begin{shaded}
+  Dicas para avaliar o tempo:
+  \begin{itemize}
+  \item Sempre se for poss?vel, n?o medir o tempo de uma execu??o de uma ?nica opera??o ou execu??o, mas de
+    v?rias, e relatar o tempo m?dio. Uma diretiva simples ? n?o medir tempo menor que $1$s.
+  \item Pode ser dif?cil comparar visualmente um gr?fico de medidas com o tempo te?rico esperado. Uma maneira
+    para facilitar a compara??o ? dividir o tempo observado $T_o(n)$ pelo tempo esperado $T(n)$. Para
+    $n\rightarrow\infty$ a curve deve se aproximar a uma constante.
+  \item Uma outra abordagem com um modelo gen?rico~\parencite{Sedgewick/2011}: Supondo que o tempo de execu??o
+    ? $T(n)=a\,n^c$, podemos avaliar o tempo para $n=n_0,2n_0,4n_0,\ldots$ e determinar $c$ como limite de
+    $\log_2(T(2n)/T(n))$ e $a$ como limite de $T(n)/n^c$.
+  \end{itemize}
+\end{shaded}
+
+
+A Tabela~\ref{tab1} mostra o tempo de execu??o do algoritmo de Dijkstra para um grafo com $n=2^i$,
+$i=2,\ldots,12$ v?rtices ? $\approx 0.6n^2$ arestas. Aplicando o modelo gen?rico $a\,n^c$ obtemos $c=2$ e
+$a=6\times 10^{-9}$. A complexidade pessimista te?rica ? $(n+m)\log n=(0.6n^2+n)\log n$.
+
+
+\begin{table}
+  \centering
+  \begin{tabular}{rrrrrrrrrrrrrr}
+    \hline
+    n =             & 2     & 4      & 8       & 16      & 32       & 64        \\
+    $T_o$ [$\mu s$] & 0.77  & 0.87   & 1.19    & 2.36    & 7.57     & 27.91     \\
+    \hline
+    n =             & 128   & 256    & 512     & 1024    & 2048     & 4096      \\
+    $T_o$ [$\mu s$] & 92.52 & 336.13 & 1434.72 & 6024.10 & 24390.20 & 100000.00 \\
+    \hline
+  \end{tabular}
+  \caption{Tempo de execu??o $T_o$ do algoritmo de Dijkstra para um grafo com
+    $n=2^i$, $i=2,\ldots,12$ v?rtices ? $\approx 0.6n^2$ arestas.}
+  \label{tab1}
+\end{table}
+
+\begin{shaded}
+  Dicas:
+  \begin{itemize}
+  \item Alinhar colunas num?ricas sempre ? direita.
+  \item Informar quantidades com um n?mero de d?gitos razo?vel e arrendondar corretamente.
+  \end{itemize}
+\end{shaded}
+
+O tempo de execu??o dividido pelo tempo esperado ? mostrado na Fig.~\ref{fig1}.
+
+\begin{figure}
+  \centering
+  \includegraphics{R}
+  \caption{Tempo de execu??o normalizado $T_o/(0.6n^2+n)\log n$ do algoritmo de Dijkstra para um grafo com
+    $n=2^i$, $i=2,\ldots,12$ v?rtices ? $\approx 0.6n^2$ arestas.}
+  \label{fig1}
+\end{figure}
+
+\begin{shaded}
+  Dicas para figuras:
+  \begin{itemize}
+  \item Rotular os eixos.
+  \end{itemize}
+
+\end{shaded}
+
+\section{Conclus?o}
+
+O algoritmo X comporta-se como esperado nos intervalos A e B e um melhor desempenho para valores C e D. Isso
+pode ser explicado por Y.
+
+\begin{shaded}
+  Muito mais dicas: \textcite{Johnson/2002}.
+\end{shaded}
+
+\printbibliography
+
+\end{document}
+% Local Variables:
+% auto-fill-function: do-auto-fill
+% TeX-PDF-mode: t
+% fill-column: 110
+% ispell-local-dictionary: "brasileiro"
+% mode-name: "LaTeX"
+% End:

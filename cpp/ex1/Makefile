@@ -16,7 +16,7 @@ BIN=bin/ex1
 BIN_TESTS=bin/ex1_tests
 BIN_GEN=bin/gen
 
-all: ex1 test
+all: ex1 test gen
 
 ex1: $(BIN)
 
