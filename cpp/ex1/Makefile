@@ -37,11 +37,5 @@ $(BIN_TESTS): $(TEST_OBJECTS) $(OBJECTS)
 check: test
 	$(BIN_TESTS)
 
-generate: gen
-	$(BIN_GEN) 5 1 > files/5.gr
-	$(BIN_GEN) 10 1 > files/10.gr
-	$(BIN_GEN) 50 1 > files/50.gr
-	$(BIN_GEN) 100 1 > files/100.gr
-
 clean:
 	rm -rf src/*.o tests/*.o $(BIN) $(BIN_TESTS) $(BIN_GEN)

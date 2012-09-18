@@ -24,3 +24,5 @@ bin/
 *.iml
 
 *.gr
+
+*.pyc

@@ -35,9 +35,10 @@ typedef graph_traits<Graph>::vertex_descriptor Node;
 typedef graph_traits <Graph>::edge_descriptor Edge;
  
 int main(int argc, char *argv[]) {
-  assert(argc == 3);
+  assert(argc >= 3);
   unsigned n = atoi(argv[1]);
   double p = atof(argv[2]);
+  bool sols = argc > 3;
  
   srand48(time(0));
  
@@ -62,15 +63,17 @@ int main(int argc, char *argv[]) {
         << " " << g[*eb].weight << endl;
 
   // (3) Print solutions
-  for (int src = 0; src < n; src++) {
-    vector<unsigned> dist(n);
-    vector<unsigned> pred(n);
-    dijkstra_shortest_paths(g,src,weight_map(get(&EdgeInformation::weight,g))
-        .distance_map(&dist[0]).predecessor_map(&pred[0]));
-    for (int dst = 0; dst < n; dst++) {
-      if (dst == src)
-        continue;
-      cout << "s " << src+1 << " " << dst+1 << " " << dist[dst] << endl;
+  if (sols) {
+    for (int src = 0; src < n; src++) {
+      vector<unsigned> dist(n);
+      vector<unsigned> pred(n);
+      dijkstra_shortest_paths(g,src,weight_map(get(&EdgeInformation::weight,g))
+          .distance_map(&dist[0]).predecessor_map(&pred[0]));
+      for (int dst = 0; dst < n; dst++) {
+        if (dst == src)
+          continue;
+        cout << "s " << src+1 << " " << dst+1 << " " << dist[dst] << endl;
+      }
     }
   }
 }
