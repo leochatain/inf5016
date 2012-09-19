@@ -37,7 +37,6 @@ void DijkstraTest::setUp() {
   files_.push_back("32.gr");
   files_.push_back("64.gr");
   files_.push_back("128.gr");
-  files_.push_back("256.gr");
 
   for (int i = 0; i < files_.size(); i++) {
     files_[i] = "files/" + files_[i];
@@ -54,7 +53,6 @@ void DijkstraTest::test_all() {
     
     for (int i = 1; i < graph.size(); i++) {
       for (int j = 1; j < graph.size(); j++) {
-        if (i == j) continue;
         int mysol = dijkstra.run(graph, i, j);
         CPPUNIT_ASSERT_EQUAL(p.second[i][j], mysol);
       }
