@@ -12,7 +12,6 @@ class Dijkstra {
 	int run(const Graph& graph, const int src, const int dst);
 
  private:
-  BinaryHeap<Edge> *heap_;
 };
 
 }

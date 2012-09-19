@@ -23,6 +23,21 @@ bin/
 .idea
 *.iml
 
+# Graph format
 *.gr
 
+# Python
 *.pyc
+
+# latex
+*.aux
+*.bbl
+*.blg
+*.log
+*.pdf
+*.xml
+*.backup
+*~
+*.png
+*.dvi
+cpp/ex1/report/ex1-blx.bib
