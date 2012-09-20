@@ -9,7 +9,6 @@
 #include <unordered_map>
 #include <iostream>
 #include <cassert>
-using namespace std;
 
 namespace inf5016 {
 
@@ -88,7 +87,7 @@ class BinaryHeap {
 
   void dump() const {
     for (int i = 0; i < base_.size(); i++) {
-      std::cout << "(" << base_[i].dest << " " << base_[i].cost << ") ";
+      std::cout << "(" << base_[i].dest << ", " << base_[i].cost << ") ";
     }
     std::cout << std::endl;
   }
@@ -96,8 +95,9 @@ class BinaryHeap {
   void dump_index() const {
     std::unordered_map<int, int>::const_iterator it;
     for (it = index_.begin(); it != index_.end(); ++it) {
-      cout << "(" << it->first << ", " << it->second << ")";
-    } cout << endl;
+      std::cout << "(" << it->first << ", " << it->second << ")";
+    } 
+    std::cout << std::endl;
   }
 
  private:
