@@ -31,7 +31,7 @@ Para o desenvolvimento foi utilizada a linguagem C++ e o compilador gcc versão 
 
 Os resultados foram obtidos utilizando-se um \emph{Intel core i5}, com um processador de $2.27$ GHz e $4$ GB de RAM.
 
-Para os testes foram utilizados grafos gerados randomicamente de tamanho $n=512,1024,1536,\ldots,8192$. Todos os grafos utilizados eram completos, ou seja, o número de arestas $m=n ^ 2$
+Para os testes do algoritmo de Dijkstra foram utilizados grafos gerados randomicamente de tamanho $n=512,1024,1536,\ldots,8192$. Todos os grafos utilizados eram completos, ou seja, o número de arestas $m=n ^ 2$
 
 Cada teste foi repetido $10$ vezes e foi tomada a média dos tempos de execução.
 
@@ -41,19 +41,55 @@ Cada teste foi repetido $10$ vezes e foi tomada a média dos tempos de execuçã
 
 A complexidade das operações \emph{insert}, \emph{deletemin} e \emph{update} é $ log n $.
 
-Para executar os testes, fizeram-se repetidas operações ao grafo, e foi medido o tempo total.
+Para executar os testes, fizeram-se $ n $ repetidas operações ao heap de tamanho $ n $ (n inserts, n deletemins, n updates), o que ao todo tem uma complexidade de $ n log n $
 
-A Figura~\ref{fig3} mostra o tempo de execução da operação \emph{insert}, com complexidade $log n$.
+A Figura~\ref{fig3} mostra o tempo de execução da operação \emph{insert}, com complexidade $log n$ executada $n$ vezes. A Figura~\ref{fig6} mostra o tempo de execução da operação \emph{insert}, dividido pela complexidade teórica $n * log n$.
 
-A Figura~\ref{fig4} mostra o tempo de execução da operação \emph{deletemin}, com complexidade $log n$.
+A Figura~\ref{fig3} mostra o tempo de execução da operação \emph{deletemin}, com complexidade $log n$ executada $n$ vezes. A Figura~\ref{fig6} mostra o tempo de execução da operação \emph{insert}, dividido pela complexidade teórica $n * log n$.
 
-A Figura~\ref{fig5} mostra o tempo de execução da operação \emph{update}, com complexidade $log n$.
+A Figura~\ref{fig3} mostra o tempo de execução da operação \emph{update}, com complexidade $log n$ executada $n$ vezes. A Figura~\ref{fig6} mostra o tempo de execução da operação \emph{insert}, dividido pela complexidade teórica $n * log n$.
 
-A Figura~\ref{fig6} mostra o tempo de execução da operação \emph{insert}, dividido pela complexidade teórica $log n$.
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth,keepaspectratio]{plot_push.png}
+  \caption{Tempo de execução $T_o$ da operação insert em um Heap Binário.}
+  \label{fig3}
+\end{figure}
 
-A Figura~\ref{fig7} mostra o tempo de execução da operação \emph{deletemin}, dividido pela complexidade teórica $log n$.
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth,keepaspectratio]{plot_pop.png}
+  \caption{Tempo de execução $T_o$ da operação deletemin em um Heap Binário.}
+  \label{fig4}
+\end{figure}
 
-A Figura~\ref{fig8} mostra o tempo de execução da operação \emph{update}, dividido pela complexidade teórica $log n$.
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth,keepaspectratio]{plot_update.png}
+  \caption{Tempo de execução $T_o$ da operação update em um Heap Binário.}
+  \label{fig5}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth,keepaspectratio]{plot_push_invert.png}
+  \caption{Tempo de execução $T_o$ da operação insert em um Heap Binário, dividido pela complexidade teórica $n * log n$}
+  \label{fig6}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth,keepaspectratio]{plot_pop_invert.png}
+  \caption{Tempo de execução $T_o$ da operação deletemin em um Heap Binário, dividido pela complexidade teórica $n * log n$}
+  \label{fig7}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth,keepaspectratio]{plot_update_invert.png}
+  \caption{Tempo de execução $T_o$ da operação update em um Heap Binário, dividido pela complexidade teórica $n * log n$}
+  \label{fig8}
+\end{figure}
 
 \subsection{Dijkstra}
 
