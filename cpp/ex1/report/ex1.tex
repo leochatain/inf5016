@@ -41,11 +41,25 @@ Cada teste foi repetido $10$ vezes e foi tomada a média dos tempos de execuçã
 
 A complexidade das operações \emph{insert}, \emph{deletemin} e \emph{update} é $ log n $.
 
+Para executar os testes, fizeram-se repetidas operações ao grafo, e foi medido o tempo total.
 
+A Figura~\ref{fig3} mostra o tempo de execução da operação \emph{insert}, com complexidade $log n$.
+
+A Figura~\ref{fig4} mostra o tempo de execução da operação \emph{deletemin}, com complexidade $log n$.
+
+A Figura~\ref{fig5} mostra o tempo de execução da operação \emph{update}, com complexidade $log n$.
+
+A Figura~\ref{fig6} mostra o tempo de execução da operação \emph{insert}, dividido pela complexidade teórica $log n$.
+
+A Figura~\ref{fig7} mostra o tempo de execução da operação \emph{deletemin}, dividido pela complexidade teórica $log n$.
+
+A Figura~\ref{fig8} mostra o tempo de execução da operação \emph{update}, dividido pela complexidade teórica $log n$.
 
 \subsection{Dijkstra}
 
 Como mencionado anteriormente, todos os grafos utilizados são completos, portanto $m=n^2$ e a complexidade do algoritmo é $(n^2 + n) \log n$.
+
+Para executar os testes, fizeram-se 10 queries aleatórias a grafos completos de tamanhos variados.
 
 A Tabela~\ref{tab1} mostra o tempo de execução do algoritmo de Dijkstra para um grafo completo com $n=512 * i$, $i=1,\ldots,16$ vértices e $n ^ 2$ arestas.
 
@@ -88,8 +102,9 @@ A Fig.~\ref{fig2} mostra o gráfico do tempo de execução normalizado $T_o/(n^2
 
 \section{Conclusão}
 
-O tempo de execução do algoritmo de Dijkstra segue a complexidade teórica.
-O tempo de execução das operações do heap binário também.
+Podemos ver que o tempo de execução do algoritmo de Dijkstra segue a complexidade teórica.
+
+Podemos também ver que o Heap Binário segue a complexidade esperada.
 
 \printbibliography
 
