@@ -10,6 +10,7 @@ struct Edge {
   int cost;
 
   Edge(const int dest, const int cost) : dest(dest), cost(cost) {}
+
   inline bool operator==(const Edge& other) {
     return this->dest == other.dest;
   }
@@ -17,10 +18,10 @@ struct Edge {
     return this->dest == other.dest;
   }
   inline bool operator<(const Edge& other) {
-    if (this->dest == other.dest) {
-      return this->cost < other.cost;
-    }
-    return this->dest < other.dest;
+    return this->cost < other.cost;
+  }
+  inline bool operator<(const Edge& other) const {
+    return this->cost < other.cost;
   }
 };
 

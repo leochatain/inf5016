@@ -15,18 +15,13 @@ namespace inf5016 {
 
 const int INF = 1 << 31 - 1;
 
-bool comp(const Edge a, const Edge b) {
-  return a.cost < b.cost;
-}
-
-Dijkstra::Dijkstra() {
-}
+Dijkstra::Dijkstra() { }
 
 int Dijkstra::run(const Graph& graph, const int src, const int dst) {
   assert(src >= 0 && src < graph.size());
   assert(dst >= 0 && dst < graph.size());
 
-  BinaryHeap<Edge> heap(comp);
+  BinaryHeap heap;
 
   vector<bool> visited(graph.size(), false);
   vector<int> dist(graph.size(), INF);
@@ -53,8 +48,7 @@ int Dijkstra::run(const Graph& graph, const int src, const int dst) {
           heap.push(ns[i]);
         } else {
           dist[to] = min(dist[to], dist[cur] + cost);
-          Edge new_edge(ns[i].dest, dist[to]);
-          heap.update(ns[i], new_edge);
+          heap.update(to, dist[to]);
         }
       }
     }

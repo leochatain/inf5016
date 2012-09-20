@@ -1,56 +1,69 @@
 #ifndef BINARY_HEAP_H_
 #define BINARY_HEAP_H_
 
-#include <iostream>
+#include "graph.h"
 
 #include <algorithm>
 #include <functional>
 #include <vector>
+#include <unordered_map>
+#include <iostream>
+#include <cassert>
+using namespace std;
 
 namespace inf5016 {
 
-template <typename T>
+// This is a Binary Heap of Edges.
 class BinaryHeap {
-  typedef typename std::vector<T>::iterator iterator;
+  typedef std::vector<Edge>::iterator Iterator;
 
  public:
-  // Constructs a binary heap using less as the function to compare elements.
-  // Less should return true if the first element is strictly smaller than
-  // the second.
-  BinaryHeap(bool (&less)(const T, const T)) : less_(less) { }
+  BinaryHeap() { }
 
   // Inserts an element on the heap.
-  void push(const T& val) {
+  void push(const Edge& val) {
     base_.push_back(val);
+
+    // Update the index.
+    index_[val.dest] = base_.size() - 1;
+
     bubble_up(base_.end() - 1);
   }
 
   // Queries the value of the top element of the heap.
-  inline T& top() {
+  inline Edge& top() {
     return base_.front();
   }
 
   // Queries the value of the top element of the heap.
-  inline T& top() const {
-    return base_.front();
+  inline Edge top() const {
+    return (const Edge) base_.front();
   }
 
   // Removes the first element of the heap.
   void pop() {
+    // Update indices
+    index_[base_.back().dest] = 0;
+    // Update heap
     base_.front() = base_.back();
     base_.pop_back();
+
+    // Re-balance
     bubble_down(base_.begin());
   }
 
-  // Updates the element val with a new value.
-  void update(const T& val, const T& new_val) {
-    iterator it = std::find(base_.begin(), base_.end(), val);
-    if (it == base_.end()) {
+  // Updates the element vert with a new cost.
+  void update(const int vert, const int new_cost) {
+    if (index_.find(vert) == index_.end()) {
       return;
     }
 
-    bool lesser = less_(new_val, *it);
-    *it = new_val;
+    Iterator it = base_.begin() + index_[vert];
+
+    assert(it->dest == vert);
+
+    bool lesser = (new_cost < it->cost);
+    it->cost = new_cost;
 
     if (lesser) {
       bubble_up(it);
@@ -80,13 +93,20 @@ class BinaryHeap {
     std::cout << std::endl;
   }
 
+  void dump_index() const {
+    std::unordered_map<int, int>::const_iterator it;
+    for (it = index_.begin(); it != index_.end(); ++it) {
+      cout << "(" << it->first << ", " << it->second << ")";
+    } cout << endl;
+  }
+
  private:
-  std::vector<T> base_;
-  bool (&less_)(const T, const T);
+  std::vector<Edge> base_;
+  std::unordered_map<int, int> index_;
 
   // Heap navigation methods:
 
-  iterator parent(const iterator& element) {
+  Iterator parent(const Iterator& element) {
     if (element == base_.begin()) {
       return element;
     }
@@ -94,18 +114,18 @@ class BinaryHeap {
     return base_.begin() + ((pos(element) - 1) / 2);
   }
 
-  iterator left_child(const iterator& element) {
+  Iterator left_child(const Iterator& element) {
     return min(base_.end(), base_.begin() + (pos(element) * 2 + 1));
   }
 
-  iterator right_child(const iterator& element) {
+  Iterator right_child(const Iterator& element) {
     return min(base_.end(), base_.begin()
         + ((element - base_.begin()) * 2) + 2);
   }
 
-  iterator min_child(const iterator& element) {
-    iterator left = left_child(element);
-    iterator right = right_child(element);
+  Iterator min_child(const Iterator& element) {
+    Iterator left = left_child(element);
+    Iterator right = right_child(element);
 
     if (left == base_.end() && right == base_.end()) {
       return base_.end();
@@ -113,25 +133,27 @@ class BinaryHeap {
     if (right == base_.end()) {
       return left;
     } else {
-      return less_(*left, *right) ? left : right;
+      return (*left < *right) ? left : right;
     }
   }
 
   // Bubble up and down methods.
 
-  void bubble_up(iterator element) {
-    iterator dad = parent(element);
-    while (element != base_.begin() && less_(*element, *dad)) {
+  void bubble_up(Iterator element) {
+    Iterator dad = parent(element);
+    while (element != base_.begin() && (*element < *dad)) {
       std::swap(*element, *dad);
+      std::swap(index_[element->dest], index_[dad->dest]);
       element = dad;
       dad = parent(element);
     }
   }
 
-  void bubble_down(iterator element) {
-    iterator child = min_child(element);
-    while (child != base_.end() && less_(*child, *element)) {
+  void bubble_down(Iterator element) {
+    Iterator child = min_child(element);
+    while (child != base_.end() && (*child < *element)) {
       std::swap(*element, *child);
+      std::swap(index_[element->dest], index_[child->dest]);
       element = child;
       child = min_child(element);
     }
@@ -139,7 +161,7 @@ class BinaryHeap {
 
   // Iterator translation helper methods.
 
-  int pos(iterator it) {
+  int pos(Iterator it) {
     return it - base_.begin();
   }
 };

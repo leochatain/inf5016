@@ -1,6 +1,6 @@
 CC=g++
-CFLAGS=-c -O2
-LDFLAGS=
+CFLAGS=-c -O2 -std=gnu++0x
+LDFLAGS= -std=gnu++0x
 
 MAIN= src/main.cpp
 SOURCES= src/dijkstra.cpp src/graph.cpp
