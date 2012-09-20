@@ -12,73 +12,29 @@
 using namespace std;
 using namespace inf5016;
 
-const int ERROR = -1;
-const int HELP = 0;
-const int PROGRAM = 1;
-
-bool comp(const Edge a, const Edge b) {
-  return a.cost < b.cost;
-}
-
-int parse_args(int argc, char* argv[], int& num_bench, string& graph_path);
-vector<pair<int, int> > parse_bench(ifstream& in);
-Graph parse_graph(ifstream& in);
+Graph parse_graph(istream& in);
 
 void print_help();
 
 int main(int argc, char** argv) {
-  int num_bench;
-  string graph_path;
-  switch (parse_args(argc, argv, num_bench, graph_path)) {
-    case ERROR:
-      return ERROR;
-    case HELP:
-      print_help();
-      return HELP;
-  };
+  if (argc < 3 ) {
+    print_help();
+    return 0;
+  }
+
+  int src = atoi(argv[1]);
+  int dst = atoi(argv[2]);
 
   // Parse graph and benchmarks.
-  ifstream graph_file(graph_path.c_str());
-  const Graph& graph = parse_graph(graph_file);
+  const Graph& graph = parse_graph(cin);
 
   Dijkstra dijkstra;
 
-  // Run benchmarks.
-  srand((int)time(0));
-  double sum = 0;
-  for (int i = 0; i < num_bench; i++) {
-    int src = rand() % graph.size();
-    int dst = rand() % (graph.size() - 1);
-
-    if (dst == src) dst = graph.size() -1;
-
-    time_t init_time = clock();
-    int distance = dijkstra.run(graph, src, dst);  
-    time_t end_time = clock();
-
-    sum += (end_time - init_time) / (double)CLOCKS_PER_SEC;
-  }
-  cout << sum / (double) num_bench << endl;
+  int distance = dijkstra.run(graph, src, dst);  
+  cout << distance << endl;
 }
 
-int parse_args(int argc, char* argv[], int& num_bench, string& graph_path) {
-  if (argc < 3) {
-    return HELP;
-  }
-  for (int i = 1; i < argc; i++) {
-    if (!(strcmp(argv[i], "-b"))) {
-      num_bench = atoi(argv[++i]);
-    } else if (!strcmp(argv[i], "-g")) {
-      graph_path = argv[++i];
-    } else {
-      cout << "Unknown option " << argv[i] << endl;
-      return ERROR;
-    }
-  }
-  return PROGRAM;
-}
-
-Graph parse_graph(ifstream& in) {
+Graph parse_graph(istream& in) {
   Graph g;
   string line;
 
@@ -95,7 +51,7 @@ Graph parse_graph(ifstream& in) {
 
 void print_help() {
   cout << "ex1 - By Leo Chatain (leochatain@gmail.com)" << endl << endl;
-  cout << "-b  Specifies the number of benchmarks (they're all random)"
-      << endl
-      << "-g  Specifies the graph file." << endl;
+  cout << "First argument: src" << endl;
+  cout << "Second argument: dst" << endl;
+  cout << "Pass the graph on the stdin" << endl;
 }

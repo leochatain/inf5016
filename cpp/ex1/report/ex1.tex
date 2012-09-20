@@ -23,13 +23,13 @@
 Implementar o algoritmo de Dijkstra, que permite calcular o menor caminho entre um nodo e qualquer outro de um grafo em tempo $O((m + n) \log n)$. Validar experimentalmente que o desempenho é $O((m + n) \log n)$. Determinar a constante de proporcionalidade $c$, tal que o tempo é $c*(m + n) \log n$.
 
 \section{Solução}
-Implementei o algoritmo de Dijkstra usando um heap binomial, como visto em aula. Heaps binomiais realizam as operações \emph{insert} - no código: \emph{push(T val)} -, \emph{deletemin} - no código: \emph{pop()} -, e \emph{update} - no código: \emph{update(T val, T new)} com complexidade $ \log n $ (onde \emph{n} é o número de vértices do grafo.
+Implementei o algoritmo de Dijkstra usando um heap binomial, como visto em aula. Heaps binomiais realizam as operações \emph{insert} - no código: \emph{push(T val)} -, \emph{deletemin} - no código: \emph{pop()} -, e \emph{update} - no código: \emph{update(T val, T new)} com complexidade $ \log n $ (onde \emph{n} é o número de vértices do grafo).
 
 Para o desenvolvimento foi utilizada a linguagem C++ e o compilador gcc versão 4.6. Para os testes foi utilizado o framework CppUnit.
 
 \section{Ambiente de teste}
 
-Os resultados foram obtidos utilizando-se um \emph{Intel core i5}, com um processador de $12$ MHz e $4$ GB de RAM.
+Os resultados foram obtidos utilizando-se um \emph{Intel core i5}, com um processador de $2.27$ GHz e $4$ GB de RAM.
 
 Para os testes foram utilizados grafos gerados randomicamente de tamanho $n=512,1024,1536,\ldots,8192$. Todos os grafos utilizados eram completos, ou seja, o número de arestas $m=n ^ 2$
 
@@ -37,7 +37,15 @@ Cada teste foi repetido $10$ vezes e foi tomada a média dos tempos de execuçã
 
 \section{Resultados}
 
-Como mencionado na seção anterior, todos os grafos utilizados são completos, portanto $m=n^2$ e a complexidade do algoritmo é $(n^2 + n) \log n$.
+\subsection{Heap Binário}
+
+A complexidade das operações \emph{insert}, \emph{deletemin} e \emph{update} é $ log n $.
+
+
+
+\subsection{Dijkstra}
+
+Como mencionado anteriormente, todos os grafos utilizados são completos, portanto $m=n^2$ e a complexidade do algoritmo é $(n^2 + n) \log n$.
 
 A Tabela~\ref{tab1} mostra o tempo de execução do algoritmo de Dijkstra para um grafo completo com $n=512 * i$, $i=1,\ldots,16$ vértices e $n ^ 2$ arestas.
 
@@ -69,19 +77,19 @@ O gráfico do tempo de execução é plotado na Fig.~\ref{fig1}.
   \label{fig1}
 \end{figure}
 
-A Fig.~\ref{fig2} mostra o gráfico do tempo de execução normalizado $T_o/(n^2+n)\log n$.
+A Fig.~\ref{fig2} mostra o gráfico do tempo de execução normalizado $T_o/(n^2+n)\log n$. Esse gráfico é muito semelhante a uma reta constante (note que a amplitude vai de $1*10 ^ {-9}$ a $1.8 * 10 ^ {-9}$).
 
 \begin{figure}
   \centering
-  \includegraphics[width=\textwidth,keepaspectratio]{plot.png}
+  \includegraphics[width=\textwidth,keepaspectratio]{plot_invert.png}
   \caption{Tempo de execução normalizado $T_o/(n^2+n)\log n$ do algoritmo de Dijkstra para um grafo com $n=512 * i$, $i=1,\ldots,16$ vértices e $n ^ 2$ arestas.}
   \label{fig2}
 \end{figure}
 
 \section{Conclusão}
 
-O algoritmo X comporta-se como esperado nos intervalos A e B e um melhor desempenho para valores C e D. Isso
-pode ser explicado por Y.
+O tempo de execução do algoritmo de Dijkstra segue a complexidade teórica.
+O tempo de execução das operações do heap binário também.
 
 \printbibliography
 

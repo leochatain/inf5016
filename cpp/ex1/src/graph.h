@@ -9,6 +9,7 @@ struct Edge {
   int dest;
   int cost;
 
+  Edge() : dest(0), cost(0) {}
   Edge(const int dest, const int cost) : dest(dest), cost(cost) {}
 
   inline bool operator==(const Edge& other) {
