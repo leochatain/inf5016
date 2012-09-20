@@ -7,4 +7,4 @@ for line in f:
   a = tuple(line.strip().split(' '))
   x = int(a[0])
   fx = float(a[1])
-  print x, ((x ** 2) * log(x, 2))
+  print x, fx / ((x ** 2) * log(x, 2))
