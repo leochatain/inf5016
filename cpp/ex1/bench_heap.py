@@ -7,7 +7,7 @@ push = []
 pop = []
 update = []
 
-for size in xrange(1024, 2**14 +1, 1024):
+for size in xrange(2**14, 2**18, 2**14):
   stream = os.popen('./bin/bench_heap -b ' + str(num_benchs) + ' -s ' + str(size))
   push.append((size, stream.next().rstrip()))
   pop.append((size, stream.next().rstrip()))
@@ -22,3 +22,5 @@ for t in pop:
 print '# x f(x)'
 for t in update:
   print t[0], t[1]
+
+

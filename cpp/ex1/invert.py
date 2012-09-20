@@ -1,7 +1,9 @@
 from math import log
+import sys
 
-f = open('bench.txt')
-print f.readline() #skip first line
+name = sys.argv[1]
+f = open(name)
+print f.readline().rstrip() #skip first line
 
 for line in f:
   a = tuple(line.strip().split(' '))
