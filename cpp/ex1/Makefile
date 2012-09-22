@@ -3,8 +3,7 @@ CFLAGS=-c -O2 -std=gnu++0x
 LDFLAGS= -std=gnu++0x
 
 MAIN= src/main.cpp
-SOURCES= src/dijkstra.cpp src/graph.cpp
-TEMPLATES = src/binary_heap.h
+SOURCES= src/dijkstra.cpp src/graph.cpp src/binary_heap.cpp
 BENCH_HEAP = src/bench_heap.cpp
 BENCH_DIJ = src/bench_dijkstra.cpp
 
@@ -32,16 +31,16 @@ gen: files/gen.cpp
 	$(CC) files/gen.cpp -o $(BIN_GEN)
 
 $(BIN): $(OBJECTS) $(MAIN)
-	$(CC) $(LDFLAGS) $(OBJECTS) $(TEMPLATES) $(MAIN) -o $@
+	$(CC) $(LDFLAGS) $(OBJECTS) $(MAIN) -o $@
 
 $(BIN_TESTS): $(TEST_OBJECTS) $(OBJECTS)
-	$(CC) $(LDFLAGS) $(TEST_OBJECTS) $(OBJECTS) $(TEMPLATES) -o $@ -lcppunit
+	$(CC) $(LDFLAGS) $(TEST_OBJECTS) $(OBJECTS) -o $@ -lcppunit
 
 $(BIN_BENCH_HEAP): $(OBJECTS) $(BENCH_HEAP)
-	$(CC) $(LDFLAGS) $(OBJECTS) $(TEMPLATES) $(BENCH_HEAP) -o $@
+	$(CC) $(LDFLAGS) $(OBJECTS) $(BENCH_HEAP) -o $@
 
 $(BIN_BENCH_DIJ): $(OBJECTS) $(BENCH_DIJ)
-	$(CC) $(LDFLAGS) $(OBJECTS) $(TEMPLATES) $(BENCH_DIJ) -o $@
+	$(CC) $(LDFLAGS) $(OBJECTS) $(BENCH_DIJ) -o $@
 
 .cpp.o:
 	$(CC) $(CFLAGS) $< -o $@
