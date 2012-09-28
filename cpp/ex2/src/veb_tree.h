@@ -12,7 +12,7 @@ class VebTree {
   bool member(const int vert);
   const bool member(const int vert) const;
 
-  // Pushes an edge to the tree.
+  // Pushes an edge in the tree.
   void push(const Edge& e);
 
   // Pops the min element of the tree.
