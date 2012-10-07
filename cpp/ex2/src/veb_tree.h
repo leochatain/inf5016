@@ -1,4 +1,5 @@
 #include <unordered_map>
+#include <unordered_set>
 
 #include "../../ex1/src/graph.h"
 
@@ -33,7 +34,11 @@ class VebTree {
   void clean();
 
  private:
-  std::unordered_map<Edge, bool> base_;
+  // map<dist, set<val> >
+  std::unordered_map<int, std::unordered_set<int>> index_;
+
+  // set<dist>
+  std::unordered_set<int> base_;
 };
 
 }
