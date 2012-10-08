@@ -1,9 +1,22 @@
+#include <cstddef>
 #include <unordered_map>
 #include <unordered_set>
+#include <vector>
 
 #include "../../ex1/src/graph.h"
 
 namespace inf5016 {
+
+struct VebNode {
+	int u;
+	VebNode* top;
+	std::vector<VebNode*> bottom;
+
+  VebNode(const int height) : h(height) {
+		top = NULL;
+		bottom.resize(1 << (h/2), 0); //  2 ** h/2
+	}
+};
 
 class VebTree {
  public:
