@@ -8,7 +8,7 @@
 namespace inf5016 {
 
 struct VebNode {
-	int u;
+	int h;
 	VebNode* top;
 	std::vector<VebNode*> bottom;
 
