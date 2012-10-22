@@ -2,7 +2,7 @@
 import os
 
 def generate(size):
-  os.system('bin/gen ' + str(size) + ' 1 > files/' + str(size) + '.gr') 
+  os.system('bin/gen ' + str(size) + ' 1 > files/' + str(size) + '.gr')
 
 num_benchs = 10
 

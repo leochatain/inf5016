@@ -27,7 +27,7 @@ void Graph::put(const int u, const int v, const int w) {
     base_.resize(big);
   }
   for (int i = 0; i < base_[u].size(); i++) {
-    assert(base[u][i].to != v);
+    assert(base_[u][i].dest != v);
   }
   base_[u].push_back(Edge(v, w));
 }

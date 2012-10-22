@@ -12,7 +12,6 @@ using namespace std;
 using namespace inf5016;
 
 Graph parse_graph(istream& in);
-
 void print_help();
 
 int main(int argc, char** argv) {
