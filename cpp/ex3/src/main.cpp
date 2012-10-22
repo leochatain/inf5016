@@ -6,6 +6,7 @@
 #include <ctime>
 
 #include "graph.h"
+#include "ford_fulkerson.h"
 
 using namespace std;
 using namespace inf5016;
@@ -26,8 +27,10 @@ int main(int argc, char** argv) {
   // Parse graph and benchmarks.
   const Graph& graph = parse_graph(cin);
 
+  FordFulkerson ff(graph);
 
-  // Maxflow here
+  int max_flow = ff.run(src, dst);
+  cout << max_flow << endl;
 }
 
 Graph parse_graph(istream& in) {
