@@ -15,6 +15,9 @@ class FordFulkerson {
 
   // Creates a residual graph out of the original graph.
   Graph create_residual_graph(const Graph& graph);
+
+  // Dijkstra-like max(min(paths)) way of finding the fattest path
+  int pfs(Graph& residual);
 }
 
 #endif
