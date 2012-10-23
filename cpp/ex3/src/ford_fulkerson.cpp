@@ -61,8 +61,8 @@ int FordFulkerson::pfs(Graph& residual, const int src, const int dst) {
     // Haven't visited this guy yet, add edges to the queue.
     if (cur != dst && from[cur] == -1) {
       for (int i = 0; i < residual[cur].size(); i++) {
-        from[residual[cur][i]] = cur;
-        q.push(graph[cur][i]);
+        from[residual[cur][i].dest] = cur;
+        q.push(residual[cur][i]);
       }
     } else if (cur == dst) {
       // Found the sink.
