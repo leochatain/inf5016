@@ -1,8 +1,10 @@
 #include "ford_fulkerson.h"
 
 #include <queue>
+#include <vector>
 
 using std::queue;
+using std::vector;
 
 namespace inf5016 {
 
@@ -33,22 +35,38 @@ Graph FordFulkerson::create_residual_graph(const Graph& graph) {
   return residual;
 }
 
-// Updates the residual graph with the augmenting path. Returns the
-// width of the path.
+// Updates the residual graph with the augmenting path. Returns the increment
+// on the flow.
 // TODO(leochatain): this should really be a pfs, rather than a bfs.
 int FordFulkerson::pfs(Graph& residual, const int src, const int dst) {
   queue<Edge> q;
+  vector<int> from(residual.size() + 1, -1);
+
   for (int i = 0; i < residual[src].size(); i++) {
     q.push(residual[src][i]);
+    from[residual[src][i].dest] = src;
   }
 
   while (!q.empty()) {
-    const Edge& cur = q.front();
+    const Edge& edge = q.front();
+    const int cur = edge.dest;
+    const int capacity = edge.cost;
     q.pop();
-    if (cur.dest == dst) {
-      // we're home boys
-    } else {
-      // queue up these guys over here.
+
+    // Skips edges with no capacity.
+    if (capacity == 0) {
+      continue;
+    }
+
+    // Haven't visited this guy yet, add edges to the queue.
+    if (cur != dst && from[cur] == -1) {
+      for (int i = 0; i < residual[cur].size(); i++) {
+        from[residual[cur][i]] = cur;
+        q.push(graph[cur][i]);
+      }
+    } else if (cur == dst) {
+      // Found the sink.
+      
     }
   }
 }
