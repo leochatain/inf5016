@@ -10,7 +10,7 @@ namespace inf5016 {
 
 int FordFulkerson::run(const int src, const int dst) {
   Graph residual = create_residual_graph(graph_);
-  while(pfs(residual));
+  while(pfs(residual, src, dst));
 
   // Count forward edges from the source to find out the max flow.
   int max_flow = 0;
@@ -62,19 +62,20 @@ int FordFulkerson::pfs(Graph& residual, const int src, const int dst) {
     const int capacity = edge.cost;
     q.pop();
 
-    // Skips edges with no capacity.
-    if (capacity == 0) {
-      continue;
-    }
-
-    // Haven't visited this guy yet, add edges to the queue.
-    if (cur != dst && from[cur] == -1) {
+    if (cur != dst) {
       for (int i = 0; i < residual[cur].size(); i++) {
-        from[residual[cur][i].dest] = cur;
-        q.push(residual[cur][i]);
+        const Edge& to = residual[cur][i];
+        // Skip edges with no capacity or vertices already visited.
+        if (to.cost == 0 || from[to.dest] != -1) {
+          continue;
+        }
+
+        from[to.dest] = cur;
+        q.push(to);
       }
-    } else if (cur == dst) {
+    } else {
       // Found the sink, recreate the path, finding the minimum.
+
     }
   }
 }
