@@ -1,10 +1,13 @@
 #include "ford_fulkerson.h"
 
+#include <queue>
+
+using std::queue;
+
 namespace inf5016 {
 
 int FordFulkerson::run(const int src, const int dst) {
-	const Graph g;
-  Graph residual = create_residual_graph(g);
+  Graph residual = create_residual_graph(graph_);
 }
 
 Graph FordFulkerson::create_residual_graph(const Graph& graph) {
@@ -27,11 +30,27 @@ Graph FordFulkerson::create_residual_graph(const Graph& graph) {
     }
   }
 
-  return residual;
+	return residual;
 }
 
-Graph pfs(Graph& residual) {
-	return Graph();
+// Updates the residual graph with the augmenting path. Returns the
+// width of the path.
+// TODO(leochatain): this should really be a pfs, rather than a bfs.
+int FordFulkerson::pfs(Graph& residual, const int src, const int dst) {
+	queue<Edge> q;
+	for (int i = 0; i < residual[src].size(); i++) {
+		q.push(residual[src][i]);
+	}
+
+	while (!q.empty()) {
+		const Edge& cur = q.front();
+		q.pop();
+		if (cur.dest == dst) {
+			// we're home boys
+		} else {
+			// queue up these guys over here.
+		}
+	}
 }
 
 }

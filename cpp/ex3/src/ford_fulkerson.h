@@ -19,7 +19,7 @@ class FordFulkerson {
   Graph create_residual_graph(const Graph& graph);
 
   // Dijkstra-like max(min(paths)) way of finding the fattest path
-  int pfs(Graph& residual);
+  int pfs(Graph& residual, const int src, const int dst);
 };
 
 }
