@@ -10,6 +10,13 @@ namespace inf5016 {
 
 Graph::Graph() { }
 
+vector<Edge>& Graph::operator[](const int node) {
+  assert(node >= 0);
+  assert(node < base_.size());
+
+  return base_[node];
+}
+
 const vector<Edge>& Graph::operator[](const int node) const {
   assert(node >= 0);
   assert(node < base_.size());

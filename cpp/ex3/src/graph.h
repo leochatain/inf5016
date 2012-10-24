@@ -30,6 +30,7 @@ class Graph {
  public:
   Graph();
 
+  std::vector<Edge>& operator[](const int node);
   const std::vector<Edge>& operator[](const int node) const;
 
   void put(const int u, const int v, const int w);
