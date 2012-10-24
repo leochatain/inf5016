@@ -47,6 +47,16 @@ Graph FordFulkerson::create_residual_graph(const Graph& graph) {
   return residual;
 }
 
+Edge* find_edge(vector<Edge>& vec, const int dest) {
+  for (int i = 0; i < vec.size(); i++) {
+    if (vec[i].dest == dest) {
+      return &vec[i];
+    }
+  }
+
+  assert(false);
+}
+
 // TODO(leochatain): this should really be a pfs, rather than a bfs.
 int FordFulkerson::pfs(Graph& residual, const int src, const int dst,
     const int cur, const int cap) {
@@ -62,15 +72,8 @@ int FordFulkerson::pfs(Graph& residual, const int src, const int dst,
     // If this path lead to the dst node, update the path and return the value.
     if (path != 0) {
       residual[cur][i].cost -= path;
-      bool found = false;
-      for (int  j = 0; j < residual[to].size(); j++) {
-        if (residual[to][j].dest == cur) {
-          residual[to][j].cost += path;
-          found = true;
-        }
-      }
-      assert (found);
-      return path;
+      Edge* back = find_edge(residual[i], cur);
+      back->dest += path;
     }
   }
 
