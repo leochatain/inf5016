@@ -7,6 +7,9 @@
 #include <vector>
 #include <iostream>
 
+// FIXME
+#define U 10
+
 // Registers the fixture into the 'registry'
 CPPUNIT_TEST_SUITE_REGISTRATION(VebTreeTest);
 
@@ -27,7 +30,7 @@ Edge edge(int num) {
 }
 
 void VebTreeTest::test_push() {
-  VebTree heap;
+  VebTree heap(U);
   CPPUNIT_ASSERT(heap.empty());
 
   heap.push(edge(50));
@@ -52,7 +55,7 @@ void VebTreeTest::test_push() {
 }
 
 void VebTreeTest::test_pop() {
-  VebTree heap;
+  VebTree heap(U);
   const int sx = 100;
 
   vector<int> rvec(sx);
@@ -74,7 +77,7 @@ void VebTreeTest::test_pop() {
 }
 
 void VebTreeTest::test_update() {
-  VebTree heap;
+  VebTree heap(U);
 
   const int sx = 10;
   const int delta = 100;

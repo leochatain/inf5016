@@ -34,7 +34,7 @@ struct VebNode {
 
 class VebTree {
  public:
-  VebTree();
+  VebTree(const int u);
 
   // Check whether a vertex is member of the tree.
   bool member(const int vert);
@@ -67,11 +67,14 @@ class VebTree {
   // map<dist, set<val> >
   std::unordered_map<int, std::unordered_set<int>> dist2verts_;
 
-  // set<dist>
-  std::unordered_set<int> base_;
-
   // Head
   VebNode* head_;
+
+  // Create the tree, returns a pointer to the head.
+  VebNode* create(const int u);
+  // Recursive version of the create function.
+  VebNode* create_rec(const int h);
+
 };
 
 }
