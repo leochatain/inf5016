@@ -28,7 +28,8 @@ int VebTree::size() {}
 
 bool VebTree::empty() {}
 
-void VebTree::clean() {}
+void VebTree::clean() {
+}
 
 // u is a power of 2
 // we'll have u leaves on the tree
@@ -49,6 +50,8 @@ VebNode* VebTree::create_rec(const int h) {
     for (int i = 0; i < node->bottom.size(); i++) {
       node->bottom[i] = create_rec(h/2);
     }
+    // Create top
+    node->top = create_rec(h/2);
   } else {
     node->top = NULL;
     node->bottom[0] = node->bottom[1] = NULL;
