@@ -38,7 +38,6 @@ class VebTree {
 
   // Check whether a vertex is member of the tree.
   bool member(const int vert);
-  const bool member(const int vert) const;
 
   // Pushes an edge in the tree.
   void push(const Edge& e);
@@ -75,6 +74,8 @@ class VebTree {
   // Recursive version of the create function.
   VebNode* create_rec(const int h);
 
+  // Recursive version of the clean function.
+  void clean_rec(VebNode* node);
 };
 
 }

@@ -9,11 +9,18 @@ VebTree::VebTree(const int u) {
 
 // Check whether a vertex is member of the tree.
 bool VebTree::member(const int vert) {
+  int e = vert
   VebNode* node = head_;
-  while (node->h != 2) {
+
+  while (node->h > 2) {
+    st = node->subtree(e);
+    si = node->subindex(e);
+    // member(T.bottom[subtree(e)], subindex(e))
+    node = node->bottom[st];
+    e = si;
   }
+  return node->bottom[e];
 }
-const bool VebTree::member(const int vert) const {}
 
 void VebTree::push(const Edge& edge) {}
 
@@ -24,11 +31,14 @@ const Edge& VebTree::top() const {}
 
 void VebTree::update(const int vert, const int new_cost) {}
 
-int VebTree::size() {}
+int VebTree::size() {
+  return (1<<head_.h);
+}
 
 bool VebTree::empty() {}
 
 void VebTree::clean() {
+  clean_rec(head_);
 }
 
 // u is a power of 2
@@ -58,6 +68,19 @@ VebNode* VebTree::create_rec(const int h) {
   }
 
   return node;
+}
+
+// Recursive version of the clean.
+void clean_rec(VebNode* node) {
+  if (node->h == 2) {
+    node->top = NULL;
+    node->bottom[0] = node->bottom[1] = NULL;
+  } else {
+    clean_rec(node->top);
+    for (int i = 0; i < node->bottom.size(); i++) {
+      clean_rec(node->bottom[i]);
+    }
+  }
 }
 
 }
