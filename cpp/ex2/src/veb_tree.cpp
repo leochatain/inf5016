@@ -32,7 +32,7 @@ const Edge& VebTree::top() const {}
 void VebTree::update(const int vert, const int new_cost) {}
 
 int VebTree::size() {
-  return (1<<head_.h);
+  return (1 << head_.h);
 }
 
 bool VebTree::empty() {}
