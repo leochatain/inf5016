@@ -43,7 +43,7 @@ class VebTree {
   VebTree(const int u);
 
   // Check whether a vertex is member of the tree.
-  bool member(const int vert);
+  bool member(int val);
 
   // Pushes an edge in the tree.
   void push(const Edge& e);

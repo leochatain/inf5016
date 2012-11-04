@@ -8,7 +8,20 @@ VebTree::VebTree(const int u) {
 }
 
 // Check whether a vertex is member of the tree.
-bool VebTree::member(const int vert) {}
+bool VebTree::member(int val) {
+  VebNode* node = head_;
+
+  while (node->u >= 2) {
+    if (val == node->min || val == node->max) {
+      return true;
+    }
+    if (node->u == 2) {
+      return false;
+    }
+    node = node->bottom[high(val)];
+    val = low(val);
+  }
+}
 
 void VebTree::push(const Edge& edge) {}
 
