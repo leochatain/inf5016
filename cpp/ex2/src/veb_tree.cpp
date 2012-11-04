@@ -9,7 +9,8 @@ VebTree::VebTree(const int u) {
 
 // Check whether a vertex is member of the tree.
 bool VebTree::member(const int vert) {
-  int e = vert
+  int e = vert;
+  int st, si;
   VebNode* node = head_;
 
   while (node->h > 2) {
@@ -71,7 +72,7 @@ VebNode* VebTree::create_rec(const int h) {
 }
 
 // Recursive version of the clean.
-void clean_rec(VebNode* node) {
+void VebTree::clean_rec(VebNode* node) {
   if (node->h == 2) {
     node->top = NULL;
     node->bottom[0] = node->bottom[1] = NULL;
