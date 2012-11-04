@@ -18,8 +18,8 @@ bool VebTree::member(int val) {
     if (node->u == 2) {
       return false;
     }
-    node = node->bottom[high(val)];
-    val = low(val);
+    node = node->bottom[node->high(val)];
+    val = node->low(val);
   }
 }
 
