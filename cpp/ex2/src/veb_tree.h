@@ -9,7 +9,11 @@
 namespace inf5016 {
 
 struct VebNode {
+  int min;
+  int max;
+
 	const int h;
+
 	VebNode* top;
 	std::vector<VebNode*> bottom;
 
