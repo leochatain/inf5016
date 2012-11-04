@@ -3,36 +3,38 @@
 #include <unordered_set>
 #include <vector>
 #include <cassert>
+#include <cmath>
 
 #include "../../ex1/src/graph.h"
 
 namespace inf5016 {
 
+// As described in CLRS.
 struct VebNode {
   int min;
   int max;
 
-	const int h;
+	const int u;
 
 	VebNode* top;
 	std::vector<VebNode*> bottom;
 
-  VebNode(const int height) : h(height) {
-    assert(height >= 2);
+  VebNode(const int size) : u(size) {
+    assert(size >= 2);
 
 		top = NULL;
-		bottom.resize(1 << (h/2), NULL); //  2 ** h/2
+		bottom.resize(1 << (int)ceil(sqrt(size)), NULL);
 	}
 
   // Basic tree navigation functions
-  int subtree(int e) {
-    return e >> ((h+1)/2) - 1;
+  int high(const int x) {
+    return (int) (x / (int) (sqrt(u)));
   }
-  int subindex(int e) {
-    return e & (1 << (h/2) - 1) - 1;
+  int low (const int x) {
+    return (int) x % (int) (sqrt(u));
   }
-  int element(int s, int i) {
-    return ((s << (h/2)) - 1) | i;
+  int index(const int x, const int y) {
+    return (int) x * floor(sqrt(u)) + y;
   }
 };
 
@@ -75,8 +77,6 @@ class VebTree {
 
   // Create the tree, returns a pointer to the head.
   VebNode* create(const int u);
-  // Recursive version of the create function.
-  VebNode* create_rec(const int h);
 
   // Recursive version of the clean function.
   void clean_rec(VebNode* node);
