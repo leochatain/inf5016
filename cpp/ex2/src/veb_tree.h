@@ -5,7 +5,7 @@
 #include <cassert>
 #include <cmath>
 
-#include "../../ex1/src/graph.h"
+#include "graph.h"
 
 namespace inf5016 {
 
@@ -55,8 +55,7 @@ class VebTree {
   void update(const int vert, const int new_cost);
 
   // Queries the top value.
-  Edge& top();
-  const Edge& top() const;
+  Edge top();
 
   // The number of elements in the tree.
   int size();

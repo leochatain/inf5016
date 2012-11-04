@@ -8,27 +8,17 @@ VebTree::VebTree(const int u) {
 }
 
 // Check whether a vertex is member of the tree.
-bool VebTree::member(const int vert) {
-  int e = vert;
-  int st, si;
-  VebNode* node = head_;
-
-  while (node->u > 2) {
-    st = node->subtree(e);
-    si = node->subindex(e);
-    // member(T.bottom[subtree(e)], subindex(e))
-    node = node->bottom[st];
-    e = si;
-  }
-  return node->bottom[e];
-}
+bool VebTree::member(const int vert) {}
 
 void VebTree::push(const Edge& edge) {}
 
 void VebTree::pop() {}
 
-Edge& VebTree::top() {}
-const Edge& VebTree::top() const {}
+Edge VebTree::top() {
+  const int dist = head_->min;
+  const int dest = *dist2verts_[dist].begin();
+  return Edge(dest, dist);
+}
 
 void VebTree::update(const int vert, const int new_cost) {}
 
@@ -70,6 +60,9 @@ void VebTree::clean_rec(VebNode* node) {
   if (node->u == 2) {
     node->top = NULL;
     node->bottom[0] = node->bottom[1] = NULL;
+    // Make max < min
+    node->max = 0;
+    node->min = 1;
   } else {
     clean_rec(node->top);
     for (int i = 0; i < node->bottom.size(); i++) {
