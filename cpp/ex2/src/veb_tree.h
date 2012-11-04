@@ -23,7 +23,7 @@ struct VebNode {
     assert(size >= 2);
 
 		top = NULL;
-		bottom.resize(1 << (int)ceil(sqrt(size)), NULL);
+		bottom.resize((int)ceil(sqrt(size)), NULL);
 	}
 
   // Basic tree navigation functions
@@ -64,7 +64,7 @@ class VebTree {
   // Removes all elements from the tree.
   void clean();
 
- private:
+ //private:
   // map<vert, dist>
   std::unordered_map<int, int> vert2dist_;
 

@@ -23,7 +23,19 @@ bool VebTree::member(int val) {
   }
 }
 
-void VebTree::push(const Edge& edge) {}
+void VebTree::push(const Edge& edge) {
+  const int vert = edge.dest;
+  const int cost = edge.cost;
+
+  // Update maps with edge information.
+  vert2dist_[vert] = cost;
+  dist2verts_[cost].insert(vert);
+
+  // Insert cost on the tree.
+  if (this->empty()) {
+    head_->max = head_->min = cost;
+  }
+}
 
 void VebTree::pop() {}
 
@@ -64,6 +76,9 @@ VebNode* VebTree::create(const int u) {
     node->top = NULL;
     node->bottom[0] = node->bottom[1] = NULL;
   }
+  // Make subtree empty
+  node->max = 0;
+  node->min = 1;
 
   return node;
 }
