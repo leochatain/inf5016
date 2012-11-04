@@ -31,11 +31,11 @@ const Edge& VebTree::top() const {}
 
 void VebTree::update(const int vert, const int new_cost) {}
 
-int VebTree::size() {
-  return (1 << head_.h);
-}
+int VebTree::size() {}
 
-bool VebTree::empty() {}
+bool VebTree::empty() {
+  return head_->min > head_->max;
+}
 
 void VebTree::clean() {
   clean_rec(head_);
