@@ -31,9 +31,25 @@ void VebTree::push(const Edge& edge) {
   vert2dist_[vert] = cost;
   dist2verts_[cost].insert(vert);
 
+  push_rec(head_, cost);
+}
+
+void VebTree::push_rec(VebNode* node, int val) {
   // Insert cost on the tree.
   if (this->empty()) {
-    head_->max = head_->min = cost;
+    node->max = node->min = val;
+    return;
+  }
+
+  if (val < node->min) {
+    std::swap(node->min, val);
+  }
+  if (node->u > 2) {
+    if (node->bottom[node->high(val)]->min) {
+    }
+  }
+  if (val > node->max) {
+    node->max = val;
   }
 }
 

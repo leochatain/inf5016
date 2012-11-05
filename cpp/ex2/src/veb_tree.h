@@ -77,7 +77,7 @@ class VebTree {
   // Create the tree, returns a pointer to the head.
   VebNode* create(const int u);
 
-  // Recursive version of the clean function.
+  void push_rec(VebNode* node, int val);
   void clean_rec(VebNode* node);
 };
 
