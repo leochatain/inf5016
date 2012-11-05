@@ -78,6 +78,7 @@ class VebTree {
   VebNode* create(const int u);
 
   void push_rec(VebNode* node, int val);
+  void del_rec(VebNode* node, int val);
   void clean_rec(VebNode* node);
 };
 

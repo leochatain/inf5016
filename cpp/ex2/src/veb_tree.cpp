@@ -34,31 +34,13 @@ void VebTree::push(const Edge& edge) {
   push_rec(head_, cost);
 }
 
-void VebTree::push_rec(VebNode* node, int val) {
-  // Insert cost on the tree.
-  if (this->empty()) {
-    node->max = node->min = val;
-    return;
-  }
+void VebTree::pop() {
+  const int val = head_->min;
 
-  if (val < node->min) {
-    std::swap(node->min, val);
-  }
-  if (node->u > 2) {
-    VebNode* cluster = node->bottom[node->high(val)];
-    if (cluster->min > cluster->max) { // cluster is empty
-      push_rec(node->top, node->high(val));
-      node->max = node->min = val;
-    } else {
-      push_rec(cluster, node->low(val));
-    }
-  }
-  if (val > node->max) {
-    node->max = val;
-  }
+  // Do the map magic.
+
+  del_rec(head_, val);
 }
-
-void VebTree::pop() {}
 
 Edge VebTree::top() {
   const int dist = head_->min;
@@ -102,6 +84,30 @@ VebNode* VebTree::create(const int u) {
   node->min = 1;
 
   return node;
+}
+
+void VebTree::push_rec(VebNode* node, int val) {
+  // Insert cost on the tree.
+  if (this->empty()) {
+    node->max = node->min = val;
+    return;
+  }
+
+  if (val < node->min) {
+    std::swap(node->min, val);
+  }
+  if (node->u > 2) {
+    VebNode* cluster = node->bottom[node->high(val)];
+    if (cluster->min > cluster->max) { // cluster is empty
+      push_rec(node->top, node->high(val));
+      node->max = node->min = val;
+    } else {
+      push_rec(cluster, node->low(val));
+    }
+  }
+  if (val > node->max) {
+    node->max = val;
+  }
 }
 
 // Recursive version of the clean.
