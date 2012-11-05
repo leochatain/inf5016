@@ -110,6 +110,9 @@ void VebTree::push_rec(VebNode* node, int val) {
   }
 }
 
+void VebTree::del_rec(VebNode* node, int val) {
+}
+
 // Recursive version of the clean.
 void VebTree::clean_rec(VebNode* node) {
   if (node->u == 2) {
