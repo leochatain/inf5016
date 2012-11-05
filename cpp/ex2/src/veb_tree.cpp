@@ -45,7 +45,12 @@ void VebTree::push_rec(VebNode* node, int val) {
     std::swap(node->min, val);
   }
   if (node->u > 2) {
-    if (node->bottom[node->high(val)]->min) {
+    VebNode* cluster = node->bottom[node->high(val)];
+    if (cluster->min > cluster->max) { // cluster is empty
+      push_rec(node->top, node->high(val));
+      node->max = node->min = val;
+    } else {
+      push_rec(cluster, node->low(val));
     }
   }
   if (val > node->max) {
