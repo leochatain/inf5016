@@ -12,8 +12,10 @@ VebTree::VebTree(const int u) {
 
 // Check whether a vertex is member of the tree.
 bool VebTree::member(int val) {
-  VebNode* node = head_;
+  assert(head_ != NULL);
+  assert(val >= 0);
 
+  VebNode* node = head_;
   while (node->u >= 2) {
     if (val == node->min || val == node->max) {
       return true;
@@ -26,6 +28,7 @@ bool VebTree::member(int val) {
   }
 }
 
+// TODO(leochatain): finish this.
 void VebTree::push(const Edge& edge) {
   const int vert = edge.dest;
   const int cost = edge.cost;
