@@ -130,19 +130,25 @@ void VebTree::del_rec(VebNode* node, int val) {
 
 // Recursive version of the clean.
 void VebTree::clean_rec(VebNode* node) {
+  // Node is a leaf.
   if (node->u == 2) {
-    // These pointers do not point to any structure, they represent the tree.
-    node->top = NULL;
-    node->bottom[0] = node->bottom[1] = NULL;
-    // Make max < min.
-    node->max = 0;
-    node->min = 1;
+    clean_leaf(node);
   } else {
     clean_rec(node->top);
     for (int i = 0; i < node->bottom.size(); i++) {
       clean_rec(node->bottom[i]);
     }
   }
+}
+
+// Cleans a leaf. If node isn't a leaf, bad things will happen.
+void VebTree::clean_leaf(VebNode* node) {
+  // These pointers do not point to any structure, they represent the tree.
+  node->top = NULL;
+  node->bottom[0] = node->bottom[1] = NULL;
+  // Make max < min.
+  node->max = 0;
+  node->min = 1;
 }
 
 }
