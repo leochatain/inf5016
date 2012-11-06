@@ -23,10 +23,14 @@ struct VebNode {
     assert(size >= 2);
 
 		top = NULL;
-		bottom.resize((int)ceil(sqrt(size)), NULL);
+		bottom.resize((int) ceil(sqrt(size)), NULL);
 	}
 
-  // Basic tree navigation functions
+  bool empty() {
+    return min > max;
+  }
+
+  // Basic tree navigation functions.
   int high(const int x) {
     return (int) (x / (int) (sqrt(u)));
   }

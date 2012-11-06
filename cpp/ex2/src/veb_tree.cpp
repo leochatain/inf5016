@@ -4,6 +4,9 @@
 namespace inf5016 {
 
 VebTree::VebTree(const int u) {
+  // u must be a power of 2.
+  assert(u & (u-1) == 0);
+
   this->head_ = create(u);
 }
 
@@ -35,9 +38,11 @@ void VebTree::push(const Edge& edge) {
 }
 
 void VebTree::pop() {
+  assert(!this->empty());
+
   const int val = head_->min;
 
-  // Do the map magic.
+  // TODO: Do the map magic.
 
   del_rec(head_, val);
 }
@@ -50,10 +55,12 @@ Edge VebTree::top() {
 
 void VebTree::update(const int vert, const int new_cost) {}
 
-int VebTree::size() {}
+int VebTree::size() {
+  return vert2dist_.size();
+}
 
 bool VebTree::empty() {
-  return head_->min > head_->max;
+  return head_->empty();
 }
 
 void VebTree::clean() {
@@ -98,7 +105,7 @@ void VebTree::push_rec(VebNode* node, int val) {
   }
   if (node->u > 2) {
     VebNode* cluster = node->bottom[node->high(val)];
-    if (cluster->min > cluster->max) { // cluster is empty
+    if (cluster->min > cluster->max) { // cluster is empty.
       push_rec(node->top, node->high(val));
       node->max = node->min = val;
     } else {
@@ -110,15 +117,24 @@ void VebTree::push_rec(VebNode* node, int val) {
   }
 }
 
+// Assumes val is contained in node.
 void VebTree::del_rec(VebNode* node, int val) {
+  if (node->min == node->max) {
+    node->min = 1; node->max = 0;
+  } else if (node->u == 2) {
+  } else {
+    if (node->min == val) {
+    }
+  }
 }
 
 // Recursive version of the clean.
 void VebTree::clean_rec(VebNode* node) {
   if (node->u == 2) {
+    // These pointers do not point to any structure, they represent the tree.
     node->top = NULL;
     node->bottom[0] = node->bottom[1] = NULL;
-    // Make max < min
+    // Make max < min.
     node->max = 0;
     node->min = 1;
   } else {
