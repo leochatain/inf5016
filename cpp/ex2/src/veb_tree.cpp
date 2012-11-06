@@ -28,7 +28,6 @@ bool VebTree::member(int val) {
   }
 }
 
-// TODO(leochatain): finish this.
 void VebTree::push(const Edge& edge) {
   const int vert = edge.dest;
   const int cost = edge.cost;
@@ -40,10 +39,11 @@ void VebTree::push(const Edge& edge) {
   push_rec(head_, cost);
 }
 
+// TODO(leochatain): finish this.
 void VebTree::pop() {
   assert(!this->empty());
 
-  const int val = head_->min;
+  const Edge& min_edge = this->top();
 
   // TODO: Do the map magic.
 
