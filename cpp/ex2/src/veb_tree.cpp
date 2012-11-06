@@ -1,6 +1,9 @@
 #include "veb_tree.h"
 #include <cmath>
 
+using std::unordered_map;
+using std::unordered_set;
+
 namespace inf5016 {
 
 VebTree::VebTree(const int u) {
@@ -39,15 +42,26 @@ void VebTree::push(const Edge& edge) {
   push_rec(head_, cost);
 }
 
-// TODO(leochatain): finish this.
 void VebTree::pop() {
   assert(!this->empty());
 
   const Edge& min_edge = this->top();
+  const int vert = min_edge.dest;
+  const int dist = min_edge.cost;
 
-  // TODO: Do the map magic.
+  // Remove this edge from the vert2dist_ map.
+  // There is only one pair vert-dist.
+  unordered_map<int, int>::iterator v2d_it = vert2dist_.find(vert);
+  vert2dist_.erase(v2d_it);
+  // Remove it from the dist2verts_ map.
+  unordered_map<int, unordered_set<int> >::iterator d2v_it = dist2verts_.find(dist);
+  unordered_set<int>::iterator it = d2v_it->second.find(vert);
+  d2v_it->second.erase(it);
+  if (d2v_it->second.empty()) {
+    dist2verts_.erase(d2v_it);
+  }
 
-  del_rec(head_, val);
+  del_rec(head_, min_edge.cost);
 }
 
 Edge VebTree::top() {
@@ -70,6 +84,7 @@ void VebTree::clean() {
   clean_rec(head_);
 }
 
+// TODO(leochatain) do not always create everything
 // u is a power of 2
 // we'll have u leaves on the tree
 VebNode* VebTree::create(const int u) {
@@ -125,9 +140,15 @@ void VebTree::push_rec(VebNode* node, int val) {
 void VebTree::del_rec(VebNode* node, int val) {
   assert(val <= node->max && val >= node->min);
 
-  if (node->min == node->max) {
+  if (node->min == node->max) { // only one element
     node->min = 1; node->max = 0;
-  } else if (node->u == 2) {
+  } else if (node->u == 2) { // base case
+    if (val == 0) { // this doesn't make any sense
+      node->min = 1;
+    } else {
+      node->min = 0;
+      node->max = node->min;
+    }
   } else {
     if (node->min == val) {
     }
