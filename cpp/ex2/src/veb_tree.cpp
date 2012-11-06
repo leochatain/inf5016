@@ -117,8 +117,11 @@ void VebTree::push_rec(VebNode* node, int val) {
   }
 }
 
+// TODO(leochatain): finish this
 // Assumes val is contained in node.
 void VebTree::del_rec(VebNode* node, int val) {
+  assert(val <= node->max && val >= node->min);
+
   if (node->min == node->max) {
     node->min = 1; node->max = 0;
   } else if (node->u == 2) {
