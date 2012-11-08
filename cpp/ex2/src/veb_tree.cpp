@@ -47,11 +47,14 @@ void VebTree::push(const Edge& edge) {
 }
 
 void VebTree::pop() {
+  cout << endl;
+  cout << "POP" << endl;
   assert(!this->empty());
 
   const Edge& min_edge = this->top();
   const int vert = min_edge.dest;
   const int dist = min_edge.cost;
+  cout << "We'll remove vert: " << vert << " dist " << dist << endl;
 
   // Remove this edge from the vert2dist_ map.
   // There is only one pair vert-dist.
@@ -145,19 +148,43 @@ void VebTree::push_rec(VebNode* node, int val) {
 
 // Assumes val is contained in node.
 void VebTree::del_rec(VebNode* node, int val) {
+  cout << endl;
+  cout << "DEL REC" << endl;
   assert(val <= node->max && val >= node->min);
 
   if (node->min == node->max) { // only one element
     node->min = 1; node->max = 0;
+    cout << "one element only" << endl;
   } else if (node->u == 2) { // base case
-    if (val == 0) {
+    cout << "base case" << endl;
+    if (val == 0)
       node->min = 1;
-    } else {
+    else
       node->min = 0;
-    }
     node->max = node->min;
   } else {
+    cout << "regular case" << endl;
     if (node->min == val) {
+      int first_cluster = node->top->min;
+      val = node->index(first_cluster, node->bottom[first_cluster]->max);
+      node->min = val;
+    }
+    del_rec(node->bottom[node->high(val)], node->low(val));
+    VebNode* cluster = node->bottom[node->high(val)];
+    if (cluster->empty()) {
+      del_rec(node->top, node->high(val));
+      if (val == node->max) {
+        int top_max = node->top->max;
+        if (node->top->empty()) {
+          node->max = node->min;
+        } else {
+          node->max = node->index(top_max, node->bottom[top_max]->max);
+        }
+      }
+    } else {
+      val = node->max;
+      node->max = node->index(node->high(val),
+          node->bottom[node->high(val)]->max);
     }
   }
 }
