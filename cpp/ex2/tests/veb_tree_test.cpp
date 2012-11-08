@@ -109,7 +109,7 @@ void VebTreeTest::test_member() {
   heap.push(edge(15));
   heap.push(edge(2));
 
-  //heap.print_tree();
+  heap.print_tree();
 
   CPPUNIT_ASSERT(heap.member(4));
   CPPUNIT_ASSERT(heap.member(14));
