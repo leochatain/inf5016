@@ -27,7 +27,9 @@ struct VebNode {
     assert(size >= 2);
 
 		top = NULL;
-		bottom.resize((int) ceil(sqrt(size)), NULL);
+    if (size > 2) {
+      bottom.resize((int) ceil(sqrt(size)), NULL);
+    }
 	}
 
   bool empty() {

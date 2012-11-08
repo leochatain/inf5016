@@ -101,7 +101,6 @@ VebNode* VebTree::create(const int u) {
     node->top = create((int)sqrt(u));
   } else {
     node->top = NULL;
-    node->bottom[0] = node->bottom[1] = NULL;
   }
   // Make subtree empty
   node->max = 0;
@@ -228,8 +227,15 @@ void VebTree::clean_leaf(VebNode* node) {
 
 void VebTree::print_rec(VebNode* node, int ind) {
   node->print(ind);
-  for (int i = 0; i < node->bottom.size(); i++) {
-    print_rec(node->bottom[i], ind+4);
+  if (node->u > 2) {
+    for (int i = 0; i < ind; i++) cout << " ";
+    cout << "TOP" << endl;
+    print_rec(node->top,ind+4);
+    for (int i = 0; i < ind; i++) cout << " ";
+    cout << "BOTTOM" << endl;
+    for (int i = 0; i < node->bottom.size(); i++) {
+      print_rec(node->bottom[i], ind+4);
+    }
   }
 }
 
