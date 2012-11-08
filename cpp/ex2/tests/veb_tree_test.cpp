@@ -32,7 +32,6 @@ void VebTreeTest::test_create() {
 
   VebTree tree(size);
   CPPUNIT_ASSERT(tree.empty());
-  CPPUNIT_ASSERT_EQUAL((int) sqrt(size), (int) tree.head_->bottom.size());
 }
 
 void VebTreeTest::test_push_order() {
@@ -71,21 +70,27 @@ void VebTreeTest::test_push_out_of_order() {
   heap.push(edge(15));
   CPPUNIT_ASSERT_EQUAL(heap.size(), 1);
   CPPUNIT_ASSERT_EQUAL(15, heap.top().cost);
+
   heap.push(edge(14));
   CPPUNIT_ASSERT_EQUAL(heap.size(), 2);
   CPPUNIT_ASSERT_EQUAL(14, heap.top().cost);
+
   heap.push(edge(7));
   CPPUNIT_ASSERT_EQUAL(heap.size(), 3);
   CPPUNIT_ASSERT_EQUAL(7, heap.top().cost);
+
   heap.push(edge(5));
   CPPUNIT_ASSERT_EQUAL(heap.size(), 4);
   CPPUNIT_ASSERT_EQUAL(5, heap.top().cost);
+
   heap.push(edge(4));
   CPPUNIT_ASSERT_EQUAL(heap.size(), 5);
   CPPUNIT_ASSERT_EQUAL(4, heap.top().cost);
+
   heap.push(edge(3));
   CPPUNIT_ASSERT_EQUAL(heap.size(), 6);
   CPPUNIT_ASSERT_EQUAL(3, heap.top().cost);
+
   heap.push(edge(2));
   CPPUNIT_ASSERT_EQUAL(heap.size(), 7);
   CPPUNIT_ASSERT_EQUAL(2, heap.top().cost);
@@ -104,6 +109,8 @@ void VebTreeTest::test_member() {
   heap.push(edge(15));
   heap.push(edge(2));
 
+  //heap.print_tree();
+
   CPPUNIT_ASSERT(heap.member(4));
   CPPUNIT_ASSERT(heap.member(14));
   CPPUNIT_ASSERT(heap.member(3));
@@ -111,6 +118,16 @@ void VebTreeTest::test_member() {
   CPPUNIT_ASSERT(heap.member(2));
   CPPUNIT_ASSERT(heap.member(7));
   CPPUNIT_ASSERT(heap.member(5));
+
+  CPPUNIT_ASSERT(!heap.member(0));
+  CPPUNIT_ASSERT(!heap.member(1));
+  CPPUNIT_ASSERT(!heap.member(6));
+  CPPUNIT_ASSERT(!heap.member(8));
+  CPPUNIT_ASSERT(!heap.member(9));
+  CPPUNIT_ASSERT(!heap.member(10));
+  CPPUNIT_ASSERT(!heap.member(11));
+  CPPUNIT_ASSERT(!heap.member(12));
+  CPPUNIT_ASSERT(!heap.member(13));
 }
 
 void VebTreeTest::test_pop() {
@@ -126,23 +143,58 @@ void VebTreeTest::test_pop() {
   heap.push(edge(14));
   heap.push(edge(15));
 
+  CPPUNIT_ASSERT(heap.member(4));
+  CPPUNIT_ASSERT(heap.member(14));
+  CPPUNIT_ASSERT(heap.member(3));
+  CPPUNIT_ASSERT(heap.member(15));
+  CPPUNIT_ASSERT(heap.member(2));
+  CPPUNIT_ASSERT(heap.member(7));
+  CPPUNIT_ASSERT(heap.member(5));
   CPPUNIT_ASSERT_EQUAL(2, heap.top().cost);
   heap.pop();
+  CPPUNIT_ASSERT(!heap.member(2));
+
+  CPPUNIT_ASSERT(heap.member(4));
+  CPPUNIT_ASSERT(heap.member(14));
+  CPPUNIT_ASSERT(heap.member(3));
+  CPPUNIT_ASSERT(heap.member(15));
+  CPPUNIT_ASSERT(heap.member(7));
+  CPPUNIT_ASSERT(heap.member(5));
   CPPUNIT_ASSERT_EQUAL(3, heap.top().cost);
-  cout << "ONE" << endl;
   heap.pop();
+  CPPUNIT_ASSERT(!heap.member(3));
+
+  CPPUNIT_ASSERT(heap.member(4));
+  CPPUNIT_ASSERT(heap.member(14));
+  CPPUNIT_ASSERT(heap.member(15));
+  CPPUNIT_ASSERT(heap.member(7));
+  CPPUNIT_ASSERT(heap.member(5));
   CPPUNIT_ASSERT_EQUAL(4, heap.top().cost);
-  cout << "TWO" << endl;
   heap.pop();
+  CPPUNIT_ASSERT(!heap.member(4));
+
+  CPPUNIT_ASSERT(heap.member(14));
+  CPPUNIT_ASSERT(heap.member(15));
+  CPPUNIT_ASSERT(heap.member(7));
+  CPPUNIT_ASSERT(heap.member(5));
   CPPUNIT_ASSERT_EQUAL(5, heap.top().cost);
-  cout << "THREE" << endl;
   heap.pop();
+  CPPUNIT_ASSERT(!heap.member(5));
+
+  CPPUNIT_ASSERT(heap.member(14));
+  CPPUNIT_ASSERT(heap.member(15));
+  CPPUNIT_ASSERT(heap.member(7));
   CPPUNIT_ASSERT_EQUAL(7, heap.top().cost);
   heap.pop();
+  CPPUNIT_ASSERT(!heap.member(7));
+
   CPPUNIT_ASSERT_EQUAL(14, heap.top().cost);
   heap.pop();
+  CPPUNIT_ASSERT(!heap.member(14));
+
   CPPUNIT_ASSERT_EQUAL(15, heap.top().cost);
   heap.pop();
+
   CPPUNIT_ASSERT(heap.empty());*/
 }
 

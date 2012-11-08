@@ -37,13 +37,12 @@ void VebTree::push(const Edge& edge) {
 }
 
 void VebTree::pop() {
-  cout << endl;
-  cout << "POP" << endl;
   assert(!this->empty());
 
   const Edge& min_edge = this->top();
   const int vert = min_edge.dest;
   const int dist = min_edge.cost;
+  cout << endl << endl;
   cout << "We'll remove vert: " << vert << " dist " << dist << endl;
 
   // Remove this edge from the vert2dist_ map.
@@ -139,7 +138,10 @@ void VebTree::push_rec(VebNode* node, int val) {
 // Assumes val is contained in node.
 void VebTree::del_rec(VebNode* node, int val) {
   cout << endl;
-  cout << "DEL REC" << endl;
+  cout << "DEL REC " << val << endl;
+  node->print();
+
+  assert(member_rec(node, val));
   assert(val <= node->max && val >= node->min);
 
   if (node->min == node->max) { // only one element
@@ -155,15 +157,22 @@ void VebTree::del_rec(VebNode* node, int val) {
   } else {
     cout << "regular case" << endl;
     if (node->min == val) {
+      cout << "node is min" << endl;
       int first_cluster = node->top->min;
       val = node->index(first_cluster, node->bottom[first_cluster]->max);
       node->min = val;
+      cout << "new min is " << node->min << endl;
+      cout << "new val is " << val << endl;
     }
-    del_rec(node->bottom[node->high(val)], node->low(val));
     VebNode* cluster = node->bottom[node->high(val)];
+    del_rec(cluster, node->low(val));
+    cout << "Just deleted it from the cluster" << endl;
     if (cluster->empty()) {
+      cout << "Cluster is empty now" << endl;
       del_rec(node->top, node->high(val));
+      cout << "Just deleted from the top" << endl;
       if (val == node->max) {
+        cout << "val == max" << endl;
         int top_max = node->top->max;
         if (node->top->empty()) {
           node->max = node->min;
@@ -193,6 +202,9 @@ void VebTree::clean_rec(VebNode* node) {
 }
 
 bool VebTree::member_rec(VebNode* node, int val) {
+  if (node->empty()) {
+    return false;
+  }
   if (val == node->min || val == node->max) {
     return true;
   }
@@ -204,12 +216,25 @@ bool VebTree::member_rec(VebNode* node, int val) {
 
 // Cleans a leaf. If node isn't a leaf, bad things will happen.
 void VebTree::clean_leaf(VebNode* node) {
+  assert(node->u == 2);
+
   // These pointers do not point to any structure, they represent the tree.
   node->top = NULL;
   node->bottom[0] = node->bottom[1] = NULL;
   // Make max < min.
   node->max = 0;
   node->min = 1;
+}
+
+void VebTree::print_rec(VebNode* node, int ind) {
+  node->print(ind);
+  for (int i = 0; i < node->bottom.size(); i++) {
+    print_rec(node->bottom[i], ind+4);
+  }
+}
+
+void VebTree::print_tree() {
+  print_rec(head_, 0);
 }
 
 }

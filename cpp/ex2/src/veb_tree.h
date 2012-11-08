@@ -45,9 +45,12 @@ struct VebNode {
     return (int) x * floor(sqrt(u)) + y;
   }
 
-  void print() {
+  void print(const int ind = 0) {
+    for (int i = 0; i < ind; i++) cout << " ";
     cout << "**************************************" << endl;
-    cout << "u " << u << " min " << min << " max " << max << endl;
+    for (int i = 0; i < ind; i++) cout << " ";
+    cout << "u " << u << "        min " << min << "        max " << max << endl;
+    for (int i = 0; i < ind; i++) cout << " ";
     cout << "**************************************" << endl;
   }
 };
@@ -78,7 +81,9 @@ class VebTree {
   // Removes all elements from the tree.
   void clean();
 
- //private:
+  void print_tree();
+
+ private:
   // map<vert, dist>
   std::unordered_map<int, int> vert2dist_;
 
@@ -96,6 +101,7 @@ class VebTree {
   bool member_rec(VebNode* node, int val);
   void clean_rec(VebNode* node);
   void clean_leaf(VebNode* node);
+  void print_rec(VebNode* node, int ind);
 };
 
 }
