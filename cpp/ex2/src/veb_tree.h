@@ -1,4 +1,5 @@
 #include <cstddef>
+#include <iostream>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -6,6 +7,9 @@
 #include <cmath>
 
 #include "graph.h"
+
+using std::cout;
+using std::endl;
 
 namespace inf5016 {
 
@@ -39,6 +43,12 @@ struct VebNode {
   }
   int index(const int x, const int y) {
     return (int) x * floor(sqrt(u)) + y;
+  }
+
+  void print() {
+    cout << "**************************************" << endl;
+    cout << "u " << u << " min " << min << " max " << max << endl;
+    cout << "**************************************" << endl;
   }
 };
 

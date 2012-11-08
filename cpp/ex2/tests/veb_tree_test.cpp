@@ -28,36 +28,67 @@ Edge edge(int num) {
 }
 
 void VebTreeTest::test_create() {
-  const int size = 1 << 4; // 16
+  const int size = 16;
 
   VebTree tree(size);
   CPPUNIT_ASSERT(tree.empty());
   CPPUNIT_ASSERT_EQUAL((int) sqrt(size), (int) tree.head_->bottom.size());
 }
 
-void VebTreeTest::test_push() {
-  /*VebTree heap(U);
+void VebTreeTest::test_push_order() {
+  const int size = 16;
+  VebTree heap(size);
   CPPUNIT_ASSERT(heap.empty());
 
-  heap.push(edge(50));
-  CPPUNIT_ASSERT(!heap.empty());
-  CPPUNIT_ASSERT_EQUAL(1, heap.size());
-  CPPUNIT_ASSERT_EQUAL(50, heap.top().cost);
+  heap.push(edge(2));
+  CPPUNIT_ASSERT_EQUAL(heap.size(), 1);
+  CPPUNIT_ASSERT_EQUAL(2, heap.top().cost);
+  heap.push(edge(3));
+  CPPUNIT_ASSERT_EQUAL(heap.size(), 2);
+  CPPUNIT_ASSERT_EQUAL(2, heap.top().cost);
+  heap.push(edge(4));
+  CPPUNIT_ASSERT_EQUAL(heap.size(), 3);
+  CPPUNIT_ASSERT_EQUAL(2, heap.top().cost);
+  heap.push(edge(5));
+  CPPUNIT_ASSERT_EQUAL(heap.size(), 4);
+  CPPUNIT_ASSERT_EQUAL(2, heap.top().cost);
+  heap.push(edge(7));
+  CPPUNIT_ASSERT_EQUAL(heap.size(), 5);
+  CPPUNIT_ASSERT_EQUAL(2, heap.top().cost);
+  heap.push(edge(14));
+  CPPUNIT_ASSERT_EQUAL(heap.size(), 6);
+  CPPUNIT_ASSERT_EQUAL(2, heap.top().cost);
+  heap.push(edge(15));
+  CPPUNIT_ASSERT_EQUAL(heap.size(), 7);
+  CPPUNIT_ASSERT_EQUAL(2, heap.top().cost);
+}
 
-  heap.push(edge(49));
-  CPPUNIT_ASSERT_EQUAL(2, heap.size());
-  CPPUNIT_ASSERT_EQUAL(49, heap.top().cost);
+void VebTreeTest::test_push_out_of_order() {
+  const int size = 16;
+  VebTree heap(size);
+  CPPUNIT_ASSERT(heap.empty());
 
-  for (int i = 0; i < 1000; i++) {
-    heap.push(edge(100 + i));
-  }
-  CPPUNIT_ASSERT_EQUAL(1002, heap.size());
-  CPPUNIT_ASSERT_EQUAL(49, heap.top().cost);
-
-  for (int i = 10; i >= 0; i--) {
-    heap.push(edge(i));
-    CPPUNIT_ASSERT_EQUAL(i, heap.top().cost);
-  }*/
+  heap.push(edge(15));
+  CPPUNIT_ASSERT_EQUAL(heap.size(), 1);
+  CPPUNIT_ASSERT_EQUAL(15, heap.top().cost);
+  heap.push(edge(14));
+  CPPUNIT_ASSERT_EQUAL(heap.size(), 2);
+  CPPUNIT_ASSERT_EQUAL(14, heap.top().cost);
+  heap.push(edge(7));
+  CPPUNIT_ASSERT_EQUAL(heap.size(), 3);
+  CPPUNIT_ASSERT_EQUAL(7, heap.top().cost);
+  heap.push(edge(5));
+  CPPUNIT_ASSERT_EQUAL(heap.size(), 4);
+  CPPUNIT_ASSERT_EQUAL(5, heap.top().cost);
+  heap.push(edge(4));
+  CPPUNIT_ASSERT_EQUAL(heap.size(), 5);
+  CPPUNIT_ASSERT_EQUAL(4, heap.top().cost);
+  heap.push(edge(3));
+  CPPUNIT_ASSERT_EQUAL(heap.size(), 6);
+  CPPUNIT_ASSERT_EQUAL(3, heap.top().cost);
+  heap.push(edge(2));
+  CPPUNIT_ASSERT_EQUAL(heap.size(), 7);
+  CPPUNIT_ASSERT_EQUAL(2, heap.top().cost);
 }
 
 void VebTreeTest::test_pop() {

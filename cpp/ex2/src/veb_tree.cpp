@@ -1,14 +1,18 @@
 #include "veb_tree.h"
 #include <cmath>
 
+#include <iostream>
+
 using std::unordered_map;
 using std::unordered_set;
+
+using namespace std;
 
 namespace inf5016 {
 
 VebTree::VebTree(const int u) {
   // u must be a power of 2.
-  assert(u & (u-1) == 0);
+  assert((u & (u-1)) == 0);
 
   this->head_ = create(u);
 }
@@ -54,7 +58,8 @@ void VebTree::pop() {
   unordered_map<int, int>::iterator v2d_it = vert2dist_.find(vert);
   vert2dist_.erase(v2d_it);
   // Remove it from the dist2verts_ map.
-  unordered_map<int, unordered_set<int> >::iterator d2v_it = dist2verts_.find(dist);
+  unordered_map<int, unordered_set<int> >::iterator d2v_it =
+      dist2verts_.find(dist);
   unordered_set<int>::iterator it = d2v_it->second.find(vert);
   d2v_it->second.erase(it);
   if (d2v_it->second.empty()) {
@@ -65,6 +70,8 @@ void VebTree::pop() {
 }
 
 Edge VebTree::top() {
+  assert(!empty());
+
   const int dist = head_->min;
   const int dest = *dist2verts_[dist].begin();
   return Edge(dest, dist);
@@ -96,10 +103,10 @@ VebNode* VebTree::create(const int u) {
   if (u > 2) {
     // Create children
     for (int i = 0; i < node->bottom.size(); i++) {
-      node->bottom[i] = create(u/2);
+      node->bottom[i] = create((int)sqrt(u));
     }
     // Create top
-    node->top = create(u/2);
+    node->top = create((int)sqrt(u));
   } else {
     node->top = NULL;
     node->bottom[0] = node->bottom[1] = NULL;
@@ -121,11 +128,12 @@ void VebTree::push_rec(VebNode* node, int val) {
   if (val < node->min) {
     std::swap(node->min, val);
   }
+
   if (node->u > 2) {
     VebNode* cluster = node->bottom[node->high(val)];
-    if (cluster->min > cluster->max) { // cluster is empty.
+    if (cluster->empty()) {
       push_rec(node->top, node->high(val));
-      node->max = node->min = val;
+      cluster->max = cluster->min = node->low(val);
     } else {
       push_rec(cluster, node->low(val));
     }
@@ -135,7 +143,6 @@ void VebTree::push_rec(VebNode* node, int val) {
   }
 }
 
-// TODO(leochatain): finish this
 // Assumes val is contained in node.
 void VebTree::del_rec(VebNode* node, int val) {
   assert(val <= node->max && val >= node->min);
@@ -143,12 +150,12 @@ void VebTree::del_rec(VebNode* node, int val) {
   if (node->min == node->max) { // only one element
     node->min = 1; node->max = 0;
   } else if (node->u == 2) { // base case
-    if (val == 0) { // this doesn't make any sense
+    if (val == 0) {
       node->min = 1;
     } else {
       node->min = 0;
-      node->max = node->min;
     }
+    node->max = node->min;
   } else {
     if (node->min == val) {
     }
