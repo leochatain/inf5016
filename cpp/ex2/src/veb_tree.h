@@ -93,6 +93,7 @@ class VebTree {
 
   void push_rec(VebNode* node, int val);
   void del_rec(VebNode* node, int val);
+  bool member_rec(VebNode* node, int val);
   void clean_rec(VebNode* node);
   void clean_leaf(VebNode* node);
 };

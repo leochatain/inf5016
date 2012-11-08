@@ -20,19 +20,9 @@ VebTree::VebTree(const int u) {
 // Check whether a vertex is member of the tree.
 bool VebTree::member(int val) {
   assert(head_ != NULL);
-  assert(val >= 0);
+  assert(val >= 0 && val < head_->u);
 
-  VebNode* node = head_;
-  while (node->u >= 2) {
-    if (val == node->min || val == node->max) {
-      return true;
-    }
-    if (node->u == 2) {
-      return false;
-    }
-    node = node->bottom[node->high(val)];
-    val = node->low(val);
-  }
+  return member_rec(head_, val);
 }
 
 void VebTree::push(const Edge& edge) {
@@ -200,6 +190,16 @@ void VebTree::clean_rec(VebNode* node) {
       clean_rec(node->bottom[i]);
     }
   }
+}
+
+bool VebTree::member_rec(VebNode* node, int val) {
+  if (val == node->min || val == node->max) {
+    return true;
+  }
+  if (node->u == 2) {
+    return false;
+  }
+  return member_rec(node->bottom[node->high(val)], node->low(val));
 }
 
 // Cleans a leaf. If node isn't a leaf, bad things will happen.
