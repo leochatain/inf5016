@@ -102,6 +102,7 @@ class VebTree {
   // Recursive functions
   void push_rec(VebNode* node, int val);
   void del_rec(VebNode* node, int val);
+  void del_from_maps(const int vert, const int dist);
   bool member_rec(VebNode* node, int val);
   void clean_rec(VebNode* node);
   void clean_leaf(VebNode* node);

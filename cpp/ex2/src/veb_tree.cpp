@@ -47,24 +47,9 @@ void VebTree::pop() {
   const int vert = min_edge.dest;
   const int dist = min_edge.cost;
 
-  // Remove this edge from the vert2dist_ map.
-  // There is only one pair vert-dist.
-  unordered_map<int, int>::iterator v2d_it = vert2dist_.find(vert);
-  assert(v2d_it != vert2dist_.end());
-  vert2dist_.erase(v2d_it);
+  // Delete from maps
+  del_from_maps(vert, dist);
 
-  // Remove it from the dist2verts_ map.
-  unordered_map<int, unordered_set<int> >::iterator d2v_it;
-  d2v_it = dist2verts_.find(dist);
-
-  unordered_set<int>::iterator it = d2v_it->second.find(vert);
-  assert(it != d2v_it->second.end());
-
-  d2v_it->second.erase(it);
-
-  if (d2v_it->second.empty()) {
-    dist2verts_.erase(d2v_it);
-  }
 
   // Check whether to delete the dist from the tree.
   if (dist2verts_.find(dist) == dist2verts_.end()) {
@@ -80,7 +65,9 @@ Edge VebTree::top() {
   return Edge(dest, dist);
 }
 
-void VebTree::update(const int vert, const int new_cost) {}
+void VebTree::update(const int vert, const int new_cost) {
+  
+}
 
 int VebTree::size() {
   return vert2dist_.size();
@@ -248,6 +235,27 @@ void VebTree::print_rec(VebNode* node, int ind) {
 
 void VebTree::print_tree() {
   print_rec(head_, 0);
+}
+
+void VebTree::del_from_maps(const int vert, const int dist) {
+  // Remove this edge from the vert2dist_ map.
+  // There is only one pair vert-dist.
+  unordered_map<int, int>::iterator v2d_it = vert2dist_.find(vert);
+  assert(v2d_it != vert2dist_.end());
+  vert2dist_.erase(v2d_it);
+
+  // Remove it from the dist2verts_ map.
+  unordered_map<int, unordered_set<int> >::iterator d2v_it;
+  d2v_it = dist2verts_.find(dist);
+
+  unordered_set<int>::iterator it = d2v_it->second.find(vert);
+  assert(it != d2v_it->second.end());
+
+  d2v_it->second.erase(it);
+
+  if (d2v_it->second.empty()) {
+    dist2verts_.erase(d2v_it);
+  }
 }
 
 }
