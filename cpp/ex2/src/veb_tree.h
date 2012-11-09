@@ -1,3 +1,6 @@
+#ifndef __VEB_TREE_H
+#define __VEB_TREE_H
+
 #include <cstddef>
 #include <iostream>
 #include <unordered_map>
@@ -110,3 +113,5 @@ class VebTree {
 };
 
 }
+
+#endif
