@@ -273,31 +273,32 @@ void VebTreeTest::test_maps() {
 }
 
 void VebTreeTest::test_update() {
-  /*VebTree heap(U);
+  VebTree heap(16);
 
-  const int sx = 10;
-  const int delta = 100;
-  vector<int> rvec(sx);
-  for (int i = 0; i < sx; i++) {
-    rvec[i] = i + delta;
-  }
-  shuffle(rvec);
+  heap.push(edge(2));
+  heap.push(edge(3));
+  heap.push(edge(4));
+  heap.push(edge(5));
+  heap.push(edge(6));
 
-  for (int i = 0; i < sx; i++) {
-    heap.push(edge(rvec[i]));
-  }
-  CPPUNIT_ASSERT_EQUAL(sx, heap.size());
-  CPPUNIT_ASSERT_EQUAL(delta, heap.top().cost);
+  CPPUNIT_ASSERT_EQUAL(2, heap.top().cost);
+  heap.update(2, 7);
+  CPPUNIT_ASSERT_EQUAL(3, heap.top().cost);
+  heap.update(3, 8);
+  CPPUNIT_ASSERT_EQUAL(4, heap.top().cost);
+  heap.update(4, 9);
+  CPPUNIT_ASSERT_EQUAL(5, heap.top().cost);
+  heap.update(5, 10);
+  CPPUNIT_ASSERT_EQUAL(6, heap.top().cost);
+  heap.update(6, 11);
+  CPPUNIT_ASSERT_EQUAL(2, heap.top().dest);
+  CPPUNIT_ASSERT_EQUAL(7, heap.top().cost);
 
-  for (int i = sx - 1; i >= 0; i--) {
-    // Remove delta from each element, in order.
-    heap.update(delta + i, i);
-    CPPUNIT_ASSERT_EQUAL(i, heap.top().cost);
-  }
-
-  for (int i = 0; i < sx-1; i++) {
-    heap.update(delta + i, delta + i);
-    CPPUNIT_ASSERT_EQUAL(i + 1, heap.top().cost);
-  }*/
+  heap.update(2, 8);
+  CPPUNIT_ASSERT_EQUAL(2, heap.top().dest);
+  CPPUNIT_ASSERT_EQUAL(8, heap.top().cost);
+  heap.pop();
+  CPPUNIT_ASSERT_EQUAL(3, heap.top().dest);
+  CPPUNIT_ASSERT_EQUAL(8, heap.top().cost);
 }
 

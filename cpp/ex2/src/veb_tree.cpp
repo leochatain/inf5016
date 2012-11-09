@@ -66,7 +66,13 @@ Edge VebTree::top() {
 }
 
 void VebTree::update(const int vert, const int new_cost) {
-  
+  // Remove old entry from map.
+  const int old_cost = vert2dist_[vert];
+  del_from_maps(vert, old_cost);
+  del_rec(head_, old_cost);
+
+  // Add new entry to map.
+  push(Edge(vert, new_cost));
 }
 
 int VebTree::size() {
