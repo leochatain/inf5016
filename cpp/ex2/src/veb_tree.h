@@ -61,7 +61,7 @@ class VebTree {
  public:
   VebTree(const int u);
 
-  // Check whether a vertex is member of the tree.
+  // Check whether a cost is member of the tree.
   bool member(int val);
 
   // Pushes an edge in the tree.

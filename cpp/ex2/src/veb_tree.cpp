@@ -31,9 +31,13 @@ void VebTree::push(const Edge& edge) {
 
   // Update maps with edge information.
   vert2dist_[vert] = cost;
+  // Check whether or not we must insert this element on the tree.
+  bool must_insert = dist2verts_.find(cost) == dist2verts_.end();
   dist2verts_[cost].insert(vert);
 
-  push_rec(head_, cost);
+  if (must_insert) {
+    push_rec(head_, cost);
+  }
 }
 
 void VebTree::pop() {
@@ -46,17 +50,26 @@ void VebTree::pop() {
   // Remove this edge from the vert2dist_ map.
   // There is only one pair vert-dist.
   unordered_map<int, int>::iterator v2d_it = vert2dist_.find(vert);
+  assert(v2d_it != vert2dist_.end());
   vert2dist_.erase(v2d_it);
+
   // Remove it from the dist2verts_ map.
-  unordered_map<int, unordered_set<int> >::iterator d2v_it =
-      dist2verts_.find(dist);
+  unordered_map<int, unordered_set<int> >::iterator d2v_it;
+  d2v_it = dist2verts_.find(dist);
+
   unordered_set<int>::iterator it = d2v_it->second.find(vert);
+  assert(it != d2v_it->second.end());
+
   d2v_it->second.erase(it);
+
   if (d2v_it->second.empty()) {
     dist2verts_.erase(d2v_it);
   }
 
-  del_rec(head_, min_edge.cost);
+  // Check whether to delete the dist from the tree.
+  if (dist2verts_.find(dist) == dist2verts_.end()) {
+    del_rec(head_, min_edge.cost);
+  }
 }
 
 Edge VebTree::top() {
@@ -108,6 +121,8 @@ VebNode* VebTree::create(const int u) {
 }
 
 void VebTree::push_rec(VebNode* node, int val) {
+  assert(!member_rec(node, val));
+
   // Insert cost on the tree.
   if (this->empty()) {
     node->max = node->min = val;

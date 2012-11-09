@@ -7,6 +7,10 @@
 #include <vector>
 #include <iostream>
 #include <cmath>
+#include <unordered_map>
+#include <unordered_set>
+
+using namespace std;
 
 // Registers the fixture into the 'registry'
 CPPUNIT_TEST_SUITE_REGISTRATION(VebTreeTest);
@@ -229,24 +233,43 @@ void VebTreeTest::test_pop2() {
 }
 
 void VebTreeTest::test_maps() {
-  VebTree heap(16);
+  VebTree heap(4);
 
-  heap.push(Edge(5, 10));
-  heap.push(Edge(4, 10));
-  heap.push(Edge(6, 10));
+  heap.push(Edge(5, 1));
+  heap.push(Edge(4, 1));
+  heap.push(Edge(6, 1));
 
   CPPUNIT_ASSERT(heap.vert2dist_.find(4) != heap.vert2dist_.end());
   CPPUNIT_ASSERT(heap.vert2dist_.find(5) != heap.vert2dist_.end());
   CPPUNIT_ASSERT(heap.vert2dist_.find(6) != heap.vert2dist_.end());
 
-  int same_distance = heap.dist2verts_[10].size();
+  int same_distance = heap.dist2verts_[1].size();
   CPPUNIT_ASSERT_EQUAL(3, same_distance);
 
+  // Check that the size is correct.
+  CPPUNIT_ASSERT_EQUAL(3, heap.size());
+
   // Now let's pop some elements out.
+  const Edge& e = heap.top();
+  CPPUNIT_ASSERT_EQUAL(1, e.cost);
+  CPPUNIT_ASSERT_EQUAL(4, e.dest);
+
   heap.pop();
   CPPUNIT_ASSERT(heap.vert2dist_.find(4) == heap.vert2dist_.end());
-  same_distance = heap.dist2verts_[10].size();
+  same_distance = heap.dist2verts_[1].size();
   CPPUNIT_ASSERT_EQUAL(2, same_distance);
+
+  // Check that the size is still correct.
+  CPPUNIT_ASSERT_EQUAL(2, heap.size());
+
+  const Edge& e2 = heap.top();
+  CPPUNIT_ASSERT_EQUAL(1, e2.cost);
+  CPPUNIT_ASSERT_EQUAL(5, e2.dest);
+  heap.pop();
+  CPPUNIT_ASSERT(heap.vert2dist_.find(5) == heap.vert2dist_.end());
+
+  same_distance = heap.dist2verts_[1].size();
+  CPPUNIT_ASSERT_EQUAL(1, same_distance);
 }
 
 void VebTreeTest::test_update() {
