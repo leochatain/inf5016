@@ -42,8 +42,6 @@ void VebTree::pop() {
   const Edge& min_edge = this->top();
   const int vert = min_edge.dest;
   const int dist = min_edge.cost;
-  cout << endl << endl;
-  cout << "We'll remove vert: " << vert << " dist " << dist << endl;
 
   // Remove this edge from the vert2dist_ map.
   // There is only one pair vert-dist.
@@ -136,42 +134,30 @@ void VebTree::push_rec(VebNode* node, int val) {
 
 // Assumes val is contained in node.
 void VebTree::del_rec(VebNode* node, int val) {
-  cout << endl;
-  cout << "DEL REC " << val << endl;
-  node->print();
-
   assert(member_rec(node, val));
   assert(val <= node->max && val >= node->min);
 
   if (node->min == node->max) { // only one element
     node->min = 1; node->max = 0;
-    cout << "one element only" << endl;
   } else if (node->u == 2) { // base case
-    cout << "base case" << endl;
     if (val == 0)
       node->min = 1;
     else
       node->min = 0;
     node->max = node->min;
   } else {
-    cout << "regular case" << endl;
+    // Promote someone else to min.
     if (node->min == val) {
-      cout << "node is min" << endl;
+      // First cluster is the cluster with the lowest element that is not val
       int first_cluster = node->top->min;
-      val = node->index(first_cluster, node->bottom[first_cluster]->max);
+      val = node->index(first_cluster, node->bottom[first_cluster]->min);
       node->min = val;
-      cout << "new min is " << node->min << endl;
-      cout << "new val is " << val << endl;
     }
     VebNode* cluster = node->bottom[node->high(val)];
     del_rec(cluster, node->low(val));
-    cout << "Just deleted it from the cluster" << endl;
     if (cluster->empty()) {
-      cout << "Cluster is empty now" << endl;
       del_rec(node->top, node->high(val));
-      cout << "Just deleted from the top" << endl;
       if (val == node->max) {
-        cout << "val == max" << endl;
         int top_max = node->top->max;
         if (node->top->empty()) {
           node->max = node->min;
@@ -179,8 +165,7 @@ void VebTree::del_rec(VebNode* node, int val) {
           node->max = node->index(top_max, node->bottom[top_max]->max);
         }
       }
-    } else {
-      val = node->max;
+    } else if (val == node->max) {
       node->max = node->index(node->high(val),
           node->bottom[node->high(val)]->max);
     }

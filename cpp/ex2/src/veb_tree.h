@@ -98,6 +98,8 @@ class VebTree {
   // Create the tree, returns a pointer to the head.
   VebNode* create(const int u);
 
+  // Recursive functions
+
   void push_rec(VebNode* node, int val);
   void del_rec(VebNode* node, int val);
   bool member_rec(VebNode* node, int val);

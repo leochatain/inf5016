@@ -109,8 +109,6 @@ void VebTreeTest::test_member() {
   heap.push(edge(15));
   heap.push(edge(2));
 
-  heap.print_tree();
-
   CPPUNIT_ASSERT(heap.member(4));
   CPPUNIT_ASSERT(heap.member(14));
   CPPUNIT_ASSERT(heap.member(3));
@@ -131,7 +129,7 @@ void VebTreeTest::test_member() {
 }
 
 void VebTreeTest::test_pop() {
-  /*const int size = 16;
+  const int size = 16;
   VebTree heap(size);
   CPPUNIT_ASSERT(heap.empty());
 
@@ -195,7 +193,41 @@ void VebTreeTest::test_pop() {
   CPPUNIT_ASSERT_EQUAL(15, heap.top().cost);
   heap.pop();
 
-  CPPUNIT_ASSERT(heap.empty());*/
+  CPPUNIT_ASSERT(heap.empty());
+}
+
+void VebTreeTest::test_pop2() {
+  VebTree heap(16);
+
+  // Base case
+  heap.push(edge(0));
+  CPPUNIT_ASSERT_EQUAL(1, heap.size());
+
+  CPPUNIT_ASSERT_EQUAL(0, heap.top().cost);
+  heap.pop();
+  CPPUNIT_ASSERT_EQUAL(0, heap.size());
+  CPPUNIT_ASSERT(heap.empty());
+
+
+  // Fill one cluster
+  heap.push(edge(0));
+  heap.push(edge(1));
+  CPPUNIT_ASSERT_EQUAL(2, heap.size());
+  CPPUNIT_ASSERT_EQUAL(0, heap.top().cost);
+  heap.pop();
+  CPPUNIT_ASSERT_EQUAL(1, heap.top().cost);
+
+  // Fill two clusters
+
+  heap.push(edge(0));
+  heap.push(edge(2));
+  heap.push(edge(3));
+
+  CPPUNIT_ASSERT_EQUAL(4, heap.size());
+  CPPUNIT_ASSERT_EQUAL(0, heap.top().cost);
+  heap.pop();
+  CPPUNIT_ASSERT_EQUAL(3, heap.size());
+  CPPUNIT_ASSERT_EQUAL(1, heap.top().cost);
 }
 
 void VebTreeTest::test_update() {
