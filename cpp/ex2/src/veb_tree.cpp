@@ -121,7 +121,13 @@ VebNode* VebTree::create(const int u) {
 }
 
 void VebTree::push_rec(VebNode* node, int val) {
+  /*cout << "Push_rec " << val << endl;
+  if (member_rec(node, val)) {
+    cout << val << " is already member of the following tree" << endl;
+    print_rec(node, 0);
+  }
   assert(!member_rec(node, val));
+  */
 
   // Insert cost on the tree.
   if (this->empty()) {
