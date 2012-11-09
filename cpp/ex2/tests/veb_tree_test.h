@@ -11,6 +11,7 @@ class VebTreeTest : public CppUnit::TestFixture {
   CPPUNIT_TEST(test_member);
   CPPUNIT_TEST(test_pop);
   CPPUNIT_TEST(test_pop2);
+  CPPUNIT_TEST(test_maps);
   CPPUNIT_TEST(test_update);
   CPPUNIT_TEST_SUITE_END();
 
@@ -21,6 +22,7 @@ class VebTreeTest : public CppUnit::TestFixture {
   void test_member();
   void test_pop();
   void test_pop2();
+  void test_maps();
   void test_update();
 };
 

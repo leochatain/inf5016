@@ -86,7 +86,7 @@ class VebTree {
   // Prints the tree.
   void print_tree();
 
- private:
+ //private:
   // map<vert, dist>
   std::unordered_map<int, int> vert2dist_;
 
@@ -100,7 +100,6 @@ class VebTree {
   VebNode* create(const int u);
 
   // Recursive functions
-
   void push_rec(VebNode* node, int val);
   void del_rec(VebNode* node, int val);
   bool member_rec(VebNode* node, int val);

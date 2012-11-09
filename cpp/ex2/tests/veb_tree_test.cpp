@@ -228,6 +228,27 @@ void VebTreeTest::test_pop2() {
   CPPUNIT_ASSERT_EQUAL(1, heap.top().cost);
 }
 
+void VebTreeTest::test_maps() {
+  VebTree heap(16);
+
+  heap.push(Edge(5, 10));
+  heap.push(Edge(4, 10));
+  heap.push(Edge(6, 10));
+
+  CPPUNIT_ASSERT(heap.vert2dist_.find(4) != heap.vert2dist_.end());
+  CPPUNIT_ASSERT(heap.vert2dist_.find(5) != heap.vert2dist_.end());
+  CPPUNIT_ASSERT(heap.vert2dist_.find(6) != heap.vert2dist_.end());
+
+  int same_distance = heap.dist2verts_[10].size();
+  CPPUNIT_ASSERT_EQUAL(3, same_distance);
+
+  // Now let's pop some elements out.
+  heap.pop();
+  CPPUNIT_ASSERT(heap.vert2dist_.find(4) == heap.vert2dist_.end());
+  same_distance = heap.dist2verts_[10].size();
+  CPPUNIT_ASSERT_EQUAL(2, same_distance);
+}
+
 void VebTreeTest::test_update() {
   /*VebTree heap(U);
 
