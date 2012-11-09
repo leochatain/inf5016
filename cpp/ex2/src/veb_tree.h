@@ -83,6 +83,7 @@ class VebTree {
   // Removes all elements from the tree.
   void clean();
 
+  // Prints the tree.
   void print_tree();
 
  private:
