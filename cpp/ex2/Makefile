@@ -3,10 +3,9 @@ CFLAGS=-c -O2 -std=gnu++0x
 LDFLAGS= -std=gnu++0x
 
 MAIN= src/main.cpp
-SOURCES= src/veb_tree.cpp ../ex1/src/graph.cpp
-	
+SOURCES= src/veb_tree.cpp src/graph.cpp src/dijkstra.cpp
 
-TESTS = tests/veb_tree_test.cpp tests/runner.cpp
+TESTS = tests/veb_tree_test.cpp tests/runner.cpp tests/dijkstra_test.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
 TEST_OBJECTS=$(TESTS:.cpp=.o)

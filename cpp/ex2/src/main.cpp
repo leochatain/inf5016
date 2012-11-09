@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <ctime>
+#include <ctime>
 
 #include "veb_tree.h"
 #include "dijkstra.h"
@@ -12,8 +13,10 @@
 using namespace std;
 using namespace inf5016;
 
-Graph parse_graph(istream& in);
-
+Graph parse_graph(istream& in, int* max_cost);
+int next_power(const int size) {
+  return 1 << ((int) log2(size) + 1);
+}
 void print_help();
 
 int main(int argc, char** argv) {
@@ -25,16 +28,20 @@ int main(int argc, char** argv) {
   int src = atoi(argv[1]);
   int dst = atoi(argv[2]);
 
-  // Parse graph and benchmarks.
-  const Graph& graph = parse_graph(cin);
+  int max_cost = -1;
 
-  Dijkstra dijkstra;
+  // Parse graph and benchmarks.
+  const Graph& graph = parse_graph(cin, &max_cost);
+
+  int size = next_power(max_cost);
+
+  Dijkstra dijkstra(size);
 
   int distance = dijkstra.run(graph, src, dst);  
   cout << distance << endl;
 }
 
-Graph parse_graph(istream& in) {
+Graph parse_graph(istream& in, int* max_cost) {
   Graph g;
   string line;
 
@@ -43,6 +50,10 @@ Graph parse_graph(istream& in) {
       int u, v, w;
       sscanf(line.c_str(), "a %d %d %d", &u, &v, &w);
       g.put(u, v, w);
+
+      if (w > *max_cost) {
+        *max_cost = w;
+      }
     }
   }
 

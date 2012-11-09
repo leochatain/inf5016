@@ -27,8 +27,8 @@ test: $(SOURCES) $(TESTS) $(BIN_TESTS)
 
 benchs: $(BIN_BENCH_DIJ) $(BIN_BENCH_HEAP)
 
-gen: files/gen.cpp
-	$(CC) files/gen.cpp -o $(BIN_GEN)
+gen: ../files/gen.cpp
+	$(CC) ../files/gen.cpp -o $(BIN_GEN)
 
 $(BIN): $(OBJECTS) $(MAIN)
 	$(CC) $(LDFLAGS) $(OBJECTS) $(MAIN) -o $@
