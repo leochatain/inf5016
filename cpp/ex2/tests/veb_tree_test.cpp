@@ -208,7 +208,6 @@ void VebTreeTest::test_pop2() {
   CPPUNIT_ASSERT_EQUAL(0, heap.size());
   CPPUNIT_ASSERT(heap.empty());
 
-
   // Fill one cluster
   heap.push(edge(0));
   heap.push(edge(1));
@@ -218,7 +217,6 @@ void VebTreeTest::test_pop2() {
   CPPUNIT_ASSERT_EQUAL(1, heap.top().cost);
 
   // Fill two clusters
-
   heap.push(edge(0));
   heap.push(edge(2));
   heap.push(edge(3));

@@ -185,6 +185,7 @@ void VebTree::clean_rec(VebNode* node) {
   }
 }
 
+// Recursive member function
 bool VebTree::member_rec(VebNode* node, int val) {
   if (node->empty()) {
     return false;
