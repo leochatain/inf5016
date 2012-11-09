@@ -13,6 +13,18 @@ using namespace std;
 
 namespace inf5016 {
 
+int upper_sqrt(const int u) {
+  const int lg = (int) log2(u);
+  const int exp = (int) ceil(lg / 2.);
+  return 1 << exp;
+}
+
+int lower_sqrt(const int u) {
+  const int lg = (int) log2(u);
+  const int exp = lg / 2;
+  return 1 << exp;
+}
+
 const int INF = 1 << 31 - 1;
 
 Dijkstra::Dijkstra(const int n) : size(n) { }

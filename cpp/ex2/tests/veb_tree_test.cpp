@@ -100,6 +100,34 @@ void VebTreeTest::test_push_out_of_order() {
   CPPUNIT_ASSERT_EQUAL(2, heap.top().cost);
 }
 
+void VebTreeTest::test_push_not_power() {
+  // 8 is not a power of a power.
+  VebTree heap(8);
+
+  heap.push(edge(3));
+  heap.push(edge(0));
+  heap.push(edge(7));
+  heap.push(edge(4));
+
+  heap.print_tree();
+
+  CPPUNIT_ASSERT_EQUAL(4, heap.size());
+
+  CPPUNIT_ASSERT_EQUAL(0, heap.top().cost);
+  heap.pop();
+  CPPUNIT_ASSERT_EQUAL(3, heap.top().cost);
+  cout << endl << endl;
+  heap.print_tree();
+  /*
+  heap.pop();
+  CPPUNIT_ASSERT_EQUAL(4, heap.top().cost);
+  heap.pop();
+  CPPUNIT_ASSERT_EQUAL(7, heap.top().cost);
+  heap.pop();
+  CPPUNIT_ASSERT(heap.empty());
+  */
+}
+
 void VebTreeTest::test_member() {
   const int size = 16;
   VebTree heap(size);

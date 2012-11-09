@@ -16,6 +16,9 @@ using std::endl;
 
 namespace inf5016 {
 
+int upper_sqrt(const int u);
+int lower_sqrt(const int u);
+
 // As described in CLRS.
 struct VebNode {
   int min;
@@ -29,9 +32,10 @@ struct VebNode {
   VebNode(const int size) : u(size) {
     assert(size >= 2);
 
+    const int num_children = upper_sqrt(u);
 		top = NULL;
     if (size > 2) {
-      bottom.resize((int) ceil(sqrt(size)), NULL);
+      bottom.resize(num_children, NULL);
     }
 	}
 
@@ -41,13 +45,13 @@ struct VebNode {
 
   // Basic tree navigation functions.
   int high(const int x) {
-    return (int) (x / (int) (sqrt(u)));
+    return (int) (x / lower_sqrt(u));
   }
   int low (const int x) {
-    return (int) x % (int) (sqrt(u));
+    return x % lower_sqrt(u);
   }
   int index(const int x, const int y) {
-    return (int) x * floor(sqrt(u)) + y;
+    return x * lower_sqrt(u) + y;
   }
 
   void print(const int ind = 0) {
@@ -58,6 +62,7 @@ struct VebNode {
     for (int i = 0; i < ind; i++) cout << " ";
     cout << "**************************************" << endl;
   }
+
 };
 
 class VebTree {

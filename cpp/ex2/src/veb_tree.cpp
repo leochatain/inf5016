@@ -96,13 +96,16 @@ VebNode* VebTree::create(const int u) {
   // Upper node
   VebNode* node = new VebNode(u);
 
+  const int top_size = upper_sqrt(u);
+  const int children_size = lower_sqrt(u);
+
   if (u > 2) {
     // Create children
     for (int i = 0; i < node->bottom.size(); i++) {
-      node->bottom[i] = create((int)sqrt(u));
+      node->bottom[i] = create(children_size);
     }
     // Create top
-    node->top = create((int)sqrt(u));
+    node->top = create(top_size);
   } else {
     node->top = NULL;
   }
