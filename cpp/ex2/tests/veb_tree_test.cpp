@@ -105,21 +105,19 @@ void VebTreeTest::test_push_not_power() {
   VebTree heap(8);
 
   heap.push(edge(3));
-  heap.push(edge(0));
-  heap.push(edge(7));
+  //heap.push(edge(0));
   heap.push(edge(4));
+  //heap.push(edge(7));
 
-  heap.print_tree();
+  //CPPUNIT_ASSERT_EQUAL(4, heap.size());
 
-  CPPUNIT_ASSERT_EQUAL(4, heap.size());
-
-  CPPUNIT_ASSERT_EQUAL(0, heap.top().cost);
-  heap.pop();
+  //CPPUNIT_ASSERT_EQUAL(0, heap.top().cost);
+  //heap.pop();
   CPPUNIT_ASSERT_EQUAL(3, heap.top().cost);
   cout << endl << endl;
   heap.print_tree();
-  /*
   heap.pop();
+  /*
   CPPUNIT_ASSERT_EQUAL(4, heap.top().cost);
   heap.pop();
   CPPUNIT_ASSERT_EQUAL(7, heap.top().cost);

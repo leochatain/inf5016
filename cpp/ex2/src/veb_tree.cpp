@@ -50,10 +50,10 @@ void VebTree::pop() {
   // Delete from maps
   del_from_maps(vert, dist);
 
-
   // Check whether to delete the dist from the tree.
   if (dist2verts_.find(dist) == dist2verts_.end()) {
-    del_rec(head_, min_edge.cost);
+    cout << "IM GONNA POP " << dist << endl;
+    del_rec(head_, dist);
   }
 }
 
@@ -117,7 +117,9 @@ VebNode* VebTree::create(const int u) {
 }
 
 void VebTree::push_rec(VebNode* node, int val) {
-  /*cout << "Push_rec " << val << endl;
+  cout << endl;
+  cout << "Push_rec " << val << " u " << node->u << endl;
+  /*
   if (member_rec(node, val)) {
     cout << val << " is already member of the following tree" << endl;
     print_rec(node, 0);
@@ -127,30 +129,41 @@ void VebTree::push_rec(VebNode* node, int val) {
 
   // Insert cost on the tree.
   if (this->empty()) {
+    cout << "its empty" << endl;
     node->max = node->min = val;
     return;
   }
 
   if (val < node->min) {
+    cout << "Swapping with min" << endl;
     std::swap(node->min, val);
   }
 
   if (node->u > 2) {
+    cout << "not base case" << endl;
     VebNode* cluster = node->bottom[node->high(val)];
+    cout << "gonna insert on cluster " << node->high(val) << endl;
     if (cluster->empty()) {
+      cout << "cluster is empty, inserting on top " << node->high(val) << endl;
       push_rec(node->top, node->high(val));
       cluster->max = cluster->min = node->low(val);
     } else {
+      cout << "just pushig rec " << node->low(val) << endl;
       push_rec(cluster, node->low(val));
     }
   }
   if (val > node->max) {
+    cout << "last case node->max = " << val << endl;
     node->max = val;
   }
 }
 
 // Assumes val is contained in node.
 void VebTree::del_rec(VebNode* node, int val) {
+  cout << endl;
+  cout << "DEL REC " << val << endl;
+  node->print();
+
   assert(member_rec(node, val));
   assert(val <= node->max && val >= node->min);
 
@@ -165,14 +178,21 @@ void VebTree::del_rec(VebNode* node, int val) {
   } else {
     // Promote someone else to min.
     if (node->min == val) {
+      cout << "I'm promoting someone else" << endl;
       // First cluster is the cluster with the lowest element that is not val
       int first_cluster = node->top->min;
+      cout << "min cluster is " << first_cluster << endl;
       val = node->index(first_cluster, node->bottom[first_cluster]->min);
       node->min = val;
+
+      cout << "new min is " << val << endl;
     }
     VebNode* cluster = node->bottom[node->high(val)];
+    cout << "the cluster where the new minimum is is " << node->high(val) << endl;
+    cout << "calling for the subcluster" << endl;
     del_rec(cluster, node->low(val));
     if (cluster->empty()) {
+      cout << "cluster is empty, so I'm calling for the top" << endl;
       del_rec(node->top, node->high(val));
       if (val == node->max) {
         int top_max = node->top->max;
