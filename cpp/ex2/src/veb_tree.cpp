@@ -10,6 +10,19 @@ using namespace std;
 
 namespace inf5016 {
 
+int upper_sqrt(const int u) {
+  const int lg = (int) log2(u);
+  const int exp = (int) ceil(lg / 2.);
+  return 1 << exp;
+}
+
+int lower_sqrt(const int u) {
+  const int lg = (int) log2(u);
+  const int exp = lg / 2;
+  return 1 << exp;
+}
+
+
 VebTree::VebTree(const int u) {
   // u must be a power of 2.
   assert((u & (u-1)) == 0);
