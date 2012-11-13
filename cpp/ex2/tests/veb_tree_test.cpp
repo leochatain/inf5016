@@ -10,8 +10,6 @@
 #include <unordered_map>
 #include <unordered_set>
 
-using namespace std;
-
 // Registers the fixture into the 'registry'
 CPPUNIT_TEST_SUITE_REGISTRATION(VebTreeTest);
 
@@ -322,5 +320,19 @@ void VebTreeTest::test_update() {
   heap.pop();
   CPPUNIT_ASSERT_EQUAL(3, heap.top().dest);
   CPPUNIT_ASSERT_EQUAL(8, heap.top().cost);
+}
+
+void VebTreeTest::test_push_pop() {
+  VebTree heap(1024);
+  for (int i = 1023; i >= 0; i--) {
+    heap.push(edge(i));
+    CPPUNIT_ASSERT_EQUAL(i, heap.top().cost);
+  }
+  for (int i = 0; i < 1023; i++) {
+    heap.pop();
+    CPPUNIT_ASSERT_EQUAL(i+1, heap.top().cost);
+  }
+  heap.pop();
+  CPPUNIT_ASSERT(heap.empty());
 }
 
