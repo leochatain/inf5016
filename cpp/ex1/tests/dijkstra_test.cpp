@@ -39,7 +39,7 @@ void DijkstraTest::setUp() {
   files_.push_back("128.gr");
 
   for (int i = 0; i < files_.size(); i++) {
-    files_[i] = "files/" + files_[i];
+    files_[i] = "../files/" + files_[i];
   }
 }
 
