@@ -22,10 +22,10 @@ test: $(SOURCES) $(TESTS) $(BIN_TESTS)
 benchs: $(BIN_BENCH_DIJ) $(BIN_BENCH_HEAP)
 
 $(BIN): $(OBJECTS) $(MAIN)
-	$(CC) $(LDFLAGS) $(OBJECTS) $(TEMPLATES) $(MAIN) -o $@
+	$(CC) $(LDFLAGS) $(OBJECTS) $(TEMPLATES) $(MAIN) -o $@ -DNDEBUG
 
 $(BIN_TESTS): $(TEST_OBJECTS) $(OBJECTS)
-	$(CC) $(LDFLAGS) $(TEST_OBJECTS) $(OBJECTS) $(TEMPLATES) -o $@ -lcppunit
+	$(CC) $(LDFLAGS) $(TEST_OBJECTS) $(OBJECTS) $(TEMPLATES) -o $@ -DNDEBUG -lcppunit
 
 .cpp.o:
 	$(CC) $(CFLAGS) $< -o $@

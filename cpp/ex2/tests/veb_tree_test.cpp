@@ -124,7 +124,6 @@ void VebTreeTest::test_member() {
   const int size = 16;
   VebTree heap(size);
 
-
   heap.push(edge(7));
   heap.push(edge(5));
   heap.push(edge(4));

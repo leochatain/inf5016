@@ -27,20 +27,23 @@ struct VebNode {
 	const int u;
 
 	VebNode* top;
-	std::vector<VebNode*> bottom;
+	std::unordered_map<int, VebNode*> bottom;
 
   VebNode(const int size) : u(size) {
     assert(size >= 2);
 
-    const int num_children = upper_sqrt(u);
 		top = NULL;
-    if (size > 2) {
-      bottom.resize(num_children, NULL);
-    }
-    // Initialize it empty.
     max = 0;
     min = 1;
 	}
+
+  ~VebNode() {
+    std::unordered_map<int, VebNode*>::iterator it;
+    for (it = bottom.begin(); it != bottom.end(); it++) {
+      delete(it->second);
+    }
+    delete(top);
+  }
 
   bool empty() {
     return min > max;
@@ -50,7 +53,7 @@ struct VebNode {
   int high(const int x) {
     return (int) (x / lower_sqrt(u));
   }
-  int low (const int x) {
+  int low(const int x) {
     return x % lower_sqrt(u);
   }
   int index(const int x, const int y) {
@@ -70,7 +73,10 @@ struct VebNode {
 
 class VebTree {
  public:
+  // Creates a VebTree with u leaves.
   VebTree(const int u);
+
+  ~VebTree();
 
   // Check whether a cost is member of the tree.
   bool member(int val);

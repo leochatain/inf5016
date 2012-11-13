@@ -30,6 +30,10 @@ VebTree::VebTree(const int u) {
   this->head_ = create(u);
 }
 
+VebTree::~VebTree() {
+  delete head_;
+}
+
 // Check whether a vertex is member of the tree.
 bool VebTree::member(int val) {
   assert(head_ != NULL);
@@ -105,38 +109,16 @@ void VebTree::clean() {
   clean_rec(head_);
 }
 
-// TODO(leochatain) do not always create everything
-// u is a power of 2
-// we'll have u leaves on the tree
 VebNode* VebTree::create(const int u) {
   assert(u >= 2);
 
   // Upper node
   VebNode* node = new VebNode(u);
 
-  const int top_size = upper_sqrt(u);
-  const int children_size = lower_sqrt(u);
-
-  if (u > 2) {
-    // Create children
-    for (int i = 0; i < node->bottom.size(); i++) {
-      node->bottom[i] = create(children_size);
-    }
-    // Create top
-    node->top = create(top_size);
-  } else {
-    node->top = NULL;
-  }
-  // Make subtree empty
-  node->max = 0;
-  node->min = 1;
-
   return node;
 }
 
 void VebTree::push_rec(VebNode* node, int val) {
-  assert(!member_rec(node, val));
-
   // Insert cost on the tree.
   if (node->empty()) {
     node->max = node->min = val;
@@ -149,7 +131,15 @@ void VebTree::push_rec(VebNode* node, int val) {
 
   if (node->u > 2) {
     VebNode* cluster = node->bottom[node->high(val)];
+    if (cluster == NULL) {
+      cluster = create(lower_sqrt(node->u));
+      node->bottom[node->high(val)] = cluster;
+    }
     if (cluster->empty()) {
+      // Have we created node->top?
+      if (node->top == NULL) {
+        node->top = create(upper_sqrt(node->u));
+      }
       push_rec(node->top, node->high(val));
       cluster->max = cluster->min = node->low(val);
     } else {
@@ -218,6 +208,9 @@ void VebTree::clean_rec(VebNode* node) {
 
 // Recursive member function
 bool VebTree::member_rec(VebNode* node, int val) {
+  if (node == NULL) {
+    return false;
+  }
   if (node->empty()) {
     return false;
   }
