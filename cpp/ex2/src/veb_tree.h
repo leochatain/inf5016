@@ -94,6 +94,9 @@ class VebTree {
   // Prints the tree.
   void print_tree();
 
+  // Prints all values in order.
+  void print_values();
+
  //private:
   // map<vert, dist>
   std::unordered_map<int, int> vert2dist_;

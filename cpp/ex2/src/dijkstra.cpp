@@ -27,7 +27,6 @@ int Dijkstra::run(const Graph& graph, const int src, const int dst) {
   vector<int> dist(graph.size(), INF);
   dist[src] = 0;
 
-  cout << "Pushing to heap " << src << " " << 0 << endl;
   heap.push(Edge(src, 0));
   while (!heap.empty()) {
     const int cur = heap.top().dest;
@@ -36,7 +35,6 @@ int Dijkstra::run(const Graph& graph, const int src, const int dst) {
     if (cur == dst) {
       return min(heap.top().cost, dist[dst]);
     }
-    cout << "Popping from heap" << endl;
     heap.pop();
 
     const vector<Edge>& ns = graph[cur];
@@ -50,7 +48,6 @@ int Dijkstra::run(const Graph& graph, const int src, const int dst) {
           heap.push(ns[i]);
         } else {
           dist[to] = min(dist[to], dist[cur] + cost);
-          cout << "Updating heap " << to << " " << dist[to] << endl;
           heap.update(to, dist[to]);
         }
       }

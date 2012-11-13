@@ -78,10 +78,16 @@ Edge VebTree::top() {
 }
 
 void VebTree::update(const int vert, const int new_cost) {
+  assert(vert2dist_.find(vert) != vert2dist_.end());
+
   // Remove old entry from map.
   const int old_cost = vert2dist_[vert];
   del_from_maps(vert, old_cost);
-  del_rec(head_, old_cost);
+
+  // Check whether to delete the dist from the tree.
+  if (dist2verts_.find(old_cost) == dist2verts_.end()) {
+    del_rec(head_, old_cost);
+  }
 
   // Add new entry to map.
   push(Edge(vert, new_cost));
@@ -252,6 +258,23 @@ void VebTree::print_rec(VebNode* node, int ind) {
 
 void VebTree::print_tree() {
   print_rec(head_, 0);
+}
+
+void VebTree::print_values() {
+  vector<Edge> edges;
+  // Print them all.
+  while (!this->empty()) {
+    const Edge& ed = this->top();
+    cout << "(" << ed.dest << ", " << ed.cost << ") ";
+    edges.push_back(ed);
+    this->pop();
+  }
+  cout << endl;
+
+  // Put them all back.
+  for (int i = 0; i < edges.size(); i++) {
+    this->push(edges[i]);
+  }
 }
 
 void VebTree::del_from_maps(const int vert, const int dist) {

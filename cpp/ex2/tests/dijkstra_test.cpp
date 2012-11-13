@@ -63,7 +63,6 @@ void DijkstraTest::test_all() {
     int size = next_pow(max_cost);
 
     Dijkstra dijkstra(size);
-
     
     for (int i = 1; i < graph.size(); i++) {
       for (int j = 1; j < graph.size(); j++) {
