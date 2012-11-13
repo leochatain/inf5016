@@ -32,6 +32,7 @@ plt.grid(True)
 plt.plot(sizes, push, 'r--', label='serial')
 plt.plot(sizes, pop, 'b--', label='acc')
 plt.plot(sizes, update, 'g--', label='cublas')
+plt.legend(loc="upper left")
 
 plt.savefig('heap.png')
 
