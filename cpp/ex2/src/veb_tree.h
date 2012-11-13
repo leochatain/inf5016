@@ -37,6 +37,9 @@ struct VebNode {
     if (size > 2) {
       bottom.resize(num_children, NULL);
     }
+    // Initialize it empty.
+    max = 0;
+    min = 1;
 	}
 
   bool empty() {
