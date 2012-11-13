@@ -7,7 +7,7 @@
 
 class DijkstraTest : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(DijkstraTest);
-//  CPPUNIT_TEST(test_all);
+  CPPUNIT_TEST(test_all);
   CPPUNIT_TEST_SUITE_END();
 
  public:

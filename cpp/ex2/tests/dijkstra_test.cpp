@@ -60,11 +60,8 @@ void DijkstraTest::test_all() {
     pair<Graph, Solution> p = parse_graph(file, &max_cost);
     const Graph& graph = p.first;
 
-    cout << "max cost " << max_cost << endl;
-
     int size = next_pow(max_cost);
 
-    cout << "size " << size << endl;
     Dijkstra dijkstra(size);
 
     

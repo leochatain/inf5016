@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
   // Parse graph and benchmarks.
   const Graph& graph = parse_graph(cin, &max_cost);
 
-  int size = next_power(max_cost);
+  int size = 65536;
 
   Dijkstra dijkstra(size);
 
