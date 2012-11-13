@@ -7,8 +7,8 @@ def generate(size):
 num_benchs = 10
 
 print '# x f(x)'
-for i in xrange(10240 + 1024, 2**14 +1, 1024):
-  size = i
+for i in xrange(5, 12):
+  size = 2 ** i
   sname = str(size)
   graph_file = 'files/' + str(sname) + '.gr'
 
