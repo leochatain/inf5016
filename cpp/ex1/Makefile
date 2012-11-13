@@ -49,4 +49,4 @@ check: test
 	$(BIN_TESTS)
 
 clean:
-	rm -rf src/*.o tests/*.o $(BIN) $(BIN_TESTS) $(BIN_GEN)
+	rm -rf src/*.o tests/*.o bin/*
