@@ -18,5 +18,5 @@ $(BIN): $(MAIN) $(OBJECTS)
 .cpp.o:
 	$(CC) $(CFLAGS) $< -o $@
 
-clear:
+clean:
 	rm -rf src/.o $(BIN)
