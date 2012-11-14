@@ -19,4 +19,4 @@ $(BIN): $(MAIN) $(OBJECTS)
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -rf src/.o $(BIN)
+	rm -rf src/.o bin/*
