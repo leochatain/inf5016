@@ -7,9 +7,14 @@
 
 using std::queue;
 using std::vector;
+using std::map;
+using std::max;
 using std::min;
 
 namespace inf5016 {
+
+typedef map<int, map<int, int> >::iterator graph_it;
+typedef map<int, int>::iterator edge_it;
 
 int FordFulkerson::run(const int src, const int dst) {
   Graph residual = create_residual_graph(graph_);
@@ -17,23 +22,28 @@ int FordFulkerson::run(const int src, const int dst) {
 
   // Count forward edges from the source to find out the max flow.
   int max_flow = 0;
-  for (int i = 0; i < residual[src].size(); i++) {
-    max_flow += residual[src][i].cost;
+  for (edge_it i = residual[src].begin(); i != residual[src].end(); i++) {
+    max_flow += i->second;
   }
 
   return max_flow;
 }
 
-Graph FordFulkerson::create_residual_graph(const Graph& graph) {
+Graph FordFulkerson::create_residual_graph(Graph& graph) {
   Graph residual;
 
-  for (int i = 0; i < graph.size(); i++) {
-    for (int j = 0; j < graph[i].size(); j++) {
-      const Edge& cur = graph[i][j];
+  for (graph_it i = graph.begin(); i != graph.end(); i++) {
+    for (edge_it j = i->second.begin(); j < i->second.end(); j++) {
+      // This edge
+      const int from = i->first;
+      const int to = j->first;
+      const int cost = j->second;
+
       // Reverse edge
       const int ru = cur.dest;
-      const int rv = i;
+      const int rv = i->first;
       const int rw = cur.cost;
+
       // Forward edge
       const int fu = i;
       const int fv = cur.dest;
@@ -47,17 +57,7 @@ Graph FordFulkerson::create_residual_graph(const Graph& graph) {
   return residual;
 }
 
-Edge* find_edge(vector<Edge>& vec, const int dest) {
-  for (int i = 0; i < vec.size(); i++) {
-    if (vec[i].dest == dest) {
-      return &vec[i];
-    }
-  }
-
-  assert(false);
-}
-
-// TODO(leochatain): this should really be a pfs, rather than a bfs.
+// TODO(leochatain): this should really be a pfs, rather than a dfs.
 int FordFulkerson::pfs(Graph& residual, const int src, const int dst,
     const int cur, const int cap) {
   if (cur == dst) {
@@ -114,7 +114,10 @@ int bfs(Graph& residual, const int src, const int dst) {
       }
     } else {
       // Found the sink, recreate the path, finding the minimum.
-
+      int path = cur;
+      while (path != src) {
+        
+      }
     }
   }
 }

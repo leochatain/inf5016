@@ -1,9 +1,12 @@
 #ifndef __FORD_FULKERSON_H
 #define __FORD_FULKERSON_H
 
-#include "graph.h"
+//#include "graph.h"
+#include <map>
 
 namespace inf5016 {
+
+typedef std::map<int, std::map<int, int> > Graph;
 
 class FordFulkerson {
  public:
@@ -13,10 +16,10 @@ class FordFulkerson {
   int run(const int src, int dst);
 
  private:
-  const Graph& graph_;
+  Graph& graph_;
 
   // Creates a residual graph out of the original graph.
-  Graph create_residual_graph(const Graph& graph);
+  Graph create_residual_graph(Graph& graph);
 
   // Dijkstra-like max(min(paths)) way of finding the fattest path
   int pfs(Graph& residual, const int src, const int dst);

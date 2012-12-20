@@ -3,21 +3,14 @@
 
 #include "graph.h"
 
-using std::vector;
+using std::map;
 using std::max;
 
 namespace inf5016 {
 
 Graph::Graph() { }
 
-vector<Edge>& Graph::operator[](const int node) {
-  assert(node >= 0);
-  assert(node < base_.size());
-
-  return base_[node];
-}
-
-const vector<Edge>& Graph::operator[](const int node) const {
+map<int>& Graph::operator[](const int node) {
   assert(node >= 0);
   assert(node < base_.size());
 
@@ -29,14 +22,7 @@ void Graph::put(const int u, const int v, const int w) {
   assert(v >= 0);
   assert(w >= 0);
 
-  int big = max(u, v) + 1;
-  if (base_.size() < big) {
-    base_.resize(big);
-  }
-  for (int i = 0; i < base_[u].size(); i++) {
-    assert(base_[u][i].dest != v);
-  }
-  base_[u].push_back(Edge(v, w));
+  base_[u][v] = w;
 }
 
 }

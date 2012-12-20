@@ -1,10 +1,12 @@
 #ifndef GRAPH_H_
 #define GRAPH_H_
 
+#include <map>
 #include <vector>
 
 namespace inf5016 {
 
+/*
 struct Edge {
   int dest;
   int cost;
@@ -25,14 +27,16 @@ struct Edge {
     return this->cost < other.cost;
   }
 };
+*/
+
+typedef std::map<int, std::map<int, int> > multimap_ii;
+typedef std::map<int, std::map<int, int> >::iterator multimap_ii_it;
 
 class Graph {
  public:
   Graph();
 
-  std::vector<Edge>& operator[](const int node);
-  const std::vector<Edge>& operator[](const int node) const;
-
+  std::map<int, int>& operator[](const int node);
   void put(const int u, const int v, const int w);
 
   inline bool empty() const {
@@ -43,8 +47,16 @@ class Graph {
     return base_.size();
   }
 
+  inline multimap_ii_it begin() {
+    return base_.begin();  
+  }
+
+  inline multimap_ii_it end() {
+    return base_.end();
+  }
+
  private:
-  std::vector<std::vector<Edge> > base_;
+   multimap_ii base_;
 };
 
 }
