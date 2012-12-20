@@ -20,8 +20,8 @@ class FordFulkerson {
 
   // Dijkstra-like max(min(paths)) way of finding the fattest path
   int pfs(Graph& residual, const int src, const int dst);
-  int pfs(Graph& residual, const int src, const int dst, const int cur,
-      const int cap);
+  int pfs(Graph& residual, const int src, const int dst,
+     const int cur, const int cap);
 };
 
 }
