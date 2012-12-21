@@ -79,6 +79,7 @@ int FordFulkerson::pfs(Graph& residual, const int src, const int dst) {
     if (cur == dst) {
       // found destiny, now go back and modify the path.
       // cur_cap holds the value of the bottleneck for this path.
+
       int path = cur;
       while (path != src) {
         const int to = path;
@@ -97,9 +98,13 @@ int FordFulkerson::pfs(Graph& residual, const int src, const int dst) {
       const int cap = i->second;
 
       if (cap != 0 && visited.find(to) == visited.end()) {
-        bottleneck[to] = max(bottleneck[to], min(bottleneck[cur], cap));
-        heap.push(make_pair(to, bottleneck[to])); // just push it, no updates
-        from[to] = cur;
+        const int from_here = min(bottleneck[cur], cap);
+
+        if (from_here > bottleneck[to]) {
+          bottleneck[to] = from_here;
+          heap.push(make_pair(to, bottleneck[to]));
+          from[to] = cur;
+        }
       }
     }
   }
