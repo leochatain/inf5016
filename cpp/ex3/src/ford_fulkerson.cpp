@@ -58,7 +58,6 @@ struct order {
 };
 
 int FordFulkerson::pfs(Graph& residual, const int src, const int dst) {
-  cout << "looking for " << src <<  " " << dst << endl;
   map<int, int> from; // from[i] == j -> j came from i
   map<int, int> bottleneck; // vertex and the bottleneck to get to it
   set<int> visited;
@@ -82,15 +81,10 @@ int FordFulkerson::pfs(Graph& residual, const int src, const int dst) {
 
     visited.insert(cur);
 
-    cout << "looking at " << cur << " with cap " << cur_cap << endl;
-
     if (cur == dst) {
-      cout << "FOUND IT" << endl;
       // found destiny, now go back and modify the path.
       // cur_cap holds the value of the bottleneck for this path.
-      cout << "Found dst with bottleneck " << cur_cap << endl;
       int path = cur;
-      cout << "Path:" << endl;
       while (path != src) {
         cout << path << endl;
         path = from[path];
@@ -109,16 +103,8 @@ int FordFulkerson::pfs(Graph& residual, const int src, const int dst) {
         continue;
       }
 
-      cout << "neighbour: " << to << " with cap " << cap << endl;
-
       if (visited.find(to) == visited.end()) { // !visited(to)
-        if (bottleneck.find(to) == bottleneck.end()) { // first time
-          bottleneck[to] = min(bottleneck[cur], cap);
-        } else {
-          bottleneck[to] = max(bottleneck[to], min(bottleneck[cur], cap));
-        }
-
-        cout << "pushing " << to << " " << bottleneck[to] << endl;
+        bottleneck[to] = max(bottleneck[to], min(bottleneck[cur], cap));
         heap.push(make_pair(to, bottleneck[to])); // just push it, no updates
         from[to] = cur;
       }
