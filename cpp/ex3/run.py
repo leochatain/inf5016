@@ -50,8 +50,11 @@ for i in xrange(num_steps):
   out_file = 'files/' + str(i) + 'function_' + str(fun_family)
   os.popen(get_gen(1, sx, out_file))
 
-  t = run(out_file) 
-  times.append((sx, t))
+  num_tests = 10
+  t = 0
+  for j in xrange(num_tests):
+    t += run(out_file) 
+  times.append((sx, t/float(num_tests)))
 
 
 # Plot results
@@ -63,6 +66,7 @@ plt.title('Fattest-path')
 plt.xticks(list(x[0] for x in times), rotation=30, size='small')
 plt.grid(True)
 
+# Plot curve
 ax.plot(list(x[0] for x in times),
         list(x[1] for x in times),
         label='graph_' + str(fun_family))
