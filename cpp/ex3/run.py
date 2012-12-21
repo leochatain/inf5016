@@ -5,6 +5,7 @@ import os
 from time import time
 
 import matplotlib.pyplot as plt
+import pickle
 
 def get_gen(fun_family, sx, out):
   return './bin/gengraph ' + str(fun_family) + ' ' + str(sx) \
@@ -26,35 +27,31 @@ def run(inp):
 argv = sys.argv
 argc = len(argv)
 
-if argc < 4:
-  print 'parameters'
+if argc < 3:
+  print './run start_size num_steps step_size (optional) function_family'
   exit(1)
 
-fun_family = int(argv[1])
-start = int(argv[2])
-num_steps = int(argv[3])
-step_size = int(argv[4])
+start = int(argv[1])
+num_steps = int(argv[2])
+step_size = int(argv[3])
 
-sizes = []
-times1 = []
-times4 = []
+if argc > 4:
+  fun_family = int(argv[4])
+else:
+  fun_family = 1
+
+times = []
 
 # Run tests
 for i in xrange(num_steps):
   sx = start + i * step_size
   print sx
   # Generate graph and put it into files
-  out1 = 'files/' + str(i) + '1'
-  out4 = 'files/' + str(i) + '4'
-  os.popen(get_gen(fun_family, sx, out1))
-  os.popen(get_gen(fun_family, sx, out4))
+  out_file = 'files/' + str(i) + 'function_' + str(fun_family)
+  os.popen(get_gen(1, sx, out_file))
 
-  time1 = run(out1) 
-  time4 = run(out4)
-
-  sizes.append(sx)
-  times1.append(time1)
-  times4.append(time4)
+  t = run(out_file) 
+  times.append((sx, t))
 
 
 # Plot results
@@ -63,11 +60,12 @@ ax = plt.subplot(111)
 plt.ylabel('Time(s)')
 plt.xlabel('Size')
 plt.title('Fattest-path')
-plt.xticks(sizes, rotation=30, size='small')
+plt.xticks(list(x[0] for x in times), rotation=30, size='small')
 plt.grid(True)
 
-ax.plot(sizes, times1, label='family-1')
-ax.plot(sizes, times4, label='family-4')
+ax.plot(list(x[0] for x in times),
+        list(x[1] for x in times),
+        label='graph_' + str(fun_family))
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0+box.height*0.1, box.width, box.height*0.9])
@@ -77,4 +75,4 @@ ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
 
 plt.show()
 
-print times
+pickle.dump(times, open('result_' + str(fun_family), 'wb'))
