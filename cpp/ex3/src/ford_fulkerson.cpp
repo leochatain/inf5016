@@ -20,9 +20,8 @@ typedef map<int, int>::const_iterator const_edge_it;
 
 int FordFulkerson::run(const int src, const int dst) {
   Graph residual = create_residual_graph(graph_);
-  cout << "Created residual" << endl;
-  //while(pfs(residual, src, dst));
-  pfs(residual, src, dst);
+  while(pfs(residual, src, dst));
+  //pfs(residual, src, dst);
 
   // Count forward edges from the source to find out the max flow.
   int max_flow = 0;
@@ -72,13 +71,9 @@ int FordFulkerson::pfs(Graph& residual, const int src, const int dst) {
     const int cur_cap = heap.top().second;
     heap.pop();
 
-    // Because we don't update anything, we might have multiple versions of
-    // the same element on the heap, and must check whether we have already
-    // processed it.
-    if (visited.find(cur) != visited.end()) { // if visited(cur)
+    if (visited.find(cur) != visited.end()) { // if visited(cur) already
       continue;
     }
-
     visited.insert(cur);
 
     if (cur == dst) {
@@ -86,10 +81,12 @@ int FordFulkerson::pfs(Graph& residual, const int src, const int dst) {
       // cur_cap holds the value of the bottleneck for this path.
       int path = cur;
       while (path != src) {
-        cout << path << endl;
+        const int to = path;
         path = from[path];
+
+        residual[path][to] -= cur_cap;
+        residual[to][path] += cur_cap;
       }
-      cout << path << endl;
 
       return cur_cap;
     }
@@ -99,20 +96,14 @@ int FordFulkerson::pfs(Graph& residual, const int src, const int dst) {
       const int to = i->first;
       const int cap = i->second;
 
-      if (cap == 0) {
-        continue;
-      }
-
-      if (visited.find(to) == visited.end()) { // !visited(to)
+      if (cap != 0 && visited.find(to) == visited.end()) {
         bottleneck[to] = max(bottleneck[to], min(bottleneck[cur], cap));
         heap.push(make_pair(to, bottleneck[to])); // just push it, no updates
         from[to] = cur;
       }
     }
-    cout << endl << endl;
   }
 
-  cout << "There is no path, yay" << endl;
   return 0;
 }
 
