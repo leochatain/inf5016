@@ -5,7 +5,7 @@ LDFLAGS= -std=gnu++0x
 BIN=bin/ex3
 
 MAIN= src/main.cpp
-SOURCES= src/ford_fulkerson.cpp src/graph.cpp
+SOURCES= src/ford_fulkerson.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 
 all: ex3

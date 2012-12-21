@@ -14,7 +14,9 @@ using std::min;
 namespace inf5016 {
 
 typedef map<int, map<int, int> >::iterator graph_it;
+typedef map<int, map<int, int> >::const_iterator const_graph_it;
 typedef map<int, int>::iterator edge_it;
+typedef map<int, int>::const_iterator const_edge_it;
 
 int FordFulkerson::run(const int src, const int dst) {
   Graph residual = create_residual_graph(graph_);
@@ -29,34 +31,26 @@ int FordFulkerson::run(const int src, const int dst) {
   return max_flow;
 }
 
-Graph FordFulkerson::create_residual_graph(Graph& graph) {
+// TODO(leochatain): check this
+Graph FordFulkerson::create_residual_graph(const Graph& graph) {
   Graph residual;
 
-  for (graph_it i = graph.begin(); i != graph.end(); i++) {
-    for (edge_it j = i->second.begin(); j < i->second.end(); j++) {
+  for (const_graph_it i = graph.begin(); i != graph.end(); i++) {
+    for (const_edge_it j = i->second.begin(); j != i->second.end(); j++) {
       // This edge
       const int from = i->first;
       const int to = j->first;
       const int cost = j->second;
 
-      // Reverse edge
-      const int ru = cur.dest;
-      const int rv = i->first;
-      const int rw = cur.cost;
-
-      // Forward edge
-      const int fu = i;
-      const int fv = cur.dest;
-      const int fw = 0;
-
-      residual.put(ru, rv, rw);
-      residual.put(fu, fv, fw);
+      residual[from][to] += cost;
+      residual[to][from] += 0;
     }
   }
 
   return residual;
 }
 
+/*
 // TODO(leochatain): this should really be a pfs, rather than a dfs.
 int FordFulkerson::pfs(Graph& residual, const int src, const int dst,
     const int cur, const int cap) {
@@ -64,30 +58,30 @@ int FordFulkerson::pfs(Graph& residual, const int src, const int dst,
     return cap;
   }
 
-  for (int i = 0; i < residual[cur].size(); i++) {
-    const int to = residual[cur][i].dest;
+  for (edge_it it = residual[cur].begin(); it != residual[cur].end(), it++) {
+    const int to = i->first;
     const int path_cap = min(cap, residual[cur][i].cost);
     const int path = pfs(residual, src, dst, to, path_cap);
 
     // If this path lead to the dst node, update the path and return the value.
     if (path != 0) {
       residual[cur][i].cost -= path;
-      Edge* back = find_edge(residual[i], cur);
-      back->dest += path;
+      residual[i][cur] += path;
     }
   }
 
   return 0;
-}
+}*/
 
 int FordFulkerson::pfs(Graph& residual, const int src, const int dst) {
-  return pfs(residual, src, dst, src, 0);
+  return 0;
 }
 
+/*
 // Updates the residual graph with the augmenting path. Returns the increment
 // on the flow.
 int bfs(Graph& residual, const int src, const int dst) {
-  queue<Edge> q;
+  queue<int> q;
   vector<int> from(residual.size() + 1, -1);
 
   for (int i = 0; i < residual[src].size(); i++) {
@@ -96,20 +90,19 @@ int bfs(Graph& residual, const int src, const int dst) {
   }
 
   while (!q.empty()) {
-    const Edge& edge = q.front();
-    const int cur = edge.dest;
-    const int capacity = edge.cost;
+    const int cur = q.front();
     q.pop();
 
     if (cur != dst) {
       for (int i = 0; i < residual[cur].size(); i++) {
-        const Edge& to = residual[cur][i];
+        const int 
+        const int cost = residual[cur][i];
         // Skip edges with no capacity or vertices already visited.
-        if (to.cost == 0 || from[to.dest] != -1) {
+        if (cost == 0 || from[to.dest] != -1) {
           continue;
         }
 
-        from[to.dest] = cur;
+        from[dest] = cur;
         q.push(to);
       }
     } else {
@@ -121,5 +114,6 @@ int bfs(Graph& residual, const int src, const int dst) {
     }
   }
 }
+*/
 
 }

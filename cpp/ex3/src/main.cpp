@@ -5,7 +5,6 @@
 #include <vector>
 #include <ctime>
 
-//#include "graph.h"
 #include "ford_fulkerson.h"
 
 using namespace std;
@@ -24,12 +23,12 @@ int main(int argc, char** argv) {
   int dst = atoi(argv[2]);
 
   // Parse graph and benchmarks.
-  const Graph& graph = parse_graph(cin);
+  const Graph graph = parse_graph(cin);
 
   FordFulkerson ff(graph);
 
-  int max_flow = ff.run(src, dst);
-  cout << max_flow << endl;
+  //int max_flow = ff.run(src, dst);
+  //cout << max_flow << endl;
 }
 
 Graph parse_graph(istream& in) {
@@ -40,7 +39,7 @@ Graph parse_graph(istream& in) {
     if (line[0] == 'a') {
       int u, v, w;
       sscanf(line.c_str(), "a %d %d %d", &u, &v, &w);
-      g.put(u, v, w);
+      g[u][v] = w;
     }
   }
 
