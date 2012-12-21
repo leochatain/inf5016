@@ -58,7 +58,7 @@ for i in xrange(num_steps):
 
 
 # Plot results
-plt.subplot(111)
+ax = plt.subplot(111)
 
 plt.ylabel('Time(s)')
 plt.xlabel('Size')
@@ -66,8 +66,14 @@ plt.title('Fattest-path')
 plt.xticks(sizes, rotation=30, size='small')
 plt.grid(True)
 
-plt.plot(sizes, times1)
-plt.plot(sizes, times4)
+ax.plot(sizes, times1, label='family-1')
+ax.plot(sizes, times4, label='family-4')
+
+box = ax.get_position()
+ax.set_position([box.x0, box.y0+box.height*0.1, box.width, box.height*0.9])
+
+ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
+          fancybox=True, shadow=True,ncol=3)
 
 plt.show()
 
