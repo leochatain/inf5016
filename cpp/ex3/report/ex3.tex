@@ -23,17 +23,18 @@ Verificar que a complexidade observada é $ O((nlogn + m)m log C) $.
 
 Implementei o algoritmo de Ford-Fulkerson usando:
 
-\begin{itemize}
- \item Um multimap (\texttt{map<int, map<int, int>})
-\end{itemize}
+\begin{description}
+ \item[grafo] Um multimap (\texttt{map<int, map<int, int>}) para o \emph{grafo}. Isso permite o
+acesso as arestas do grafo residual em tempo constante.
 
-Implementei o algoritmo de Dijkstra usando um heap de Van Emde Boas, como visto em aula. Heaps de
-Van Emde Boas realizam as operações \emph{insert} - no código: \emph{push(T val)} -,
-\emph{deletemin} - no código: \emph{pop()} -, e \emph{update} - no código: \emph{update(T val, T
-new)} com complexidade $ \log n $ (onde \emph{n} é o número de vértices do grafo).
+ \item[fattest-path] Um dijkstra-like algoritmo para encontrar o fattest path. A ideia é
+sempre escolher a aresta com maior gargalo disponivel (usando um max-heap), em que o gargalo é o
+min das arestas do caminho. É facil modificar o dijkstra para fazer isso.
 
-Para o desenvolvimento foi utilizada a linguagem C++ e o compilador gcc versão 4.6. Para os testes
-foi utilizado o framework CppUnit.
+ \item[priority-queue] usei uma \texttt{stl::priority\_queue} para o heap (o heap que eu tinha antes
+era um hardcoded minheap, e a stl era mais facil e rapida de usar. Uma priority-queue tem
+complexidades $O(\log n)$ para tudo.
+\end{description}
 
 \section{Ambiente de teste}
 
@@ -42,17 +43,7 @@ e $4$ GB de RAM.
 
 \section{Resultados}
 
-
 \section{Conclusão}
-
-A complexidade não equivale à esperada, provavelmente porque o tamanho da entrada não é grande o
-suficiente ($\log\log n$ provavelmente requer um tamanho grande na entrada para produzir uma
-diferença relevante no tempo.
-
-Também pudemos notar que Van Emde Boas é muito mais lento que um heap binário na prática, em grande
-parte devido à alta complexidade da estrutura de Van Emde Boas. Outro fator interessante é que o
-segundo $\log$ nos ganha muito pouco com relação ao primeiro $\log$, e isso é provavelmente
-suficiente para que uma estrutura $\log\log$ não valha a pena.
 
 \end{document}
 % Local Variables:
