@@ -66,8 +66,8 @@ plt.title('Fattest-path')
 plt.xticks(sizes, rotation=30, size='small')
 plt.grid(True)
 
-plt.plot(sizes, time1)
-plt.plot(sizes, time4)
+plt.plot(sizes, times1)
+plt.plot(sizes, times4)
 
 plt.show()
 
