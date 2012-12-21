@@ -4,12 +4,10 @@
 #include <queue>
 #include <vector>
 #include <cassert>
+#include <queue>
+#include <set>
 
-using std::queue;
-using std::vector;
-using std::map;
-using std::max;
-using std::min;
+using namespace std;
 
 namespace inf5016 {
 
@@ -49,8 +47,54 @@ Graph FordFulkerson::create_residual_graph(const Graph& graph) {
   return residual;
 }
 
+bool compare(const Edge& l, const Edge& r) {
+  return l.second < r.second;
+}
+
 int FordFulkerson::pfs(Graph& residual, const int src, const int dst) {
-  return 0;
+  map<int, int> from; // from[i] == j -> j came from i
+  map<int, int> bottleneck; // vertex and the bottleneck to get to it
+  set<int> visited;
+
+  priority_queue<Edge> heap;
+
+  heap.push(make_pair(src, 0));
+
+  while(!heap.empty()) {
+    const int cur = heap.top().first;
+    const int cur_cost = heap.top().second;
+    heap.pop();
+
+    // Because we don't update anything, we might have multiple versions of
+    // the same element on the heap, and must check whether we have already
+    // processed it.
+    if (visited.find(cur) != visited.end()) { // if visited(cur)
+      continue;
+    }
+
+    visited.insert(cur);
+
+    if (cur == dst) {
+      // found destiny, now go back and modify the graph.
+    }
+
+    const map<int, int>& ns = residual[cur];
+    for (const_edge_it i = ns.begin(); i != ns.end(); i++) {
+      const int to = i->first;
+      const int cost = i->second;
+
+      if (visited.find(to) == visited.end()) { // !visited(to)
+        if (bottleneck.find(to) == bottleneck.end()) { // first time
+          bottleneck[to] = min(bottleneck[cur], cost);
+        } else {
+          bottleneck[to] = max(bottleneck[to], min(bottleneck[cur], cost));
+        }
+        heap.push(make_pair(to, bottleneck[to])); // just push it, no updates
+      }
+    }
+  }
+
+  assert(false);
 }
 
 }

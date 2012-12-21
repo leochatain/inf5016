@@ -3,6 +3,7 @@
 
 #include <map>
 
+typedef std::pair<int, int> Edge;
 typedef std::map<int, std::map<int, int> > Graph;
 
 namespace inf5016 {
