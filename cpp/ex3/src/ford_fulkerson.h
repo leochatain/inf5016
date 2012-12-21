@@ -15,7 +15,7 @@ class FordFulkerson {
   // Runs the Ford-Fulkerson algorithm over the graph;
   int run(const int src, int dst);
 
- private:
+ //private:
   const Graph& graph_;
 
   // Creates a residual graph out of the original graph.

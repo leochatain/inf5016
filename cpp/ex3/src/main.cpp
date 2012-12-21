@@ -27,8 +27,8 @@ int main(int argc, char** argv) {
 
   FordFulkerson ff(graph);
 
-  //int max_flow = ff.run(src, dst);
-  //cout << max_flow << endl;
+  int max_flow = ff.run(src, dst);
+  cout << max_flow << endl;
 }
 
 Graph parse_graph(istream& in) {
