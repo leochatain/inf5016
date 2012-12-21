@@ -1,10 +1,15 @@
 #ifndef __FORD_FULKERSON_H
 #define __FORD_FULKERSON_H
 
-#include <map>
+#include <unordered_map>
 
 typedef std::pair<int, int> Edge;
-typedef std::map<int, std::map<int, int> > Graph;
+typedef std::unordered_map<int, std::unordered_map<int, int> > Graph;
+
+typedef Graph::iterator graph_it;
+typedef Graph::const_iterator const_graph_it;
+typedef std::unordered_map<int, int>::iterator edge_it;
+typedef std::unordered_map<int, int>::const_iterator const_edge_it;
 
 namespace inf5016 {
 

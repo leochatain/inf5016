@@ -13,11 +13,6 @@ using namespace std;
 
 namespace inf5016 {
 
-typedef map<int, map<int, int> >::iterator graph_it;
-typedef map<int, map<int, int> >::const_iterator const_graph_it;
-typedef map<int, int>::iterator edge_it;
-typedef map<int, int>::const_iterator const_edge_it;
-
 int FordFulkerson::run(const int src, const int dst) {
   Graph residual = create_residual_graph(graph_);
   while(pfs(residual, src, dst));
@@ -57,8 +52,8 @@ struct order {
 };
 
 int FordFulkerson::pfs(Graph& residual, const int src, const int dst) {
-  map<int, int> from; // from[i] == j -> j came from i
-  map<int, int> bottleneck; // vertex and the bottleneck to get to it
+  unordered_map<int, int> from; // from[i] == j -> j came from i
+  unordered_map<int, int> bottleneck; // vertex and the bottleneck to get to it
   set<int> visited;
 
   priority_queue<Edge, vector<Edge>, order> heap;
@@ -92,7 +87,7 @@ int FordFulkerson::pfs(Graph& residual, const int src, const int dst) {
       return cur_cap;
     }
 
-    const map<int, int>& ns = residual[cur];
+    const unordered_map<int, int>& ns = residual[cur];
     for (const_edge_it i = ns.begin(); i != ns.end(); i++) {
       const int to = i->first;
       const int cap = i->second;
