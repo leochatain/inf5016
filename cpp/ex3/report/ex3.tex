@@ -24,7 +24,8 @@ Verificar que a complexidade observada é $ O((nlogn + m)m log C) $.
 Implementei o algoritmo de Ford-Fulkerson usando:
 
 \begin{description}
- \item[grafo] Um multimap (\texttt{map<int, map<int, int>}) para o \emph{grafo}. Isso permite o
+ \item[grafo] Um multimap (\texttt{unordered\_map<int, unordered\_map<int, int>}) para o
+\emph{grafo}. Isso permite o
 acesso as arestas do grafo residual em tempo constante.
 
  \item[fattest-path] Um dijkstra-like algoritmo para encontrar o fattest path. A ideia é
@@ -41,9 +42,51 @@ complexidades $O(\log n)$ para tudo.
 Os resultados foram obtidos utilizando-se um \emph{Intel core i5}, com um processador de $2.27$ GHz
 e $4$ GB de RAM.
 
+Cada experimento foi executado 10 vezes, a média aritmética foi tomada.
+
 \section{Resultados}
 
+O algoritmo foi rodado contra grafos gerados com a função \emph{mesh (1)}. Os resultados do
+algoritmo são mostrados na Figura~\ref{fig:grafico}. Na Figura~\ref{fig:grafico_inv} podemos ver a
+curva de tempo dividida pela complexidade esperada $ O((n\log n + m)m * \log C) $. Nota: quando
+dividimos o tempo pelo tempo esperado, ignoramos o fator $\log C$.
+
+Na Figura~\ref{fig:grafico_inv} vemos que a complexidade esperada nao define exatamente a
+complexidade encontrada na pratica. Entretanto, o interessante é que parece que a complexidade
+esperada é \emph{maior} que a complexidade vista na pratica (mesmo tendo ignorado o elemento $\log
+C$ (o grafico parece algo como $1/x$).
+
+Isso parece curioso, mas acredito que tenha a ver com a característica do grafo. O grafo é um
+\emph{mesh}, com source e sink de lados opostos e arestas indo do source para o sink. Isso faz com
+que o tamanho maximo de um caminho seja o numero de colunas no mesh (no nosso caso, os meshes são
+todos quadrados, então estamos falando da raiz quadrada do número de vértices).
+
+Se levarmos em consideração que o tamanho máximo de um caminho é aproximadamente a raiz do número de
+vértices, então temos que a complexidade foi super-estimada e nossos resultados passam a fazer mais
+sentido (especialmente com a ``cara'' $1/x$ desses resultados).
+
+\begin{figure}
+ \center
+ \includegraphics[width=\textwidth,keepaspectratio]{fig1_unordered}
+ \caption{Tempo por tamanho do grafo (grafo do tipo 1 : mesh)}
+ \label{fig:grafico}
+\end{figure}
+
+\begin{figure}
+ \center
+ \includegraphics[width=\textwidth,keepaspectratio]{fig1_invert}
+ \caption{Tempo de execuçaõo normalizado pela complexidade esperada.}
+ \label{fig:grafico_inv}
+\end{figure}
+
+
 \section{Conclusão}
+
+O algoritmo foi relativamente fácil de se programar, mas não pudemos reaproveitar as estruturas de
+dados anteriores (como explicado anteriormente).
+
+Pudemos observar na prática que os resultados não seguem exatamente a complexidade esperada, mas
+atribuímos isso às características do grafo.
 
 \end{document}
 % Local Variables:
