@@ -16,7 +16,7 @@ namespace inf5016 {
 
 class HopcroftKarp {
  public:
-  HopcroftKarp(Graph& graph, Set& s, Set& t, Set&)
+  HopcroftKarp(Graph& graph, Set& s, Set& t)
     : graph_(graph), s_(s), t_(t) { }
 
   int run();
@@ -29,7 +29,6 @@ class HopcroftKarp {
   std::unordered_map<int, int> matching_;
 
   void bfs(std::unordered_map<int, int>& dist);
-  //int next_free_node(Graph& graph);
 };
 
 }

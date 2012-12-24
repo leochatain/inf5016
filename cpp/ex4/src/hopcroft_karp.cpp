@@ -8,15 +8,6 @@ using namespace std;
 
 namespace inf5016 {
 
-/*int HopcroftKarp::next_free_node(Graph& graph) {
-  for (graph_it it = graph.begin(); it != graph.end(); it++) {
-    if (free_.find(it->first) == free_.end()) {
-      return it->first;
-    }
-  }
-  return -1;
-}*/
-
 int HopcroftKarp::run() {
   return matching_.size() / 2;
 }
