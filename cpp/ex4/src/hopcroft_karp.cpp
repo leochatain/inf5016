@@ -31,7 +31,7 @@ void HopcroftKarp::bfs(unordered_map<int, int>& dist) {
     const int cur = q.front(); q.pop();
     visited.insert(cur);
 
-    const Set& edges = graph_[cur];
+    const set_i& edges = graph_[cur];
     for (const_set_it to = edges.begin(); to != edges.end(); to++) {
       // If the edge has a matching, add it to the queue.
       if (matching_.find(*to) != matching_.end()) {
@@ -41,6 +41,10 @@ void HopcroftKarp::bfs(unordered_map<int, int>& dist) {
       }
     }
   }
+}
+
+void HopcroftKarp::dfs(const int v) {
+
 }
 
 }
