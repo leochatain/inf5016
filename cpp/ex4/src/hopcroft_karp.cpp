@@ -18,7 +18,7 @@ namespace inf5016 {
 }*/
 
 int HopcroftKarp::run() {
-  // Iterate over free vertices in S, and call bfs on it.
+  // Iterate over free vertices in S, and call bfs on them.
   // Because bfs goes from S to T using free edges (and free S nodes) and 
   // comes back using matched S-T edges (ending in matched S nodes), we can
   // safely call it for all free nodes in parallel.
