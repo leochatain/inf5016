@@ -33,8 +33,8 @@ class HopcroftKarp {
 
   map_ii matching_;
 
-  void bfs(std::unordered_map<int, int>& dist);
-  void dfs(const int v);
+  void bfs(map_ii& dist);
+  bool dfs(const int v, map_ii& dist);
 };
 
 }

@@ -43,8 +43,21 @@ void HopcroftKarp::bfs(map_ii& dist) {
   }
 }
 
-void HopcroftKarp::dfs(const int v) {
-
+bool HopcroftKarp::dfs(const int v, map_ii& dist) {
+  const set_i& edges = graph_[v];
+  for (const_set_it it = edges.begin(); it != edges.end(); it++) {
+    if (matching_.find(*it) != matching_.end()
+        && dist[matching_[*it]] == dist[v] + 1) {
+      if (dfs(matching_[*it], dist)) {
+        matching_[v] = *it;
+        matching_[*it] = v;
+        return true;
+      }
+    }
+    dist.erase(v); // TODO: understand why we do this.
+    return false;
+  }
+  return true;
 }
 
 }
