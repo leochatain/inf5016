@@ -4,34 +4,31 @@
 #include <unordered_map>
 #include <unordered_set>
 
-// Boolean: true -> matched, false -> free
-typedef std::unordered_map<int, bool> EdgeList;
-typedef std::unordered_map<int, EdgeList > Graph;
+typedef std::unordered_set<int> Set;
+typedef std::unordered_map<int, Set> Graph;
 
 typedef Graph::iterator graph_it;
 typedef Graph::const_iterator const_graph_it;
-typedef EdgeList::iterator edge_it;
-typedef EdgeList::const_iterator const_edge_it;
-
-typedef std::unordered_set<int> Set;
 typedef Set::iterator set_it;
+typedef Set::const_iterator const_set_it;
 
 namespace inf5016 {
 
 class HopcroftKarp {
  public:
-  HopcroftKarp(Graph& graph, Set& s, Set& t, Set&, Set& free)
-    : graph_(graph), s_(s), t_(t), free_(free) { }
+  HopcroftKarp(Graph& graph, Set& s, Set& t, Set&)
+    : graph_(graph), s_(s), t_(t) { }
 
   int run();
 
  private:
   Graph& graph_;
-  Set& free_;
   Set& s_;
   Set& t_;
 
-  void bfs(const int next);
+  std::unordered_map<int, int> matching_;
+
+  void bfs(std::unordered_map<int, int>& dist);
   //int next_free_node(Graph& graph);
 };
 

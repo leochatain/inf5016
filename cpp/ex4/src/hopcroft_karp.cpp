@@ -18,41 +18,35 @@ namespace inf5016 {
 }*/
 
 int HopcroftKarp::run() {
-  // Iterate over free vertices in S, and call bfs on them.
-  // Because bfs goes from S to T using free edges (and free S nodes) and 
-  // comes back using matched S-T edges (ending in matched S nodes), we can
-  // safely call it for all free nodes in parallel.
-  for (set_it it = s_.begin(); it != s_.end(); it++) {
-    if (free_.find(*it) != free_.end()) // is a free node
-      bfs(*it);
-  }
-
-  return (graph_.size() - free_.size()) / 2;
+  return matching_.size() / 2;
 }
 
-void HopcroftKarp::bfs(const int next) {
+void HopcroftKarp::bfs(unordered_map<int, int>& dist) {
   unordered_set<int> visited;
-  unordered_map<int, int> from;
+
+  // q only contains vertices in S.
   queue<int> q;
 
-  q.push(next);
+  // Enqueue all free nodes in s.
+  for (set_it it = s_.begin(); it != s_.end(); it++) {
+    if (matching_.find(*it) == matching_.end()) {
+      q.push(*it);
+      dist[*it] = 0;
+    }
+  }
+
+  // Do the search.
   while (!q.empty()) {
     const int cur = q.front(); q.pop();
     visited.insert(cur);
 
-    // If cur is in T we're looking for matched edges. Else we're looking for
-    // free edges.
-    const bool matched = (t_.find(cur) == t_.end());
-
-    // Push all edges that are 'matched'.
-    const EdgeList& edges = graph_[cur];
-    for (const_edge_it it = edges.begin(); it != edges.end(); it++) {
-      const int to = it->first;
-      const int mat = it->second;
-
-      if (mat == matched && visited.find(to) == visited.end()) {
-        q.push(to);
-        from[to] = cur;
+    const Set& edges = graph_[cur];
+    for (const_set_it to = edges.begin(); to != edges.end(); to++) {
+      // If the edge has a matching, add it to the queue.
+      if (matching_.find(*to) != matching_.end()) {
+        const int next = matching_[*to];
+        q.push(next);
+        dist[next] = dist[cur] + 1;
       }
     }
   }
