@@ -31,7 +31,7 @@ class HopcroftKarp {
   set_i& s_;
   set_i& t_;
 
-  std::unordered_map<int, int> matching_;
+  map_ii matching_;
 
   void bfs(std::unordered_map<int, int>& dist);
   void dfs(const int v);

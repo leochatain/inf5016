@@ -12,8 +12,8 @@ int HopcroftKarp::run() {
   return matching_.size() / 2;
 }
 
-void HopcroftKarp::bfs(unordered_map<int, int>& dist) {
-  unordered_set<int> visited;
+void HopcroftKarp::bfs(map_ii& dist) {
+  set_i visited;
 
   // q only contains vertices in S.
   queue<int> q;
