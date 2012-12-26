@@ -9,13 +9,15 @@ using namespace std;
 namespace inf5016 {
 
 int HopcroftKarp::run() {
+
   return matching_.size() / 2;
 }
 
-void HopcroftKarp::bfs(map_ii& dist) {
+// Returns whether an augmenting path was found.
+bool HopcroftKarp::bfs(map_ii& dist) {
   set_i visited;
 
-  // q only contains vertices in S.
+  // This queue will only contain vertices in S.
   queue<int> q;
 
   // Enqueue all free nodes in s.
@@ -33,7 +35,7 @@ void HopcroftKarp::bfs(map_ii& dist) {
 
     const set_i& edges = graph_[cur];
     for (const_set_it to = edges.begin(); to != edges.end(); to++) {
-      // If the edge has a matching, add it to the queue.
+      // If the edge has a matching, add the matching (in S) to the queue.
       if (matching_.find(*to) != matching_.end()) {
         const int next = matching_[*to];
         q.push(next);

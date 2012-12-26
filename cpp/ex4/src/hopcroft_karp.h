@@ -33,7 +33,7 @@ class HopcroftKarp {
 
   map_ii matching_;
 
-  void bfs(map_ii& dist);
+  bool bfs(map_ii& dist);
   bool dfs(const int v, map_ii& dist);
 };
 
