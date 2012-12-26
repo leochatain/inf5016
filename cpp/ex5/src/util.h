@@ -3,16 +3,18 @@
 
 #include <algorithm>
 
+typedef long long ll;
+
 // Returns the smaller prime larger than "num".
-int next_prime(const int num);
+ll next_prime(const ll num);
 
 // Uses Rabin-Karp method to determine whether the number is a prime,
-// with probability XX
-bool is_probable_prime(const int num, const int iter = 50);
+// with probability 1/4 ^k.
+bool is_probable_prime(const ll num, const ll iter = 50);
 
 // C++ mod is broken. -1 % 8 should be 7, not -1. This method fixes it.
-int mod(const int a, const int b);
+ll mod(const ll a, const ll b);
 
-const int LARGEST_PRIME = 1 << 31 - 1;
+const ll LARGEST_PRIME = 1 << 31 - 1;
 
 #endif

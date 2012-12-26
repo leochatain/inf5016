@@ -4,30 +4,27 @@
 #include <list>
 #include <vector>
 
+#include "hash_function.h"
+#include "util.h"
+
 using std::list;
 using std::vector;
 
-typedef list<int>::const_iterator list_it;
+typedef list<ll>::const_iterator list_it;
 
 class LinkedSet {
  public:
-  LinkedSet(const int m);
+  LinkedSet(const ll m);
 
-  void put(const int key);
-  bool contains(const int key);
+  void put(const ll key);
+  bool contains(const ll key);
 
  private:
   // Base table.
-  vector<list<int> > base_; 
+  vector<list<ll> > base_; 
 
-  // Big prime smaller than 32-bit integer.
-  int P;
-  // Hash function parameters.
-  int h_a;
-  int h_b;
+  HashFunction* function_;
 
-  // Gives a hash for a key.
-  int hash(const int key);
 };
 
 #endif
