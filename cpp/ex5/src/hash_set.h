@@ -1,20 +1,29 @@
 #ifndef __HASH_SET
 #define __HASH_SET
 
-#include <vector>
 #include <list>
+#include <vector>
+
+#include "hash_function.h"
+#include "util.h"
 
 using std::list;
 using std::vector;
 
-typedef list<int>::const_iterator list_it;
+typedef list<ll>::const_iterator list_it;
 
 class HashSet {
  public:
-  HashSet(const int m);
+  HashSet(const ll m, const int degree = 2);
 
-  void put(const int key);
-  void contains(const int key);
-}
+  virtual void put(const ll key);
+  virtual bool contains(const ll key);
+
+ protected:
+  // Base table.
+  vector<list<ll> > base_; 
+  // Base hash function.
+  HashFunction* function_;
+};
 
 #endif

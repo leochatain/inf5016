@@ -14,14 +14,14 @@ int main() {
   LinkedSet set(n);
 
   for (int i = 0; i < n; i++) {
-    int tmp;
+    ll tmp;
     cin >> tmp;
 
     set.put(tmp);
   }
 
   for (int i = 0; i < m; i++) {
-    int tmp;
+    ll tmp;
     cin >> tmp;
 
     string c = set.contains(tmp) ? "1" : "0";
