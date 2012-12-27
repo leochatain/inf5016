@@ -16,6 +16,10 @@ class OpenSet {
   bool put(const ll key);
   bool contains(const ll key);
 
+  int size() {
+    return size_;
+  }
+
  private:
   vector<int> base_;
   HashFunction* function_;

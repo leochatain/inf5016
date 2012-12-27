@@ -7,7 +7,6 @@ using namespace std;
 
 ll next_prime(const ll num) {
   return LARGEST_PRIME;
-  assert(false); //TODO(chatain): finish this.
 
   // Following Bertrands postulate, there's always a prime p such that:
   // n < p < 2*n - 2 (http://en.wikipedia.org/wiki/Bertrand's_postulate)
