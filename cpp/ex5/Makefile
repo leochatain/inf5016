@@ -7,9 +7,9 @@ BIN_TESTS=bin/ex5_tests
 
 MAIN= src/main.cpp
 SOURCES= src/linked_set.cpp \
+         src/open_set.cpp \
          src/util.cpp \
-         src/hash_function.cpp \
-         src/hash_set.cpp
+         src/hash_function.cpp
 TESTS = tests/runner.cpp tests/linked_set_test.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)

@@ -3,7 +3,6 @@
 
 #include <ctime>
 
-
 CPPUNIT_TEST_SUITE_REGISTRATION(LinkedSetTest);
 
 void LinkedSetTest::test_set() {

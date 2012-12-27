@@ -6,6 +6,7 @@
 using namespace std;
 
 ll next_prime(const ll num) {
+  return LARGEST_PRIME;
   assert(false); //TODO(chatain): finish this.
 
   // Following Bertrands postulate, there's always a prime p such that:

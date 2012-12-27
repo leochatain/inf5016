@@ -1,11 +1,11 @@
 #include "linked_set.h"
 
-#include <cassert>
-
 using namespace std;
 
-LinkedSet::LinkedSet(const ll m, const int degree)
-    : HashSet(m, degree) { }
+LinkedSet::LinkedSet(const ll m, const int degree) {
+  base_.resize(m);
+  function_ = new HashFunction(m, degree);
+}
 
 // Key is simpley added to the back of the list.
 void LinkedSet::put(const ll key) {

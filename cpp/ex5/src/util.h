@@ -8,7 +8,7 @@ typedef long long ll;
 // Returns the smaller prime larger than "num".
 ll next_prime(const ll num);
 
-// Uses Rabin-Karp method to determine whether the number is a prime,
+// Uses Miller-Rabin method to determine whether the number is a prime,
 // with probability 1/4 ^k.
 bool is_probable_prime(const ll num, const ll iter = 50);
 
