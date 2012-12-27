@@ -16,9 +16,9 @@ class OpenSet {
   bool put(const ll key);
   bool contains(const ll key);
 
-  int size() {
-    return size_;
-  }
+  inline int size() { return size_; }
+  inline int get_probing() { return probing_; }
+  inline int get_table_size() { return base_.size() }
 
  private:
   vector<int> base_;
