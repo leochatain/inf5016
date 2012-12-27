@@ -14,7 +14,7 @@ typedef list<ll>::const_iterator list_it;
 
 class LinkedSet {
  public:
-  LinkedSet(const ll m);
+  LinkedSet(const ll m, const int degree = 2);
 
   void put(const ll key);
   bool contains(const ll key);
@@ -22,7 +22,7 @@ class LinkedSet {
  private:
   // Base table.
   vector<list<ll> > base_; 
-
+  // Base hash function.
   HashFunction* function_;
 
 };
