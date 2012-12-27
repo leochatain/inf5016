@@ -16,8 +16,8 @@ class HashSet {
  public:
   HashSet(const ll m, const int degree = 2);
 
-  virtual void put(const ll key);
-  virtual bool contains(const ll key);
+  virtual void put(const ll key) = 0;
+  virtual bool contains(const ll key) = 0;
 
  protected:
   // Base table.
