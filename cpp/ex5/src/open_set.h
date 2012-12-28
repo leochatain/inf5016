@@ -10,7 +10,7 @@ using std::vector;
 
 class OpenSet {
  public:
-  OpenSet(ll m, const int probing, const int degree = 2);
+  OpenSet(ll m, int probing, const int degree = 2);
 
   // Return whether could add the element.
   bool put(const ll key);
@@ -18,15 +18,16 @@ class OpenSet {
 
   inline int size() { return size_; }
   inline int get_probing() { return probing_; }
-  inline int get_table_size() { return base_.size() }
+  inline int get_table_size() { return base_.size(); }
 
  private:
-  vector<int> base_;
+  vector<ll> base_;
   HashFunction* function_;
-  // Because we use a probing, m is always a prime (so it is co-prime with
-  // probing.
-  const int probing_;
+  // Probing and m must always be coprimes.
+  int probing_;
   int size_;
+
+  ll next_coprime(const ll m, const int probing);
 };
 
 #endif

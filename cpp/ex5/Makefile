@@ -10,7 +10,9 @@ SOURCES= src/linked_set.cpp \
          src/open_set.cpp \
          src/util.cpp \
          src/hash_function.cpp
-TESTS = tests/runner.cpp tests/linked_set_test.cpp
+TESTS = tests/runner.cpp \
+        tests/linked_set_test.cpp \
+        tests/open_set_test.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
 TEST_OBJECTS=$(TESTS:.cpp=.o)
@@ -34,4 +36,4 @@ check:
 	$(BIN_TESTS)
 
 clean:
-	rm -rf src/.o bin/* test/.o
+	rm -rf src/*.o bin/* tests/*.o
