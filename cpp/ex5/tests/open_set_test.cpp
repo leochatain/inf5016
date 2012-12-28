@@ -14,9 +14,9 @@ void OpenSetTest::test_set() {
     CPPUNIT_ASSERT(!set.contains(i));
     CPPUNIT_ASSERT(set.put(i));
     CPPUNIT_ASSERT(set.contains(i));
-
-    CPPUNIT_ASSERT(!set.put(123));
   }
+
+  CPPUNIT_ASSERT(!set.put(123));
 }
 
 void OpenSetTest::test_set_rand() {
@@ -25,7 +25,7 @@ void OpenSetTest::test_set_rand() {
   srand(0);
   for (int i = 0; i < 64; i++) {
     const int key = rand();
-    set.put(key);
+    CPPUNIT_ASSERT(set.put(key));
     CPPUNIT_ASSERT(set.contains(key));
   }
 }

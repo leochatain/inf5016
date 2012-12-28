@@ -11,12 +11,13 @@ OpenSet::OpenSet(ll m, int probing, const int degree) {
   m = next_coprime(m, probing);
   base_.resize(m, -1);
   function_ = new HashFunction(m, degree);
+  size_ = 0;
 }
 
 bool OpenSet::put(const ll key) {
   assert (key >= 0); // we only accept positive keys.
 
-  if (size_ == base_.size()) { // no more space left
+  if (size_ >= base_.size()) { // no more space left
     return false;
   }
 
