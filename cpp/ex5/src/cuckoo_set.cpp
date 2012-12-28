@@ -18,10 +18,33 @@ bool CuckooSet::put(const ll key) {
   const ll pos2 = f2_->hash(key);
 
   if (try_insert(key, pos1) || try_insert(key, pos2)) {
+    // Could insert in at least one.
     return true;
   }
   // Start the cuckoo thing with f1_.
-  for (int tries = 0; tries < )
+
+  int cuckoo_key = key;
+  int cuckoo_pos = f1_->hash(cuckoo_key);
+  int kicked_key = base_[cuckoo_pos];
+  int other_kicked_pos = f2_->hash(kicked_key);
+  // This is used to detect loops.
+  const int first_cuckoo_pos = cuckoo_pos;
+  while (base_[other_kicked_pos] != kicked_key) {
+    // Kick it out.
+    base_[cuckoo_pos] = cuckoo_key;
+
+    // Update keys and pos'.
+    cuckoo_key = kicked_key;
+    cuckoo_pos = f1_->hash(cuckoo_key);
+    kicked_key = base_[cuckoo_pos];
+    other_kicked_pos = f2_->hash(kicked_key);
+
+    if (cuckoo_pos == first_cuckoo_pos) {
+      // Houston, we have a problem! Rebuild the hashes.
+      return false;
+    }
+  }
+  return true;
 }
 
 // Simply checks whether the key is in one of the positions.
