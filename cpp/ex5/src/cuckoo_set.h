@@ -23,9 +23,11 @@ class CuckooSet {
   HashFunction* f2_;
 
   const int degree_;
+  ll m_;
   int last_seed_;
 
-  void generate_hashes(const ll m, const ll degree);
+  void generate_hashes(const ll m);
+  bool try_insert(const ll key, const ll pos);
 };
 
 #endif
