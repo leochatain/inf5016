@@ -49,9 +49,9 @@ A busca é feita com apenas duas comparações. A inserção pode demorar mais, 
 ``chutar'' alguns elementos, ou mesmo reconstruir a tabela.
 
 No meu experimento muitas vezes a tabela entrou em ``loop infinito''. Basicamente era preciso
-recalcular a tabela, e no recalculo da tabela era preciso recalcular a tabela, e assim
+recalcular a tabela, e no recálculo da tabela era preciso recalcular a tabela, e assim
 indefinidamente. Isso depende da ocupação da tabela e do primo utilizado no cálculo da função hash.
-Eu não fui capaz de explicar esse comportamento.
+Eu não sou capaz de explicar esse comportamento.
 
 \end{description}
 
@@ -93,7 +93,8 @@ Os resultados são medidos em termos de acessos (quantos acessos são necessári
 (quando fazemos o lookup), ou quantos passos são necessários para inserir).
 
 A medição de operações segue a seguinte metodologia: as tabelas tem tamanho $10000$. Para cada
-tamanho são realizadas 100 operações, e a média é tirada.
+tamanho são realizadas 100 operações (inserções e lookups de valores aleatórios), e a média é
+tirada.
 
 Os passos das operações são medidos com variáveis especiais no código.
 
@@ -108,7 +109,13 @@ Porque os gráficos para endereçamento aberto ficaram muito pequenos (Figuras \
 \ref{fig:lookup_open}, ``zooms'' estão disponíveis nas figuras \ref{fig:put_open_zoom1},
 \ref{fig:put_open_zoom2}, \ref{fig:lookup_open_zoom1} e \ref{fig:lookup_open_zoom2}.
 
-Podemos claramente também ver o
+Podemos claramente também ver que a melhor tabel para lookup é a Cuckoo (basta verificar as duas
+posições) e a melhor para inserção é a encadeada (basta inserir no fim da lista encadeada). Ambas
+tabelas tem custos constantes para as operações mencionadas, como pode ser visto nas figuras
+\ref{fig:lookup_cuckoo} e \ref{fig:put_chaining}.
+
+Uma questão interessante é que no cuckoo hashing, não houve nenhuma reconstrução de tabela (os
+valores estão muito baixos, uma reconstrução tem custo N).
 
 \begin{figure}
   \centering
@@ -181,5 +188,21 @@ Podemos claramente também ver o
 \end{figure}
 
 \section{Conclusões}
+
+Pudemos ver que as complexidades das operações seguiu o esperado. Existem muitas outras variações
+que poderiam ter sido analisadas (diferentes funções hash, diferentes graus para o polinômio da
+tabela, variação do tipo de ``probing'' da tabela de endereçamento aberto (usei linear probing, mas
+podia ser feito um probing quadrático ou hashing duplo, medir o tempo para ver o impacto da cache
+nas diferentes técnicas), mas infelizmente não houve tempo para todas essas análises.
+
+De forma geral é possível ver que as tabelas mais eficientes (dentre as estudadas aqui) são a
+encadeada e a cuckoo. A escolha entre a encadeada e a cuckoo deve levar em conta qual o tipo de
+operação mais frequente: cuckoo apresenta um tempo de lookup constante, mas pode ser cara na
+inserção. Hashing com encadeamento, por outro lado, pode apresentar overhead no lookup, mas
+apresenta tempo de inserção constante. Ambos os overheads não se comparam ao overhead de uma tabela
+com endereçamento aberto.
+
+Tabelas com endereçamento aberto logo se tornam ``saturadas'' e apresentam tempos de acesso muito
+ruins.
 
 \end{document}
