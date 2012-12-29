@@ -22,12 +22,19 @@ Implementar três diferentes tabelas hash:
  \item[Encadeamento] Nesta versão chaves que colidem são armazenadas na mesma posição na
 tabela, em uma lista encadeada.
 
+Para inserir basta calcular a posição (consideramos $O(1)$ o tempo de computar a função hash) e
+adicionar o elemento no fim da fila ($O(1)$).
+
 Para buscar uma chave nesta tabela é preciso percorrer a lista encadeada da posição
-correspondente.
+correspondente. O número esperado de comparações para o \emph{lookup} é $O(1 + N/M)$, com N
+elementos na tabela de tamanho N.
 
  \item[Endereçamento aberto] Nesta versão, chaves que colidem são armazenadas em outras
 posições da própria tabela. Na versão implementada (\emph{linear probing}), caso haja uma colisão,
 tenta-se inserir a chave em posições subsequentes da tabela.
+
+Com endereçamento aberto, tanto a inserção quanto a busca dependem do número de elementos inseridos
+anteriormente (pois ambas devem percorrer a tabela buscando a posição de inserção).
 
  \item[Cuckoo hashing] Nesta versão existem duas funções hash. Uma chave está na tabela se ela
 estiver em pelo menos uma das duas entradas correspondentes.
@@ -37,6 +44,14 @@ nessa posição. A seguir, tenta-se inserir o elemento chutado na sua outra posi
 chutando outro elemento).
 
 Casualmente haverá um ciclo na busca. Nesse caso, a tabela é reconstruida com novas entradas.
+
+A busca é feita com apenas duas comparações. A inserção pode demorar mais, pois pode ser necessário
+``chutar'' alguns elementos, ou mesmo reconstruir a tabela.
+
+No meu experimento muitas vezes a tabela entrou em ``loop infinito''. Basicamente era preciso
+recalcular a tabela, e no recalculo da tabela era preciso recalcular a tabela, e assim
+indefinidamente. Isso depende da ocupação da tabela e do primo utilizado no cálculo da função hash.
+Eu não fui capaz de explicar esse comportamento.
 
 \end{description}
 
@@ -70,6 +85,12 @@ Os resultados foram obtidos utilizando-se um \emph{Intel core i5}, com um proces
 e $4$ GB de RAM.
 
 \section{Resultados}
+
+A seguir mostramos os resultados para diferentes ocupações das operações de insert (no código
+\texttt{put}) e lookup (no código \texttt{contains}).
+
+Os resultados são medidos em termos de acessos (quantos acessos são necessários para encontrar
+(quando fazemos o lookup), ou quantos passos são necessários para inserir).
 
 \section{Conclusões}
 
