@@ -12,6 +12,8 @@ class HashFunction {
   HashFunction(const ll m, const int degree, int seed = -1);
 
   ll hash(const ll key);
+
+  void print();
   
  private:
   vector<int> function_;

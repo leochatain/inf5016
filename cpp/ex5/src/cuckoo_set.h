@@ -14,7 +14,8 @@ class CuckooSet {
 
   // Return true if we could add the element.
   // Return false if we had to rebuild the hash set.
-  bool put(const ll key);
+  void put(ll key);
+  void put(ll key, vector<ll>& base);
   bool contains(const ll key);
 
  private:
@@ -26,8 +27,15 @@ class CuckooSet {
   ll m_;
   int last_seed_;
 
-  void generate_hashes(const ll m);
+  void generate_hashes();
+  HashFunction* get_new_hash();
+
   bool try_insert(const ll key, const ll pos);
+  bool try_insert(const ll key);
+
+  ll other_pos(const ll key, const ll previous, const vector<ll>& table);
+
+  void rehash(vector<ll>& table);
 };
 
 #endif

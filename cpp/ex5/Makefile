@@ -8,11 +8,14 @@ BIN_TESTS=bin/ex5_tests
 MAIN= src/main.cpp
 SOURCES= src/linked_set.cpp \
          src/open_set.cpp \
+         src/cuckoo_set.cpp \
          src/util.cpp \
          src/hash_function.cpp
+
 TESTS = tests/runner.cpp \
         tests/linked_set_test.cpp \
-        tests/open_set_test.cpp
+        tests/open_set_test.cpp \
+        tests/cuckoo_set_test.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
 TEST_OBJECTS=$(TESTS:.cpp=.o)

@@ -1,6 +1,9 @@
 #include "hash_function.h"
 
 #include <ctime>
+#include <iostream>
+
+using namespace std;
 
 HashFunction::HashFunction(const ll m, const int degree, int seed)
     : m_(m) {
@@ -11,6 +14,7 @@ HashFunction::HashFunction(const ll m, const int degree, int seed)
     seed = time(0);
   }
 
+  srand(seed);
   for (int i = 0; i < degree; i++) {
     function_[i] = rand();
   }
@@ -26,4 +30,10 @@ ll HashFunction::hash(const ll key) {
   }
 
   return mod(result, m_);
+}
+
+void HashFunction::print() {
+  for (int i = 0; i < function_.size(); i++) {
+    cout << function_[i] << endl;
+  }
 }
