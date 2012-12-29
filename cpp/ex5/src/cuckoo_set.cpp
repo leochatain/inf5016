@@ -19,63 +19,6 @@ CuckooSet::CuckooSet(int m, const int degree)
   generate_hashes();
 }
 
-/*
-bool CuckooSet::put(ll key) {
-  if (try_insert(key)) {
-    return true;
-  }
-
-  // Start the cuckoo thing with f1_.
-  ll cuckoo_key = key;
-  ll cuckoo_pos = f1_->hash(cuckoo_key);
-  ll kicked_key = base_[cuckoo_pos];
-  ll other_kicked_pos = other_pos(kicked_key, cuckoo_key);
-  // This is used to detect loops.
-  const ll first_cuckoo_pos = cuckoo_pos;
-  cout << "first " << first_cuckoo_pos << endl;
-
-  cout << "ORIGINAL: " << endl;
-  cout << "cuckoo_key " << cuckoo_key << endl;
-  cout << "cuckoo_pos " << cuckoo_pos << endl;
-  cout << "kicked_key " << kicked_key << endl;
-  cout << "other_kicked_pos " << other_kicked_pos << endl;
-  cout << "stuff on the other pos " << base_[other_kicked_pos];
-  cout << endl;
-
-  base_[cuckoo_pos] = cuckoo_key;
-
-  while (base_[other_kicked_pos] != kicked_key) {
-    // Kick it out.
-    base_[cuckoo_pos] = cuckoo_key;
-
-    // Update keys and pos'.
-    const ll previous_key = cuckoo_key;
-    cuckoo_key = kicked_key;
-    cuckoo_pos = other_pos(cuckoo_key, previous_key);
-    kicked_key = base_[cuckoo_pos];
-    other_kicked_pos = f2_->hash(kicked_key);
-
-    cout << "cuckoo_key " << cuckoo_key << endl;
-    cout << "cuckoo_pos " << cuckoo_pos << endl;
-    cout << "kicked_key " << kicked_key << endl;
-    cout << "other_kicked_pos " << other_kicked_pos << endl;
-    cout << endl;
-
-    if (kicked_key == cuckoo_key) {
-      cout << "NO PROBLEMO" << endl;
-      return true;
-    }
-
-    if (cuckoo_pos == first_cuckoo_pos) {
-      // Houston, we have a problem! Rebuild the hashes.
-      //rehash(cuckoo_key);
-      return false;
-    }
-  }
-  return true;
-}
-*/
-
 void CuckooSet::put(ll key) {
   put(key, base_);
 }

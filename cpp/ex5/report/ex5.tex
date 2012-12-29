@@ -61,19 +61,16 @@ os testes, inicialmente quis usar o algoritmo de Miller-Rabin, mas como a busca 
 seria feita na inicialização da tabela, optei por usar a solução simples $O(\sqrt{M})$.
 
 No código, funções hash são calculadas pela classe \texttt{HashFunction}, e pode-se configurar o
-grau da função, bem como a semente para randomização do polinômio.
+grau da função, bem como a semente para randomização do polinômio (a mesma classe é usada em todas
+as funções hash).
 
 \section{Ambiente de teste}
 
 Os resultados foram obtidos utilizando-se um \emph{Intel core i5}, com um processador de $2.27$ GHz
 e $4$ GB de RAM.
 
-Para os testes do algoritmo de Dijkstra foram utilizados grafos gerados randomicamente de tamanho
-$n=512,1024,1536,\ldots,8192$. Todos os grafos utilizados eram completos, ou seja, o número de
-arestas $m=n ^ 2$
-
-Cada teste foi repetido $10$ vezes e foi tomada a média dos tempos de execução.
-
 \section{Resultados}
+
+\section{Conclusões}
 
 \end{document}

@@ -2,10 +2,16 @@ CC=g++
 CFLAGS=-c -O2 -std=gnu++0x
 LDFLAGS= -std=gnu++0x
 
-BIN=bin/ex5
+BIN_LINKED=bin/linked
+BIN_OPEN=bin/open
+BIN_CUCKOO=bin/cuckoo
+
 BIN_TESTS=bin/ex5_tests
 
-MAIN= src/main.cpp
+MAIN_LINKED= src/main_linked.cpp
+MAIN_OPEN= src/main_open.cpp
+MAIN_CUCKOO= src/main_cuckoo.cpp
+
 SOURCES= src/linked_set.cpp \
          src/open_set.cpp \
          src/cuckoo_set.cpp \
@@ -20,14 +26,22 @@ TESTS = tests/runner.cpp \
 OBJECTS=$(SOURCES:.cpp=.o)
 TEST_OBJECTS=$(TESTS:.cpp=.o)
 
-all: ex5 test
+all: ex5_linked ex5_open ex5_cuckoo test
 
-ex5: $(BIN)
+ex5_linked: $(BIN_LINKED)
+ex5_open: $(BIN_OPEN)
+ex5_cuckoo: $(BIN_CUCKOO)
 
 test: $(BIN_TESTS)
 
-$(BIN): $(MAIN) $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) $(MAIN) -o $@
+$(BIN_LINKED): $(MAIN_LINKED) $(OBJECTS)
+	$(CC) $(LDFLAGS) $(OBJECTS) $(MAIN_LINKED) -o $@
+
+$(BIN_OPEN): $(MAIN_OPEN) $(OBJECTS)
+	$(CC) $(LDFLAGS) $(OBJECTS) $(MAIN_OPEN) -o $@
+
+$(BIN_CUCKOO): $(MAIN_CUCKOO) $(OBJECTS)
+	$(CC) $(LDFLAGS) $(OBJECTS) $(MAIN_CUCKOO) -o $@
 
 $(BIN_TESTS): $(TEST_OBJECTS) $(OBJECTS)
 	$(CC) $(LDFLAGS) $(TEST_OBJECTS) $(OBJECTS) -o $@ -lcppunit
