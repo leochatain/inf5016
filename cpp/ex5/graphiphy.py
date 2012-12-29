@@ -28,15 +28,24 @@ cuckoo = list(float(x[2]) for x in all_times)
 
 ax = plt.subplot(111)
 
+x_zoom = []
+zoom = []
+
+for i in xrange(10000):
+  if open_s[i] < 1000:
+    x_zoom.append(occupancy[i])
+    zoom.append(open_s[i])
+
 plt.xlabel('Occupancy %')
 plt.ylabel('Steps');
-plt.title('Lookup operation')
+plt.title('Put operation')
 plt.xticks(map(lambda x: 10 * x, range(11)), rotation=30, size='small')
 plt.grid(True)
 
 #ax.scatter(occupancy, linked, s=1, color='r', label='chaining')
 #ax.scatter(occupancy, open_s, s=1, color='g', label='open')
-ax.plot(occupancy, cuckoo, color='b', label='cuckoo')
+#ax.plot(occupancy, cuckoo, color='b', label='cuckoo')
+ax.scatter(x_zoom, zoom, s=1, color='g', label='open_zoom2')
 ax.legend(loc='upper left')
 
 plt.show()

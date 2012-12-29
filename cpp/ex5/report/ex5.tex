@@ -92,6 +92,94 @@ A seguir mostramos os resultados para diferentes ocupações das operações de 
 Os resultados são medidos em termos de acessos (quantos acessos são necessários para encontrar
 (quando fazemos o lookup), ou quantos passos são necessários para inserir).
 
+A medição de operações segue a seguinte metodologia: as tabelas tem tamanho $10000$. Para cada
+tamanho são realizadas 100 operações, e a média é tirada.
+
+Os passos das operações são medidos com variáveis especiais no código.
+
+É possível ver que o endereçamento aberto é de longe o pior dos métodos. Enquanto o encadeamento e
+o cuckoo tem seus piores resultados com no maximo 10 passos, o endereçamento aberto pode chegar a
+fazer quase 10000 (o número maximo de elementos) operações, tanto para inserção quanto para lookup.
+É facil ver como isso é possível, visto que conforme a tabela vai ficando ``cheia'' é mais difícil
+encontrar um espaço livre, e os últimos elementos inseridos precisam varrer praticamente toda a
+tabela.
+
+Porque os gráficos para endereçamento aberto ficaram muito pequenos (Figuras \ref{fig:put_open} e
+\ref{fig:lookup_open}, ``zooms'' estão disponíveis nas figuras \ref{fig:put_open_zoom1},
+\ref{fig:put_open_zoom2}, \ref{fig:lookup_open_zoom1} e \ref{fig:lookup_open_zoom2}.
+
+Podemos claramente também ver o
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth,keepaspectratio]{put_chaining}
+  \caption{Operação de ``put'' em chaining.}
+  \label{fig:put_chaining}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth,keepaspectratio]{put_open_all}
+  \caption{Operação de ``put'' em open.}
+  \label{fig:put_open}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth,keepaspectratio]{put_open_zoom1}
+  \caption{Operação de ``lookup'' em open, apenas os valores menores que 1000.}
+  \label{fig:put_open_zoom1}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth,keepaspectratio]{put_open_zoom2}
+  \caption{Operação de ``lookup'' em open, apenas os valores menores que 100.}
+  \label{fig:put_open_zoom2}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth,keepaspectratio]{put_cucko}
+  \caption{Operação de ``put'' em cuckoo.}
+  \label{fig:put_cuckoo}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth,keepaspectratio]{lookup_chaining}
+  \caption{Operação de ``lookup'' em chaining.}
+  \label{fig:lookup_chaining}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth,keepaspectratio]{lookup_open_all}
+  \caption{Operação de ``lookup'' em open.}
+  \label{fig:lookup_open}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth,keepaspectratio]{lookup_open_zoom1}
+  \caption{Operação de ``lookup'' em open, apenas os valores menores que 1000.}
+  \label{fig:lookup_open_zoom1}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth,keepaspectratio]{lookup_open_zoom2}
+  \caption{Operação de ``lookup'' em open, apenas os valores menores que 100.}
+  \label{fig:lookup_open_zoom2}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth,keepaspectratio]{lookup_cuckoo}
+  \caption{Operação de ``lookup'' em cuckoo.}
+  \label{fig:lookup_cuckoo}
+\end{figure}
+
 \section{Conclusões}
 
 \end{document}
