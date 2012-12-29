@@ -83,6 +83,7 @@ void CuckooSet::put(ll key) {
 void CuckooSet::put(ll key, vector<ll>& table) {
   const ll pos1 = f1_->hash(key);
   const ll pos2 = f2_->hash(key);
+
   // key is already in the table.
   if (table[pos1] == key || table[pos2] == key) {
     return;
@@ -123,30 +124,17 @@ void CuckooSet::generate_hashes() {
   f2_ = get_new_hash();
 }
 
-bool CuckooSet::try_insert(const ll key, const ll pos) {
-  if (base_[pos] == -1) {
-    base_[pos] = key;
-    return true;
-  }
-  return false;
-}
-
-bool CuckooSet::try_insert(const ll key) {
-  const ll pos1 = f1_->hash(key);
-  const ll pos2 = f2_->hash(key);
-  
-  // Do this to avoid lazy evaluation.
-  bool try1 = try_insert(key, pos1);
-  bool try2 = try_insert(key, pos2);
-
-  return try1 || try2;
-}
-
 ll CuckooSet::other_pos(const ll key, const ll previous,
     const vector<ll>& table) {
   const ll p1 = f1_->hash(key);
   const ll p2 = f2_->hash(key);
   return table[p1] == previous ? p2 : p1;
+}
+
+void print_table(vector<ll>& table) {
+  for (int i = 0; i < table.size(); i++) {
+    cout << table[i] << " ";
+  } cout << endl;
 }
 
 void CuckooSet::rehash(vector<ll>& table) {

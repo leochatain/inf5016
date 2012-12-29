@@ -5,7 +5,7 @@
 
 class CuckooSetTest : public CppUnit::TestFixture {
   CPPUNIT_TEST_SUITE(CuckooSetTest);
-  //CPPUNIT_TEST(test_set);
+  CPPUNIT_TEST(test_set);
   CPPUNIT_TEST(test_set_rand);
   CPPUNIT_TEST_SUITE_END();
 

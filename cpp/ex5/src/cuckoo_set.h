@@ -30,9 +30,6 @@ class CuckooSet {
   void generate_hashes();
   HashFunction* get_new_hash();
 
-  bool try_insert(const ll key, const ll pos);
-  bool try_insert(const ll key);
-
   ll other_pos(const ll key, const ll previous, const vector<ll>& table);
 
   void rehash(vector<ll>& table);

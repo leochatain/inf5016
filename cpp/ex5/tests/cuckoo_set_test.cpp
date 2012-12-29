@@ -24,8 +24,7 @@ void CuckooSetTest::test_set_rand() {
   
   srand(0);
   for (int i = 0; i < size; i++) {
-    const int key = rand() % 5000;
-    cout << "putting " << key << " " << i << endl;
+    const int key = rand();
     set.put(key);
     CPPUNIT_ASSERT(set.contains(key));
   }
