@@ -7,7 +7,7 @@ using namespace std;
 
 HashFunction::HashFunction(const ll m, const int degree, int seed)
     : m_(m) {
-  prime_ = 99991; // TODO(chatain) fix this.
+  prime_ = 1000000007; //99991; // TODO(chatain) fix this.
   function_.resize(degree);
 
   if (seed == -1) {
