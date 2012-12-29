@@ -19,11 +19,13 @@ CuckooSet::CuckooSet(int m, const int degree)
   generate_hashes();
 }
 
-void CuckooSet::put(ll key) {
-  put(key, base_);
+void CuckooSet::put(ll key, int& steps) {
+  put(key, base_, steps);
 }
 
-void CuckooSet::put(ll key, vector<ll>& table) {
+void CuckooSet::put(ll key, vector<ll>& table, int& steps) {
+  steps = 1;
+
   const ll pos1 = f1_->hash(key);
   const ll pos2 = f2_->hash(key);
 
@@ -34,6 +36,8 @@ void CuckooSet::put(ll key, vector<ll>& table) {
 
   int p = pos1;
   for (int i = 0; i < m_; i++) {
+    steps++;
+
     if (table[p] == -1) {
       table[p] = key;
       return;
@@ -42,12 +46,14 @@ void CuckooSet::put(ll key, vector<ll>& table) {
     p = other_pos(key, table[p], table);
   }
 
-  rehash(table);
-  put(key, table);  
+  rehash(table, steps);
+  put(key, table, steps);  
 }
 
 // Simply checks whether the key is in one of the positions.
-bool CuckooSet::contains(const ll key) {
+bool CuckooSet::contains(const ll key, int& steps) {
+  steps = 1;
+
   const ll pos1 = f1_->hash(key);
   const ll pos2 = f2_->hash(key);
 
@@ -74,19 +80,13 @@ ll CuckooSet::other_pos(const ll key, const ll previous,
   return table[p1] == previous ? p2 : p1;
 }
 
-void print_table(vector<ll>& table) {
-  for (int i = 0; i < table.size(); i++) {
-    cout << table[i] << " ";
-  } cout << endl;
-}
-
-void CuckooSet::rehash(vector<ll>& table) {
+void CuckooSet::rehash(vector<ll>& table, int& steps) {
   generate_hashes();
   vector<ll> new_table(table.size(), -1);
 
   for (int i = 0; i < table.size(); i++) {
     if (table[i] != -1) {
-      put(table[i], new_table);
+      put(table[i], new_table, steps);
     }
   }
   // Manually copy table back.

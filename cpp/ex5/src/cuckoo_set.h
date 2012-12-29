@@ -14,9 +14,8 @@ class CuckooSet {
 
   // Return true if we could add the element.
   // Return false if we had to rebuild the hash set.
-  void put(ll key);
-  void put(ll key, vector<ll>& base);
-  bool contains(const ll key);
+  void put(ll key, int& steps);
+  bool contains(const ll key, int& steps);
 
  private:
   vector<ll> base_;
@@ -32,7 +31,8 @@ class CuckooSet {
 
   ll other_pos(const ll key, const ll previous, const vector<ll>& table);
 
-  void rehash(vector<ll>& table);
+  void rehash(vector<ll>& table, int& steps);
+  void put(ll key, vector<ll>& base, int& steps);
 };
 
 #endif
