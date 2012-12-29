@@ -13,8 +13,8 @@ class OpenSet {
   OpenSet(ll m, int probing, const int degree = 2);
 
   // Return whether could add the element.
-  bool put(const ll key);
-  bool contains(const ll key);
+  bool put(const ll key, int& steps);
+  bool contains(const ll key, int& steps);
 
   inline int size() { return size_; }
   inline int get_probing() { return probing_; }

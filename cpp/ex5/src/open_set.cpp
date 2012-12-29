@@ -14,8 +14,10 @@ OpenSet::OpenSet(ll m, int probing, const int degree) {
   size_ = 0;
 }
 
-bool OpenSet::put(const ll key) {
+bool OpenSet::put(const ll key, int& steps) {
   assert (key >= 0); // we only accept positive keys.
+
+  steps = 1;
 
   if (size_ >= base_.size()) { // no more space left
     return false;
@@ -28,6 +30,7 @@ bool OpenSet::put(const ll key) {
   int hops = 0;
   while (base_[pos] != -1) {
     pos = (pos + probing_) % base_.size();
+    steps++;
 
     assert(hops++ < base_.size());
   }
@@ -38,11 +41,13 @@ bool OpenSet::put(const ll key) {
   return true;
 }
 
-bool OpenSet::contains(const ll key) {
+bool OpenSet::contains(const ll key, int& steps) {
+  steps = 1;
   ll pos = function_->hash(key);
 
   int hops = 0;
   while(base_[pos] != key) {
+    steps++;
     pos = (pos + probing_) % base_.size();
 
     // We don't support deletion, so we can stop when we find an empty slot.
