@@ -17,14 +17,16 @@ int main() {
     ll tmp;
     cin >> tmp;
 
-    set.put(tmp);
+    int steps;
+    set.put(tmp, steps);
   }
 
   for (int i = 0; i < m; i++) {
     ll tmp;
     cin >> tmp;
 
-    string c = set.contains(tmp) ? "1" : "0";
+    int steps;
+    string c = set.contains(tmp, steps) ? "1" : "0";
     cout << c << endl;
   }
 }

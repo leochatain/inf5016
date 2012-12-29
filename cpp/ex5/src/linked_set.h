@@ -16,8 +16,8 @@ class LinkedSet {
  public:
   LinkedSet(const ll m, const int degree=2);
 
-  void put(const ll key);
-  bool contains(const ll key);
+  void put(const ll key, int& steps);
+  bool contains(const ll key, int& steps);
 
  private:
   // Base table.
