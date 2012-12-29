@@ -34,7 +34,8 @@ posições da própria tabela. Na versão implementada (\emph{linear probing}), 
 tenta-se inserir a chave em posições subsequentes da tabela.
 
 Com endereçamento aberto, tanto a inserção quanto a busca dependem do número de elementos inseridos
-anteriormente (pois ambas devem percorrer a tabela buscando a posição de inserção).
+anteriormente (pois ambas devem percorrer a tabela buscando a posição de inserção). O número
+esperado de operações é $1/\alpha * ln(1/1-\alpha)$.
 
  \item[Cuckoo hashing] Nesta versão existem duas funções hash. Uma chave está na tabela se ela
 estiver em pelo menos uma das duas entradas correspondentes.

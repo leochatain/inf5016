@@ -2,6 +2,7 @@
 
 import sys
 import matplotlib.pyplot as plt
+from math import log
 
 argv = sys.argv
 argc = len(argv)
@@ -47,6 +48,9 @@ plt.grid(True)
 #ax.plot(occupancy, cuckoo, color='b', label='cuckoo')
 ax.scatter(x_zoom, zoom, s=1, color='g', label='open_zoom2')
 ax.legend(loc='upper left')
+
+e = 0.00000000001
+ax.plot(x_zoom, map(lambda x: 1/(x+e) * log(1/(1-(x/100))), x_zoom), label='expected')
 
 plt.show()
 
