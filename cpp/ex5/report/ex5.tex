@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage[brazil]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{times}
+\usepackage{framed}
+\usepackage{biblatex}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\title{Laboratório 5}
+\author{Leonardo Chatain}
+
+\begin{document}
+\maketitle
+
+\section{Tarefa}
+Implementar três diferentes tabelas hash:
+
+\begin{description}
+ \item[Encadeamento] Nesta versão chaves que colidem são armazenadas na mesma posição na
+tabela, em uma lista encadeada.
+
+Para buscar uma chave nesta tabela é preciso percorrer a lista encadeada da posição
+correspondente.
+
+ \item[Endereçamento aberto] Nesta versão, chaves que colidem são armazenadas em outras
+posições da própria tabela. Na versão implementada (\emph{linear probing}), caso haja uma colisão,
+tenta-se inserir a chave em posições subsequentes da tabela.
+
+ \item[Cuckoo hashing] Nesta versão existem duas funções hash. Uma chave está na tabela se ela
+estiver em pelo menos uma das duas entradas correspondentes.
+
+Para inserir a chave, caso haja uma colisão, ``chuta-se'' o elemento atual e insere-se o elemento
+nessa posição. A seguir, tenta-se inserir o elemento chutado na sua outra posição (potencialmente
+chutando outro elemento).
+
+Casualmente haverá um ciclo na busca. Nesse caso, a tabela é reconstruida com novas entradas.
+
+\end{description}
+
+\section{Solução}
+
+\subsection{Funções Hash}
+
+As funções hash usadas são do seguinte tipo:
+
+$$ H(x) = ((h_0 + h_1 * x + h_2 * x^2 + ... + h_n * x^n) mod P) mod M $$
+
+Onde $n$ é o grau da função hash (pode ser escolhido), $M$ é o tamanho da tabela hash e P é um
+primo ($P > M$).
+
+Inicialmente usei como primo $2^{31} - 1$. Entretanto, com um primo muito maior que qualquer número
+utilizado, o modulo P não acrescentava muita randomização ($ x mod P = x$ para $x < P$), e isso
+causava loops muito frequentes na tabela cuckoo.
+
+Entretanto, segundo o postulado de Bertrands, para todo número $n > 2$ existe um primo $p$ tal que
+$n < p < 2 * n - 2$. Com isso podemos encontrar o menor primo maior que $M$ em $O(M)$ testes. Para
+os testes, inicialmente quis usar o algoritmo de Miller-Rabin, mas como a busca por um primo só
+seria feita na inicialização da tabela, optei por usar a solução simples $O(\sqrt{M})$.
+
+No código, funções hash são calculadas pela classe \texttt{HashFunction}, e pode-se configurar o
+grau da função, bem como a semente para randomização do polinômio.
+
+\section{Ambiente de teste}
+
+Os resultados foram obtidos utilizando-se um \emph{Intel core i5}, com um processador de $2.27$ GHz
+e $4$ GB de RAM.
+
+Para os testes do algoritmo de Dijkstra foram utilizados grafos gerados randomicamente de tamanho
+$n=512,1024,1536,\ldots,8192$. Todos os grafos utilizados eram completos, ou seja, o número de
+arestas $m=n ^ 2$
+
+Cada teste foi repetido $10$ vezes e foi tomada a média dos tempos de execução.
+
+\section{Resultados}
+
+\end{document}

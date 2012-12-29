@@ -19,8 +19,8 @@ void CuckooSetTest::test_set() {
 #include <iostream>
 using namespace std;
 void CuckooSetTest::test_set_rand() {
-  const int size = 128;
-  CuckooSet set(size, 4);
+  const int size = 1280;
+  CuckooSet set(size);
   
   srand(0);
   for (int i = 0; i < size; i++) {
